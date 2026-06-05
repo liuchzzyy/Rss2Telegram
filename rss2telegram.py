@@ -15,7 +15,6 @@ from urllib.parse import urlparse
 import feedparser
 import requests
 import telebot
-import telegraph
 from bs4 import BeautifulSoup
 from telebot import types
 
@@ -56,8 +55,13 @@ class TelegramConfig:
     button_text: str | None
     hide_button: bool
     parameters: str | None
+    enable_telegraph: bool
     telegraph_token: str | None
     emojis: list[str]
+
+    @property
+    def use_telegraph(self) -> bool:
+        return self.enable_telegraph and bool(self.telegraph_token)
 
 
 @dataclass(frozen=True)
@@ -179,6 +183,7 @@ def load_config() -> Config:
         button_text=env_first(values, "BUTTON_TEXT"),
         hide_button=parse_bool(env_first(values, "HIDE_BUTTON"), default=False),
         parameters=env_first(values, "PARAMETERS"),
+        enable_telegraph=parse_bool(env_first(values, "ENABLE_TELEGRAPH"), default=False),
         telegraph_token=env_first(values, "TELEGRAPH_TOKEN"),
         emojis=emojis,
     )
@@ -327,6 +332,8 @@ def get_image_url(url: str, cfg: AppConfig) -> str | None:
 
 
 def create_telegraph_post(topic: dict[str, str], token: str) -> str:
+    import telegraph
+
     telegraph_auth = telegraph.Telegraph(access_token=token)
     summary = html.escape(clean_summary(topic.get("summary", "")))
     original_link = html.escape(topic["link"])
@@ -352,19 +359,21 @@ def button_markup(button_text: str | None, topic: dict[str, str], cfg: TelegramC
 
 def send_message(bot: telebot.TeleBot, topic: dict[str, str], config: Config) -> bool:
     message = render_template(config.telegram.message_template, topic, config.telegram)
-    if config.telegram.telegraph_token:
+    if config.telegram.use_telegraph:
         try:
-            iv_link = create_telegraph_post(topic, config.telegram.telegraph_token)
+            token = config.telegram.telegraph_token
+            assert token is not None
+            iv_link = create_telegraph_post(topic, token)
             message = f'<a href="{html.escape(iv_link)}"></a>{message}'
         except Exception as exc:
             print(f"Telegraph page creation failed, falling back to normal message: {exc}")
 
     markup = None
-    if not config.telegram.hide_button and not config.telegram.telegraph_token:
+    if not config.telegram.hide_button and not config.telegram.use_telegraph:
         markup = button_markup(config.telegram.button_text, topic, config.telegram)
 
     for destination in config.telegram.destinations:
-        if topic.get("photo") and not config.telegram.telegraph_token:
+        if topic.get("photo") and not config.telegram.use_telegraph:
             try:
                 response = requests.get(
                     topic["photo"],
@@ -488,6 +497,11 @@ def main() -> None:
     config = load_config()
     rules = load_rules()
     bot = telebot.TeleBot(config.telegram.bot_token)
+
+    if config.telegram.telegraph_token and not config.telegram.enable_telegraph:
+        print("Telegraph token is configured but ENABLE_TELEGRAPH is false; using normal messages")
+    elif config.telegram.enable_telegraph and not config.telegram.telegraph_token:
+        print("ENABLE_TELEGRAPH is true but TELEGRAPH_TOKEN is missing; using normal messages")
 
     print(f"loaded feeds: {len(config.feeds)} from {config.app.opml_file}")
     with connect_database(config.app.database) as conn:

@@ -31,6 +31,7 @@ MESSAGE_TEMPLATE={EMOJI} <b>{TITLE}</b>\n{LINK}
 BUTTON_TEXT={SITE_NAME}
 HIDE_BUTTON=false
 PARAMETERS=none
+ENABLE_TELEGRAPH=false
 TELEGRAPH_TOKEN=none
 EMOJIS=🗞️,📰,📡,📬,📌,🔖,🔗,📝,📋,📚,💡,⚙️,🧠,🚀,✨,🌐,📊,🎧,🎬,🧪
 
@@ -44,6 +45,8 @@ SLEEP_BETWEEN_MESSAGES=0.2
 ```
 
 `DESTINATIONS` supports comma-separated or semicolon-separated chat IDs.
+
+`ENABLE_TELEGRAPH=false` is the default. Telegraph is used only when this is set to `true` and `TELEGRAPH_TOKEN` is also set.
 
 `SEND_ON_FIRST_RUN=false` means the first run records current feed entries but does not send them. This prevents old RSS items from flooding Telegram when the database is new.
 

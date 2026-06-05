@@ -51,6 +51,7 @@ jobs:
           BUTTON_TEXT: ${{ secrets.BUTTON_TEXT }}
           HIDE_BUTTON: ${{ secrets.HIDE_BUTTON }}
           PARAMETERS: ${{ secrets.PARAMETERS }}
+          ENABLE_TELEGRAPH: ${{ secrets.ENABLE_TELEGRAPH }}
           TELEGRAPH_TOKEN: ${{ secrets.TELEGRAPH_TOKEN }}
           EMOJIS: ${{ secrets.EMOJIS }}
           OPML_FILE: ${{ secrets.OPML_FILE }}
@@ -72,6 +73,7 @@ jobs:
               "BUTTON_TEXT",
               "HIDE_BUTTON",
               "PARAMETERS",
+              "ENABLE_TELEGRAPH",
               "TELEGRAPH_TOKEN",
               "EMOJIS",
               "OPML_FILE",
