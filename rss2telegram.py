@@ -328,11 +328,14 @@ def get_image_url(url: str, cfg: AppConfig) -> str | None:
 
 def create_telegraph_post(topic: dict[str, str], token: str) -> str:
     telegraph_auth = telegraph.Telegraph(access_token=token)
+    summary = html.escape(clean_summary(topic.get("summary", "")))
+    original_link = html.escape(topic["link"])
+    site_name = html.escape(topic["site_name"])
     response = telegraph_auth.create_page(
         topic["title"],
         html_content=(
-            f'{topic.get("summary", "")}<br><br>'
-            f'<a href="{html.escape(topic["link"])}">Original ({html.escape(topic["site_name"])})</a>'
+            f"<p>{summary}</p>"
+            f'<p><a href="{original_link}">Original ({site_name})</a></p>'
         ),
         author_name=topic["site_name"],
     )
@@ -350,8 +353,11 @@ def button_markup(button_text: str | None, topic: dict[str, str], cfg: TelegramC
 def send_message(bot: telebot.TeleBot, topic: dict[str, str], config: Config) -> bool:
     message = render_template(config.telegram.message_template, topic, config.telegram)
     if config.telegram.telegraph_token:
-        iv_link = create_telegraph_post(topic, config.telegram.telegraph_token)
-        message = f'<a href="{html.escape(iv_link)}"></a>{message}'
+        try:
+            iv_link = create_telegraph_post(topic, config.telegram.telegraph_token)
+            message = f'<a href="{html.escape(iv_link)}"></a>{message}'
+        except Exception as exc:
+            print(f"Telegraph page creation failed, falling back to normal message: {exc}")
 
     markup = None
     if not config.telegram.hide_button and not config.telegram.telegraph_token:
