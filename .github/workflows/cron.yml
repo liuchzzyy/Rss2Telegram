@@ -2,13 +2,15 @@ name: Cron Action
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */1 * * *'
+    # Asia/Shanghai 06:00, 10:00, 14:00, 17:00, 20:00
+    # UTC 22:00, 02:00, 06:00, 09:00, 12:00
+    - cron: '0 22,2,6,9,12 * * *'
 
 
 jobs:
   rss2telegram:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,30 +22,70 @@ jobs:
           workflow: cron.yml
           workflow_conclusion: success
       - name: Move database
-        continue-on-error: true
-        run: mv rss2telegram/rss2telegram.db rss2telegram.db
+        run: |
+          if [ -f rss2telegram/rss2telegram.db ]; then
+            mv rss2telegram/rss2telegram.db rss2telegram.db
+          fi
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
-      - name: Install Requirements
-        run: pip install -r requirements.txt
-      - name: Run Rss to Telegram
-        run: python rss2telegram.py
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Create personal config
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          DESTINATION: ${{ vars.DESTINATION }}
-          URL: ${{ vars.URL }}
-          EMOJIS: ${{ vars.EMOJIS }}
-          TOPIC: ${{ vars.TOPIC }}
-          HIDE_BUTTON: ${{ vars.HIDE_BUTTON }}
-          MESSAGE_TEMPLATE: ${{ vars.MESSAGE_TEMPLATE }}
-          BUTTON_TEXT: ${{ vars.BUTTON_TEXT }}
-          PARAMETERS: ${{ vars.PARAMETERS }}
-          TELEGRAPH_TOKEN: ${{ vars.TELEGRAPH_TOKEN }}
-          DRYRUN: ${{ steps.download.outcome }}
+          DESTINATIONS: ${{ secrets.DESTINATIONS }}
+          TOPIC: ${{ secrets.TOPIC }}
+          MESSAGE_TEMPLATE: ${{ secrets.MESSAGE_TEMPLATE }}
+          BUTTON_TEXT: ${{ secrets.BUTTON_TEXT }}
+          HIDE_BUTTON: ${{ secrets.HIDE_BUTTON }}
+          PARAMETERS: ${{ secrets.PARAMETERS }}
+          TELEGRAPH_TOKEN: ${{ secrets.TELEGRAPH_TOKEN }}
+          EMOJIS: ${{ secrets.EMOJIS }}
+          OPML_FILE: ${{ secrets.OPML_FILE }}
+          DATABASE: ${{ secrets.DATABASE }}
+          MAX_ENTRIES_PER_FEED: ${{ secrets.MAX_ENTRIES_PER_FEED }}
+          SEND_ON_FIRST_RUN: ${{ secrets.SEND_ON_FIRST_RUN }}
+          FETCH_IMAGES: ${{ secrets.FETCH_IMAGES }}
+          REQUEST_TIMEOUT: ${{ secrets.REQUEST_TIMEOUT }}
+          SLEEP_BETWEEN_MESSAGES: ${{ secrets.SLEEP_BETWEEN_MESSAGES }}
+        run: |
+          python - <<'PY'
+          import os
+
+          keys = [
+              "BOT_TOKEN",
+              "DESTINATIONS",
+              "TOPIC",
+              "MESSAGE_TEMPLATE",
+              "BUTTON_TEXT",
+              "HIDE_BUTTON",
+              "PARAMETERS",
+              "TELEGRAPH_TOKEN",
+              "EMOJIS",
+              "OPML_FILE",
+              "DATABASE",
+              "MAX_ENTRIES_PER_FEED",
+              "SEND_ON_FIRST_RUN",
+              "FETCH_IMAGES",
+              "REQUEST_TIMEOUT",
+              "SLEEP_BETWEEN_MESSAGES",
+          ]
+
+          with open(".env", "w", encoding="utf-8") as handle:
+              for key in keys:
+                  handle.write(f"{key}={os.environ.get(key, '')}\n")
+          PY
+      - name: Run Rss to Telegram
+        run: uv run rss2telegram
       - name: Upload history
         uses: actions/upload-artifact@v4
         with:
           name: rss2telegram
           path: rss2telegram.db
+          if-no-files-found: error

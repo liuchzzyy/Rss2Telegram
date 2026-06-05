@@ -1,196 +1,496 @@
-from bs4 import BeautifulSoup
-from telebot import types
-from time import gmtime
-import feedparser
-import os
+from __future__ import annotations
+
+import html
+import random
 import re
+import sqlite3
+import time
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass
+from io import BytesIO
+from pathlib import Path
+from typing import Any
+from urllib.parse import urlparse
+
+import feedparser
+import requests
 import telebot
 import telegraph
-import time
-import random
-import requests
-import sqlite3
+from bs4 import BeautifulSoup
+from telebot import types
 
-def get_variable(variable):
-    if not os.environ.get(f'{variable}'):
-        var_file = open(f'{variable}.txt', 'r')
-        return var_file.read()
-    return os.environ.get(f'{variable}')
 
-URL = get_variable('URL')
-DESTINATION = get_variable('DESTINATION')
-BOT_TOKEN = os.environ.get('BOT_TOKEN')
-EMOJIS = os.environ.get('EMOJIS', '🗞,📰,🗒,🗓,📋,🔗,📝,🗃')
-PARAMETERS = os.environ.get('PARAMETERS', False)
-HIDE_BUTTON = os.environ.get('HIDE_BUTTON', False)
-DRYRUN = os.environ.get('DRYRUN')
-TOPIC = os.environ.get('TOPIC', False)
-TELEGRAPH_TOKEN = os.environ.get('TELEGRAPH_TOKEN', False)
+DEFAULT_ENV_FILE = ".env"
+DEFAULT_OPML_FILE = "Subscriptions.opml"
+DEFAULT_DATABASE = "rss2telegram.db"
+DEFAULT_MAX_ENTRIES_PER_FEED = 100
+DEFAULT_MESSAGE_TEMPLATE = "<b>{TITLE}</b>\n{LINK}"
+DEFAULT_USER_AGENT = "rss2telegram (+https://github.com/liuchzzyy/Rss2Telegram)"
+EMPTY_CONFIG_VALUES = {"", "none", "null", "nil", "-"}
 
-bot = telebot.TeleBot(BOT_TOKEN)
 
-def add_to_history(link):
-    conn = sqlite3.connect('rss2telegram.db')
-    cursor = conn.cursor()
-    aux = f'INSERT INTO history (link) VALUES ("{link}")'
-    cursor.execute(aux)
+@dataclass(frozen=True)
+class FeedConfig:
+    name: str
+    url: str
+
+
+@dataclass(frozen=True)
+class AppConfig:
+    opml_file: str
+    database: str
+    max_entries_per_feed: int
+    send_on_first_run: bool
+    fetch_images: bool
+    request_timeout: int
+    sleep_between_messages: float
+    user_agent: str
+
+
+@dataclass(frozen=True)
+class TelegramConfig:
+    bot_token: str
+    destinations: list[str]
+    topic: int | None
+    message_template: str
+    button_text: str | None
+    hide_button: bool
+    parameters: str | None
+    telegraph_token: str | None
+    emojis: list[str]
+
+
+@dataclass(frozen=True)
+class Config:
+    app: AppConfig
+    telegram: TelegramConfig
+    feeds: list[FeedConfig]
+
+
+def parse_env(path: str = DEFAULT_ENV_FILE) -> dict[str, str]:
+    env_path = Path(path)
+    if not env_path.exists():
+        raise SystemExit(f"Missing personal config file: {env_path}")
+
+    values: dict[str, str] = {}
+    with env_path.open("r", encoding="utf-8") as fh:
+        for line_number, raw_line in enumerate(fh, start=1):
+            line = raw_line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" not in line:
+                print(f"Skipping malformed .env line {line_number}: {line}")
+                continue
+
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+                value = value[1:-1]
+            values[key] = value.replace("\\n", "\n")
+    return values
+
+
+def env_first(values: dict[str, str], *keys: str, default: str | None = None) -> str | None:
+    for key in keys:
+        value = values.get(key)
+        if value is None:
+            continue
+        value = value.strip()
+        if value.lower() not in EMPTY_CONFIG_VALUES:
+            return value
+    return default
+
+
+def parse_bool(value: Any, default: bool = False) -> bool:
+    if value in (None, ""):
+        return default
+    if isinstance(value, bool):
+        return value
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+
+def parse_list(value: str | None) -> list[str]:
+    if not value or value.strip().lower() in EMPTY_CONFIG_VALUES:
+        return []
+    return [item.strip() for item in re.split(r"[,;]", value) if item.strip()]
+
+
+def parse_opml(path: str) -> list[FeedConfig]:
+    opml_path = Path(path)
+    if not opml_path.exists():
+        raise SystemExit(f"Missing OPML feed file: {opml_path}")
+
+    root = ET.parse(opml_path).getroot()
+    feeds: list[FeedConfig] = []
+    seen_urls: set[str] = set()
+    for node in root.iter():
+        url = node.attrib.get("xmlUrl")
+        if not url:
+            continue
+        url = url.strip()
+        if not url or url in seen_urls:
+            continue
+        seen_urls.add(url)
+        name = node.attrib.get("text") or node.attrib.get("title") or url
+        feeds.append(FeedConfig(name=name.strip(), url=url))
+
+    if not feeds:
+        raise SystemExit(f"No feeds found in OPML file: {opml_path}")
+    return feeds
+
+
+def load_config() -> Config:
+    values = parse_env(DEFAULT_ENV_FILE)
+
+    opml_file = env_first(values, "OPML_FILE", default=DEFAULT_OPML_FILE)
+    assert opml_file is not None
+
+    bot_token = env_first(values, "BOT_TOKEN")
+    if not bot_token:
+        raise SystemExit("Missing BOT_TOKEN in .env")
+
+    destinations = parse_list(env_first(values, "DESTINATIONS", "DESTINATION"))
+    if not destinations:
+        raise SystemExit("Missing DESTINATIONS in .env")
+
+    emojis = parse_list(env_first(values, "EMOJIS"))
+    topic = env_first(values, "TOPIC")
+
+    app = AppConfig(
+        opml_file=opml_file,
+        database=env_first(values, "DATABASE", default=DEFAULT_DATABASE) or DEFAULT_DATABASE,
+        max_entries_per_feed=int(
+            env_first(values, "MAX_ENTRIES_PER_FEED", default=str(DEFAULT_MAX_ENTRIES_PER_FEED))
+            or DEFAULT_MAX_ENTRIES_PER_FEED
+        ),
+        send_on_first_run=parse_bool(env_first(values, "SEND_ON_FIRST_RUN"), default=False),
+        fetch_images=parse_bool(env_first(values, "FETCH_IMAGES"), default=True),
+        request_timeout=int(env_first(values, "REQUEST_TIMEOUT", default="10") or 10),
+        sleep_between_messages=float(env_first(values, "SLEEP_BETWEEN_MESSAGES", default="0.2") or 0.2),
+        user_agent=env_first(values, "USER_AGENT", default=DEFAULT_USER_AGENT) or DEFAULT_USER_AGENT,
+    )
+    telegram = TelegramConfig(
+        bot_token=bot_token,
+        destinations=destinations,
+        topic=int(topic) if topic else None,
+        message_template=env_first(values, "MESSAGE_TEMPLATE", default=DEFAULT_MESSAGE_TEMPLATE)
+        or DEFAULT_MESSAGE_TEMPLATE,
+        button_text=env_first(values, "BUTTON_TEXT"),
+        hide_button=parse_bool(env_first(values, "HIDE_BUTTON"), default=False),
+        parameters=env_first(values, "PARAMETERS"),
+        telegraph_token=env_first(values, "TELEGRAPH_TOKEN"),
+        emojis=emojis,
+    )
+    return Config(app=app, telegram=telegram, feeds=parse_opml(app.opml_file))
+
+
+def connect_database(path: str) -> sqlite3.Connection:
+    conn = sqlite3.connect(path)
+    existing = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'history'"
+    ).fetchone()
+    if existing:
+        columns = {
+            row[1]
+            for row in conn.execute("PRAGMA table_info(history)").fetchall()
+        }
+        if "feed_url" not in columns:
+            legacy_name = f"history_legacy_{int(time.time())}"
+            conn.execute(f"ALTER TABLE history RENAME TO {legacy_name}")
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS history (
+            feed_url TEXT NOT NULL,
+            link TEXT NOT NULL,
+            title TEXT,
+            published TEXT,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (feed_url, link)
+        )
+        """
+    )
     conn.commit()
-    conn.close()
+    return conn
 
-def check_history(link):
-    conn = sqlite3.connect('rss2telegram.db')
-    cursor = conn.cursor()
-    aux = f'SELECT * from history WHERE link="{link}"'
-    cursor.execute(aux)
-    data = cursor.fetchone()
-    conn.close()
-    return data
 
-def firewall(text):
-    try:
-        rules = open(f'RULES.txt', 'r')
-    except FileNotFoundError:
+def has_history(conn: sqlite3.Connection, feed_url: str) -> bool:
+    row = conn.execute("SELECT 1 FROM history WHERE feed_url = ? LIMIT 1", (feed_url,)).fetchone()
+    return row is not None
+
+
+def seen(conn: sqlite3.Connection, feed_url: str, link: str) -> bool:
+    row = conn.execute(
+        "SELECT 1 FROM history WHERE feed_url = ? AND link = ? LIMIT 1",
+        (feed_url, link),
+    ).fetchone()
+    return row is not None
+
+
+def remember(conn: sqlite3.Connection, feed_url: str, topic: dict[str, str]) -> None:
+    conn.execute(
+        """
+        INSERT OR IGNORE INTO history (feed_url, link, title, published)
+        VALUES (?, ?, ?, ?)
+        """,
+        (feed_url, topic["link"], topic.get("title", ""), topic.get("published", "")),
+    )
+    conn.commit()
+
+
+def load_rules(path: str = "RULES.txt") -> list[tuple[str, str]]:
+    rules_path = Path(path)
+    if not rules_path.exists():
+        return []
+
+    rules: list[tuple[str, str]] = []
+    with rules_path.open("r", encoding="utf-8") as fh:
+        for raw_line in fh:
+            line = raw_line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if ":" not in line:
+                print(f"Skipping malformed rule: {line}")
+                continue
+            action, value = line.split(":", 1)
+            rules.append((action.strip().upper(), value.strip()))
+    return rules
+
+
+def allowed_by_rules(text: str, rules: list[tuple[str, str]]) -> bool:
+    if not rules:
         return True
-    result = None
-    for rule in rules.readlines():
-        opt, arg = rule.split(':')
-        arg = arg.strip()
-        if arg == 'ALL' and opt == 'DROP':
+
+    result = True
+    lower_text = text.lower()
+    for action, value in rules:
+        lower_value = value.lower()
+        matched = value == "ALL" or lower_value in lower_text
+        if not matched:
+            continue
+        if action == "DROP":
             result = False
-        elif arg == 'ALL' and opt == 'ACCEPT':
-            result = True
-        elif arg.lower() in text.lower() and opt == 'DROP':
-            result = False
-        elif arg.lower() in text.lower() and opt == 'ACCEPT':
+        elif action == "ACCEPT":
             result = True
     return result
 
-def create_telegraph_post(topic):
-    telegraph_auth = telegraph.Telegraph(
-        access_token=f'{get_variable("TELEGRAPH_TOKEN")}'
-    )
+
+def append_parameters(link: str, parameters: str | None) -> str:
+    if not parameters:
+        return link
+    separator = "&" if "?" in link else "?"
+    return f"{link}{separator}{parameters}"
+
+
+def clean_summary(summary: str) -> str:
+    return re.sub("<[^<]+?>", "", summary or "").strip()
+
+
+def render_template(template: str, topic: dict[str, str], cfg: TelegramConfig) -> str:
+    values = {
+        "SITE_NAME": html.escape(topic.get("site_name", "")),
+        "FEED_NAME": html.escape(topic.get("feed_name", "")),
+        "TITLE": html.escape(topic.get("title", "")),
+        "SUMMARY": html.escape(clean_summary(topic.get("summary", ""))),
+        "LINK": html.escape(append_parameters(topic.get("link", ""), cfg.parameters)),
+        "EMOJI": html.escape(random.choice(cfg.emojis)) if cfg.emojis else "",
+    }
+
+    rendered = template
+    for key, value in values.items():
+        rendered = rendered.replace(f"{{{key}}}", value)
+    return rendered.replace("\\n", "\n")
+
+
+def get_image_url(url: str, cfg: AppConfig) -> str | None:
+    if not cfg.fetch_images:
+        return None
+
+    try:
+        response = requests.get(
+            url,
+            headers={"User-Agent": cfg.user_agent},
+            timeout=cfg.request_timeout,
+        )
+        response.raise_for_status()
+        soup = BeautifulSoup(response.content, "html.parser")
+        image = soup.find("meta", {"property": "og:image"})
+        if not image:
+            return None
+        content = image.get("content")
+        return str(content) if content else None
+    except requests.RequestException as exc:
+        print(f"Image lookup failed for {url}: {exc}")
+        return None
+    except (AttributeError, TypeError):
+        return None
+
+
+def create_telegraph_post(topic: dict[str, str], token: str) -> str:
+    telegraph_auth = telegraph.Telegraph(access_token=token)
     response = telegraph_auth.create_page(
-        f'{topic["title"]}',
+        topic["title"],
         html_content=(
-            f'{topic["summary"]}<br><br>'
-            + f'<a href="{topic["link"]}">Ver original ({topic["site_name"]})</a>'
+            f'{topic.get("summary", "")}<br><br>'
+            f'<a href="{html.escape(topic["link"])}">Original ({html.escape(topic["site_name"])})</a>'
         ),
-        author_name=f'{topic["site_name"]}'
+        author_name=topic["site_name"],
     )
     return response["url"]
 
-def send_message(topic, button):
-    if DRYRUN == 'failure':
-        return
 
-    MESSAGE_TEMPLATE = os.environ.get(f'MESSAGE_TEMPLATE', False)
-
-    if MESSAGE_TEMPLATE:
-        MESSAGE_TEMPLATE = set_text_vars(MESSAGE_TEMPLATE, topic)
-    else:
-        MESSAGE_TEMPLATE = f'<b>{topic["title"]}</b>'
-
-    if TELEGRAPH_TOKEN:
-        iv_link = create_telegraph_post(topic)
-        MESSAGE_TEMPLATE = f'<a href="{iv_link}">󠀠</a>{MESSAGE_TEMPLATE}'
-
-    if not firewall(str(topic)):
-        print(f'xxx {topic["title"]}')
-        return
-
-    btn_link = button
-    if button:
-        btn_link = types.InlineKeyboardMarkup()
-        btn = types.InlineKeyboardButton(f'{button}', url=topic['link'])
-        btn_link.row(btn)
-
-    if HIDE_BUTTON or TELEGRAPH_TOKEN:
-        for dest in DESTINATION.split(','):
-            bot.send_message(dest, MESSAGE_TEMPLATE, parse_mode='HTML', reply_to_message_id=TOPIC)
-    else:
-        if topic['photo'] and not TELEGRAPH_TOKEN:
-            response = requests.get(topic['photo'], headers = {'User-agent': 'Mozilla/5.1'})
-            open('img', 'wb').write(response.content)
-            for dest in DESTINATION.split(','):
-                photo = open('img', 'rb')
-                try:
-                    bot.send_photo(dest, photo, caption=MESSAGE_TEMPLATE, parse_mode='HTML', reply_markup=btn_link, reply_to_message_id=TOPIC)
-                except telebot.apihelper.ApiTelegramException:
-                    topic['photo'] = False
-                    send_message(topic, button)
-        else:
-            for dest in DESTINATION.split(','):
-                bot.send_message(dest, MESSAGE_TEMPLATE, parse_mode='HTML', reply_markup=btn_link, disable_web_page_preview=True, reply_to_message_id=TOPIC)
-    print(f'... {topic["title"]}')
-    time.sleep(0.2)
-
-def get_img(url):
-    try:
-        response = requests.get(url, headers = {'User-agent': 'Mozilla/5.1'}, timeout=3)
-        html = BeautifulSoup(response.content, 'html.parser')
-        photo = html.find('meta', {'property': 'og:image'})['content']
-    except TypeError:
-        photo = False
-    except requests.exceptions.ReadTimeout:
-        photo = False
-    except requests.exceptions.TooManyRedirects:
-        photo = False
-    return photo
-
-def define_link(link, PARAMETERS):
-    if PARAMETERS:
-        if '?' in link:
-            return f'{link}&{PARAMETERS}'
-        return f'{link}?{PARAMETERS}'
-    return f'{link}'
+def button_markup(button_text: str | None, topic: dict[str, str], cfg: TelegramConfig) -> Any:
+    if not button_text:
+        return None
+    markup = types.InlineKeyboardMarkup()
+    markup.row(types.InlineKeyboardButton(render_template(button_text, topic, cfg), url=topic["link"]))
+    return markup
 
 
+def send_message(bot: telebot.TeleBot, topic: dict[str, str], config: Config) -> bool:
+    message = render_template(config.telegram.message_template, topic, config.telegram)
+    if config.telegram.telegraph_token:
+        iv_link = create_telegraph_post(topic, config.telegram.telegraph_token)
+        message = f'<a href="{html.escape(iv_link)}"></a>{message}'
 
-def set_text_vars(text, topic):
-    cases = {
-        'SITE_NAME': topic['site_name'],
-        'TITLE': topic['title'],
-        'SUMMARY': re.sub('<[^<]+?>', '', topic['summary']),
-        'LINK': define_link(topic['link'], PARAMETERS),
-        'EMOJI': random.choice(EMOJIS.split(","))
+    markup = None
+    if not config.telegram.hide_button and not config.telegram.telegraph_token:
+        markup = button_markup(config.telegram.button_text, topic, config.telegram)
+
+    for destination in config.telegram.destinations:
+        if topic.get("photo") and not config.telegram.telegraph_token:
+            try:
+                response = requests.get(
+                    topic["photo"],
+                    headers={"User-Agent": config.app.user_agent},
+                    timeout=config.app.request_timeout,
+                )
+                response.raise_for_status()
+                image_file = BytesIO(response.content)
+                image_file.name = "image"
+                bot.send_photo(
+                    destination,
+                    image_file,
+                    caption=message,
+                    parse_mode="HTML",
+                    reply_markup=markup,
+                    message_thread_id=config.telegram.topic,
+                )
+                continue
+            except Exception as exc:
+                print(f"Photo send failed, falling back to text: {exc}")
+
+        bot.send_message(
+            destination,
+            message,
+            parse_mode="HTML",
+            reply_markup=markup,
+            disable_web_page_preview=True,
+            message_thread_id=config.telegram.topic,
+        )
+
+    print(f"sent: {topic['title']}")
+    time.sleep(config.app.sleep_between_messages)
+    return True
+
+
+def entry_link(entry: Any) -> str | None:
+    if getattr(entry, "link", None):
+        return str(entry.link)
+    links = getattr(entry, "links", [])
+    if links:
+        return str(links[0].get("href"))
+    return None
+
+
+def entry_id(feed_url: str, entry: Any) -> str | None:
+    link = entry_link(entry)
+    if link:
+        return link
+    value = getattr(entry, "id", None) or getattr(entry, "guid", None)
+    return str(value) if value else None
+
+
+def feed_site_name(feed: Any, feed_url: str) -> str:
+    title = getattr(feed.feed, "title", None)
+    if title:
+        return str(title)
+    host = urlparse(feed_url).netloc
+    return host or feed_url
+
+
+def build_topic(
+    feed_cfg: FeedConfig,
+    feed: Any,
+    entry: Any,
+    config: Config,
+    include_image: bool = True,
+) -> dict[str, str]:
+    link = entry_link(entry) or entry_id(feed_cfg.url, entry) or feed_cfg.url
+    return {
+        "feed_name": feed_cfg.name,
+        "site_name": feed_site_name(feed, feed_cfg.url),
+        "title": str(getattr(entry, "title", "Untitled")).strip(),
+        "summary": str(getattr(entry, "summary", "")),
+        "link": link,
+        "published": str(getattr(entry, "published", getattr(entry, "updated", ""))),
+        "photo": (get_image_url(link, config.app) if include_image else None) or "",
     }
-    for word in re.split('{|}', text):
-        try:
-            text = text.replace(word, cases.get(word))
-        except TypeError:
-            continue
-    return text.replace('\\n', '\n').replace('{', '').replace('}', '')
 
 
-def check_topics(url):
-    now = gmtime()
-    feed = feedparser.parse(url)
-    try:
-        source = feed['feed']['title']
-    except KeyError:
-        print(f'\nERRO: {url} não parece um feed RSS válido.')
+def process_feed(
+    conn: sqlite3.Connection,
+    bot: telebot.TeleBot,
+    feed_cfg: FeedConfig,
+    config: Config,
+    rules: list[tuple[str, str]],
+) -> None:
+    print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
+    feed = feedparser.parse(feed_cfg.url, request_headers={"User-Agent": config.app.user_agent})
+    if getattr(feed, "bozo", False):
+        print(f"feed parse warning for {feed_cfg.url}: {getattr(feed, 'bozo_exception', '')}")
+    if not getattr(feed, "entries", None):
+        print(f"no entries: {feed_cfg.url}")
         return
-    print(f'\nChecando {source}:{url}')
-    for tpc in reversed(feed['items'][:10]):
-        if check_history(tpc.links[0].href):
+
+    feed_has_history = has_history(conn, feed_cfg.url)
+    entries = list(reversed(feed.entries[: config.app.max_entries_per_feed]))
+
+    if not feed_has_history and not config.app.send_on_first_run:
+        print(f"bootstrap only: {feed_cfg.name}")
+        for entry in entries:
+            topic = build_topic(feed_cfg, feed, entry, config, include_image=False)
+            remember(conn, feed_cfg.url, topic)
+        return
+
+    for entry in entries:
+        item_id = entry_id(feed_cfg.url, entry)
+        if not item_id or seen(conn, feed_cfg.url, item_id):
             continue
-        add_to_history(tpc.links[0].href)
-        topic = {}
-        topic['site_name'] = feed['feed']['title']
-        topic['title'] = tpc.title.strip()
-        topic['summary'] = tpc.summary
-        topic['link'] = tpc.links[0].href
-        topic['photo'] = get_img(tpc.links[0].href)
-        BUTTON_TEXT = os.environ.get('BUTTON_TEXT', False)
-        if BUTTON_TEXT:
-            BUTTON_TEXT = set_text_vars(BUTTON_TEXT, topic)
-        try:
-            send_message(topic, BUTTON_TEXT)
-        except telebot.apihelper.ApiTelegramException as e:
-            print(e)
-            pass
+
+        topic = build_topic(feed_cfg, feed, entry, config)
+        if not allowed_by_rules(str(topic), rules):
+            print(f"filtered: {topic['title']}")
+            remember(conn, feed_cfg.url, topic)
+            continue
+
+        send_message(bot, topic, config)
+        remember(conn, feed_cfg.url, topic)
+
+
+def main() -> None:
+    config = load_config()
+    rules = load_rules()
+    bot = telebot.TeleBot(config.telegram.bot_token)
+
+    print(f"loaded feeds: {len(config.feeds)} from {config.app.opml_file}")
+    with connect_database(config.app.database) as conn:
+        for feed_cfg in config.feeds:
+            try:
+                process_feed(conn, bot, feed_cfg, config, rules)
+            except Exception as exc:
+                print(f"failed: {feed_cfg.name} <{feed_cfg.url}>: {exc}")
+
 
 if __name__ == "__main__":
-    for url in URL.split():
-        check_topics(url)
-
+    main()

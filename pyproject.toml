@@ -1,0 +1,23 @@
+[project]
+name = "rss2telegram-opml"
+version = "0.1.0"
+description = "Send RSS/Atom entries from an OPML subscription file to Telegram."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.12,<5",
+    "feedparser>=6.0.11,<7",
+    "pyTelegramBotAPI>=4.23,<5",
+    "requests>=2.32,<3",
+    "telegraph>=2.2,<3",
+]
+
+[project.scripts]
+rss2telegram = "rss2telegram:main"
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["rss2telegram"]

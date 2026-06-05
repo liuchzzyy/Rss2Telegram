@@ -1,1 +1,9 @@
-*.txt
+img
+.env
+.venv/
+__pycache__/
+*.pyc
+BOT_TOKEN.txt
+DESTINATION.txt
+URL.txt
+TELEGRAPH_TOKEN.txt
