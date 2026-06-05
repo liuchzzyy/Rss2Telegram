@@ -6,6 +6,12 @@ on:
     # UTC 22:00, 02:00, 06:00, 09:00, 12:00
     - cron: '0 22,2,6,9,12 * * *'
 
+permissions:
+  contents: write
+
+concurrency:
+  group: rss2telegram-history
+  cancel-in-progress: false
 
 jobs:
   rss2telegram:
@@ -83,6 +89,17 @@ jobs:
           PY
       - name: Run Rss to Telegram
         run: uv run rss2telegram
+      - name: Commit history database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rss2telegram.db
+          if git diff --cached --quiet; then
+            echo "No database changes to commit"
+          else
+            git commit -m "Update RSS history database"
+            git push origin HEAD:main
+          fi
       - name: Upload history
         uses: actions/upload-artifact@v4
         with:
