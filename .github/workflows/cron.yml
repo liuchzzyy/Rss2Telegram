@@ -19,11 +19,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.0
       - name: Download artifact
         id: download
         continue-on-error: true
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@v21
         with:
           workflow: cron.yml
           workflow_conclusion: success
@@ -33,11 +33,11 @@ jobs:
             mv rss2telegram/rss2telegram.db rss2telegram.db
           fi
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.3.0
         with:
           python-version-file: .python-version
       - name: Setup uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           enable-cache: true
       - name: Install dependencies
@@ -103,7 +103,7 @@ jobs:
             git push origin HEAD:main
           fi
       - name: Upload history
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: rss2telegram
           path: rss2telegram.db
