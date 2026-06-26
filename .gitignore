@@ -3,6 +3,7 @@ img
 .venv/
 __pycache__/
 *.pyc
+*.egg-info/
 BOT_TOKEN.txt
 DESTINATION.txt
 URL.txt

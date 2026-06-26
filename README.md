@@ -50,6 +50,8 @@ SLEEP_BETWEEN_MESSAGES=0.2
 
 `SEND_ON_FIRST_RUN=false` means the first run records current feed entries but does not send them. This prevents old RSS items from flooding Telegram when the database is new.
 
+The SQLite history database stores only SHA-256 hashes for feed and entry identifiers. It is used only for incremental comparison and does not keep RSS entry titles, links, summaries, or publish dates.
+
 Supported template variables:
 
 - `{SITE_NAME}`
@@ -67,7 +69,7 @@ Maintain feeds in `Subscriptions.opml`. The script reads every OPML outline node
 
 The workflow in `.github/workflows/cron.yml` runs at `06:00`, `10:00`, `14:00`, `17:00`, and `20:00` in Asia/Shanghai.
 
-The SQLite history database is saved as a workflow artifact and restored on the next run.
+The SQLite hash-only history database is saved as a workflow artifact and restored on the next run.
 
 If this repository is public, do not commit a real `.env` with your bot token. Keep it local, or use a private repository.
 

@@ -99,7 +99,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No database changes to commit"
           else
-            git commit -m "Update RSS history database"
+            git commit -m "chore(db): 更新 RSS 历史哈希库"
             git push origin HEAD:main
           fi
       - name: Upload history
