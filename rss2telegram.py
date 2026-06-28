@@ -6,6 +6,7 @@ import random
 import re
 import sqlite3
 import time
+import traceback
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from io import BytesIO
@@ -230,7 +231,7 @@ def entry_history_hash(feed_url: str, item_id: str) -> str:
 
 def migrate_history_to_hashes(conn: sqlite3.Connection, columns: set[str]) -> None:
     legacy_name = f"history_legacy_{int(time.time())}"
-    conn.execute(f"ALTER TABLE history RENAME TO {legacy_name}")
+    conn.execute(f"ALTER TABLE history RENAME TO {quote_identifier(legacy_name)}")
     conn.execute(
         """
         CREATE TABLE history (
@@ -389,7 +390,7 @@ def render_template(template: str, topic: dict[str, str], cfg: TelegramConfig) -
         "FEED_NAME": html.escape(topic.get("feed_name", "")),
         "TITLE": html.escape(topic.get("title", "")),
         "SUMMARY": html.escape(clean_summary(topic.get("summary", ""))),
-        "LINK": html.escape(append_parameters(topic.get("link", ""), cfg.parameters)),
+        "LINK": append_parameters(topic.get("link", ""), cfg.parameters),
         "EMOJI": html.escape(random.choice(cfg.emojis)) if cfg.emojis else "",
     }
 
@@ -459,6 +460,7 @@ def send_message(bot: telebot.TeleBot, topic: dict[str, str], config: Config) ->
             message = f'<a href="{html.escape(iv_link)}"></a>{message}'
         except Exception as exc:
             print(f"Telegraph page creation failed, falling back to normal message: {exc}")
+            traceback.print_exc()
 
     markup = None
     if not config.telegram.hide_button and not config.telegram.use_telegraph:
@@ -486,6 +488,7 @@ def send_message(bot: telebot.TeleBot, topic: dict[str, str], config: Config) ->
                 continue
             except Exception as exc:
                 print(f"Photo send failed, falling back to text: {exc}")
+                traceback.print_exc()
 
         bot.send_message(
             destination,
@@ -553,6 +556,10 @@ def process_feed(
     rules: list[tuple[str, str]],
 ) -> None:
     print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
+    parsed = urlparse(feed_cfg.url)
+    if parsed.scheme not in ("http", "https"):
+        print(f"skipping unsupported scheme ({parsed.scheme}): {feed_cfg.url}")
+        return
     feed = feedparser.parse(feed_cfg.url, request_headers={"User-Agent": config.app.user_agent})
     if getattr(feed, "bozo", False):
         print(f"feed parse warning for {feed_cfg.url}: {getattr(feed, 'bozo_exception', '')}")
@@ -607,6 +614,7 @@ def main() -> None:
                 process_feed(conn, bot, feed_cfg, config, rules)
             except Exception as exc:
                 print(f"failed: {feed_cfg.name} <{feed_cfg.url}>: {exc}")
+                traceback.print_exc()
 
 
 if __name__ == "__main__":
