@@ -229,12 +229,15 @@ def load_config() -> Config:
         sleep_between_messages=float(env_first(values, "SLEEP_BETWEEN_MESSAGES", default="0.2") or 0.2),
         user_agent=env_first(values, "USER_AGENT", default=DEFAULT_USER_AGENT) or DEFAULT_USER_AGENT,
     )
+    message_template = env_first(values, "MESSAGE_TEMPLATE", default=DEFAULT_MESSAGE_TEMPLATE) or DEFAULT_MESSAGE_TEMPLATE
+    if "{TAGS}" not in message_template:
+        message_template = f"{message_template}\\n\\n{{TAGS}}"
+
     telegram = TelegramConfig(
         bot_token=bot_token,
         destinations=destinations,
         topic=int(topic) if topic else None,
-        message_template=env_first(values, "MESSAGE_TEMPLATE", default=DEFAULT_MESSAGE_TEMPLATE)
-        or DEFAULT_MESSAGE_TEMPLATE,
+        message_template=message_template,
         button_text=env_first(values, "BUTTON_TEXT"),
         hide_button=parse_bool(env_first(values, "HIDE_BUTTON"), default=False),
         parameters=env_first(values, "PARAMETERS"),
@@ -506,6 +509,39 @@ def markdown_escape(value: str) -> str:
     return value.replace("\n", " ").strip()
 
 
+def tag_slug(value: str) -> str:
+    aliases = {
+        "阮一峰的网络日志": "阮一峰",
+        "GitHub Daily Trending": "GitHubTrending",
+        "LINUX DO - 热门": "LINUXDO热门",
+        "LINUX DO - 最新": "LINUXDO最新",
+        "V2EX - 技术": "V2EX技术",
+        "V2EX 最热": "V2EX最热",
+        "Zotero 最新": "Zotero最新",
+        "App Store 特价（CN）": "AppStore特价CN",
+        "Google Developers": "GoogleDevelopers",
+        "Vercel News": "VercelNews",
+        "OpenAI News": "OpenAINews",
+        "Last Week in AI": "LastWeekInAI",
+        "This Week in Rust": "ThisWeekInRust",
+    }
+    value = aliases.get(value, value)
+    return re.sub(r"\W+", "", value, flags=re.UNICODE)
+
+
+def route_tags(feed_name: str, tier: TierConfig) -> str:
+    tags = ["RSS", tier.label, tag_slug(feed_name)]
+    seen: set[str] = set()
+    cleaned: list[str] = []
+    for tag in tags:
+        slug = tag_slug(tag)
+        if not slug or slug in seen:
+            continue
+        seen.add(slug)
+        cleaned.append(f"#{slug}")
+    return " ".join(cleaned)
+
+
 def append_obsidian_entry(topic: dict[str, str], tier: TierConfig, routes: RouteConfig) -> Path | None:
     if not tier.archive_file:
         return None
@@ -564,6 +600,7 @@ def render_template(template: str, topic: dict[str, str], cfg: TelegramConfig) -
         "TIER_LABEL": html.escape(topic.get("tier_label", "")),
         "TIER_PREFIX": html.escape(topic.get("tier_prefix", "")),
         "ACTION": html.escape(topic.get("route_action", "")),
+        "TAGS": html.escape(topic.get("tags", "")),
     }
 
     rendered = template
@@ -726,6 +763,7 @@ def build_topic(
         "tier_prefix": tier.prefix,
         "route_action": route.action,
         "route_reason": route.reason,
+        "tags": route_tags(feed_cfg.name, tier),
     }
 
 
@@ -802,10 +840,10 @@ def process_feed(
         if action_allows_push(route.action):
             if options.dry_run:
                 rendered = render_template(config.telegram.message_template, topic, config.telegram)
-                print(f"dry-run push: {rendered.splitlines()[0]} -> archive={archive_path or '-'}")
+                print(f"dry-run push: {rendered.splitlines()[0]} tags={topic['tags']} -> archive={archive_path or '-'}")
             elif options.no_send:
                 rendered = render_template(config.telegram.message_template, topic, config.telegram)
-                print(f"no-send push skipped: {rendered.splitlines()[0]} -> archive={archive_path or '-'}")
+                print(f"no-send push skipped: {rendered.splitlines()[0]} tags={topic['tags']} -> archive={archive_path or '-'}")
             else:
                 if bot is None:
                     raise RuntimeError("Telegram bot is not initialized")

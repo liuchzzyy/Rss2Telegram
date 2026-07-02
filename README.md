@@ -68,6 +68,18 @@ Supported template variables:
 - `{TIER_LABEL}`
 - `{TIER_PREFIX}`
 - `{ACTION}`
+- `{TAGS}`
+
+If `MESSAGE_TEMPLATE` does not include `{TAGS}`, the script automatically appends an empty line plus `{TAGS}` at the end of each Telegram message. This makes Telegram search/filter easier without requiring every existing secret template to be changed.
+
+Default Telegram tags are generated from the route tier and feed name, for example:
+
+```text
+#RSS #精读 #理论派
+#RSS #重点扫读 #阮一峰
+#RSS #科研工具 #Zotero
+#RSS #低优先级 #IT之家
+```
 
 ## Feed List
 
