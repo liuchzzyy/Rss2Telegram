@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import argparse
 import random
 import re
 import sqlite3
@@ -17,6 +18,7 @@ from urllib.parse import urlparse
 import feedparser
 import requests
 import telebot
+import yaml
 from bs4 import BeautifulSoup
 from telebot import types
 
@@ -24,10 +26,13 @@ from telebot import types
 DEFAULT_ENV_FILE = ".env"
 DEFAULT_OPML_FILE = "Subscriptions.opml"
 DEFAULT_DATABASE = "rss2telegram.db"
+DEFAULT_ROUTES_FILE = "feed_routes.yaml"
 DEFAULT_MAX_ENTRIES_PER_FEED = 100
 DEFAULT_MESSAGE_TEMPLATE = "<b>{TITLE}</b>\n{LINK}"
 DEFAULT_USER_AGENT = "rss2telegram (+https://github.com/liuchzzyy/Rss2Telegram)"
 EMPTY_CONFIG_VALUES = {"", "none", "null", "nil", "-"}
+DEFAULT_OBSIDIAN_INBOX_DIR = "F:/ChengL1u/01_收件箱/0102_RSS"
+DEFAULT_OBSIDIAN_DATE_FORMAT = "%Y%m%d"
 
 
 @dataclass(frozen=True)
@@ -40,6 +45,9 @@ class FeedConfig:
 class AppConfig:
     opml_file: str
     database: str
+    routes_file: str
+    obsidian_inbox_dir: str
+    obsidian_date_format: str
     max_entries_per_feed: int
     send_on_first_run: bool
     fetch_images: bool
@@ -71,6 +79,38 @@ class Config:
     app: AppConfig
     telegram: TelegramConfig
     feeds: list[FeedConfig]
+
+@dataclass(frozen=True)
+class TierConfig:
+    name: str
+    label: str
+    prefix: str
+    archive_file: str | None
+    description: str
+
+@dataclass(frozen=True)
+class FeedRoute:
+    tier: str
+    action: str
+    reason: str
+
+@dataclass(frozen=True)
+class RouteConfig:
+    tiers: dict[str, TierConfig]
+    feeds: dict[str, FeedRoute]
+    obsidian_inbox_dir: str
+    obsidian_date_format: str
+
+@dataclass(frozen=True)
+class ProcessingOptions:
+    dry_run: bool = False
+    no_send: bool = False
+    no_history: bool = False
+    force_first_run: bool = False
+    limit_feeds: int | None = None
+    limit_entries: int | None = None
+    no_archive: bool = False
+    only_feeds: list[str] | None = None
 
 
 def parse_env(path: str = DEFAULT_ENV_FILE) -> dict[str, str]:
@@ -166,6 +206,19 @@ def load_config() -> Config:
     app = AppConfig(
         opml_file=opml_file,
         database=env_first(values, "DATABASE", default=DEFAULT_DATABASE) or DEFAULT_DATABASE,
+        routes_file=env_first(values, "ROUTES_FILE", default=DEFAULT_ROUTES_FILE) or DEFAULT_ROUTES_FILE,
+        obsidian_inbox_dir=env_first(
+            values,
+            "OBSIDIAN_INBOX_DIR",
+            default=DEFAULT_OBSIDIAN_INBOX_DIR,
+        )
+        or DEFAULT_OBSIDIAN_INBOX_DIR,
+        obsidian_date_format=env_first(
+            values,
+            "OBSIDIAN_DATE_FORMAT",
+            default=DEFAULT_OBSIDIAN_DATE_FORMAT,
+        )
+        or DEFAULT_OBSIDIAN_DATE_FORMAT,
         max_entries_per_feed=int(
             env_first(values, "MAX_ENTRIES_PER_FEED", default=str(DEFAULT_MAX_ENTRIES_PER_FEED))
             or DEFAULT_MAX_ENTRIES_PER_FEED
@@ -373,6 +426,121 @@ def allowed_by_rules(text: str, rules: list[tuple[str, str]]) -> bool:
     return result
 
 
+def load_routes(config: AppConfig) -> RouteConfig:
+    routes_path = Path(config.routes_file)
+    raw: dict[str, Any] = {}
+    if routes_path.exists():
+        loaded = yaml.safe_load(routes_path.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            raw = loaded
+    else:
+        print(f"route config not found, using defaults: {routes_path}")
+
+    obsidian = raw.get("obsidian") if isinstance(raw.get("obsidian"), dict) else {}
+    obsidian_inbox_dir = str(
+        obsidian.get("inbox_dir") or config.obsidian_inbox_dir or DEFAULT_OBSIDIAN_INBOX_DIR
+    )
+    obsidian_date_format = str(
+        obsidian.get("date_format") or config.obsidian_date_format or DEFAULT_OBSIDIAN_DATE_FORMAT
+    )
+
+    tiers_raw = raw.get("tiers") if isinstance(raw.get("tiers"), dict) else {}
+    default_tiers = {
+        "deep": {"label": "精读", "prefix": "🧠【精读】", "archive_file": "精读.md"},
+        "watch": {"label": "重点扫读", "prefix": "👀【重点】", "archive_file": "重点扫读.md"},
+        "research": {"label": "科研工具", "prefix": "🧪【科研】", "archive_file": "科研工具.md"},
+        "stream": {"label": "背景流", "prefix": "🌊【背景】", "archive_file": None},
+        "noise": {"label": "低优先级", "prefix": "🕳️【低优先】", "archive_file": None},
+    }
+    tiers: dict[str, TierConfig] = {}
+    for tier_name, defaults in default_tiers.items():
+        data = tiers_raw.get(tier_name) if isinstance(tiers_raw.get(tier_name), dict) else {}
+        tiers[tier_name] = TierConfig(
+            name=tier_name,
+            label=str(data.get("label") or defaults["label"]),
+            prefix=str(data.get("prefix") or defaults["prefix"]),
+            archive_file=data.get("archive_file", defaults["archive_file"]),
+            description=str(data.get("description") or ""),
+        )
+
+    feeds_raw = raw.get("feeds") if isinstance(raw.get("feeds"), dict) else {}
+    feeds: dict[str, FeedRoute] = {}
+    for feed_name, data in feeds_raw.items():
+        if not isinstance(data, dict):
+            continue
+        tier = str(data.get("tier") or "stream")
+        feeds[str(feed_name)] = FeedRoute(
+            tier=tier if tier in tiers else "stream",
+            action=str(data.get("action") or "push"),
+            reason=str(data.get("reason") or ""),
+        )
+    return RouteConfig(
+        tiers=tiers,
+        feeds=feeds,
+        obsidian_inbox_dir=obsidian_inbox_dir,
+        obsidian_date_format=obsidian_date_format,
+    )
+
+
+def route_for_feed(feed_cfg: FeedConfig, routes: RouteConfig) -> tuple[FeedRoute, TierConfig]:
+    route = routes.feeds.get(feed_cfg.name)
+    if route is None:
+        route = FeedRoute(tier="stream", action="push", reason="未显式分类，默认背景流。")
+    tier = routes.tiers.get(route.tier) or routes.tiers["stream"]
+    return route, tier
+
+
+def action_allows_push(action: str) -> bool:
+    return action in {"push", "push_and_archive"}
+
+
+def action_allows_archive(action: str) -> bool:
+    return action in {"archive_only", "push_and_archive"}
+
+
+def action_drops(action: str) -> bool:
+    return action in {"drop", "digest_only"}
+
+
+def markdown_escape(value: str) -> str:
+    return value.replace("\n", " ").strip()
+
+
+def append_obsidian_entry(topic: dict[str, str], tier: TierConfig, routes: RouteConfig) -> Path | None:
+    if not tier.archive_file:
+        return None
+    date_dir = time.strftime(routes.obsidian_date_format)
+    archive_dir = Path(routes.obsidian_inbox_dir) / date_dir
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    archive_path = archive_dir / tier.archive_file
+    if not archive_path.exists():
+        archive_path.write_text(
+            "---\n"
+            f"title: RSS {tier.label}队列 {date_dir}\n"
+            "tags:\n"
+            "  - rss\n"
+            f"  - rss/{tier.name}\n"
+            f"date: {date_dir}\n"
+            "---\n\n"
+            f"# RSS {tier.label}队列｜{date_dir}\n\n",
+            encoding="utf-8",
+        )
+    elif f"  - 链接：{topic['link']}" in archive_path.read_text(encoding="utf-8"):
+        return archive_path
+    block = (
+        f"- [ ] {tier.prefix} {markdown_escape(topic['feed_name'])}｜{markdown_escape(topic['title'])}\n"
+        f"  - 链接：{topic['link']}\n"
+        f"  - 来源：{markdown_escape(topic['site_name'])}\n"
+        f"  - 发布时间：{markdown_escape(topic.get('published', ''))}\n"
+        f"  - 分层理由：{markdown_escape(topic.get('route_reason', ''))}\n"
+        "  - 初读问题：\n"
+        "  - 可沉淀方向：科研判断 / 写作 / 工具系统 / 生活秩序 / 其他\n\n"
+    )
+    with archive_path.open("a", encoding="utf-8") as fh:
+        fh.write(block)
+    return archive_path
+
+
 def append_parameters(link: str, parameters: str | None) -> str:
     if not parameters:
         return link
@@ -388,10 +556,14 @@ def render_template(template: str, topic: dict[str, str], cfg: TelegramConfig) -
     values = {
         "SITE_NAME": html.escape(topic.get("site_name", "")),
         "FEED_NAME": html.escape(topic.get("feed_name", "")),
-        "TITLE": html.escape(topic.get("title", "")),
+        "TITLE": html.escape(topic.get("display_title", topic.get("title", ""))),
         "SUMMARY": html.escape(clean_summary(topic.get("summary", ""))),
         "LINK": append_parameters(topic.get("link", ""), cfg.parameters),
         "EMOJI": html.escape(random.choice(cfg.emojis)) if cfg.emojis else "",
+        "TIER": html.escape(topic.get("tier", "")),
+        "TIER_LABEL": html.escape(topic.get("tier_label", "")),
+        "TIER_PREFIX": html.escape(topic.get("tier_prefix", "")),
+        "ACTION": html.escape(topic.get("route_action", "")),
     }
 
     rendered = template
@@ -534,28 +706,47 @@ def build_topic(
     feed: Any,
     entry: Any,
     config: Config,
+    tier: TierConfig,
+    route: FeedRoute,
     include_image: bool = True,
 ) -> dict[str, str]:
     link = entry_link(entry) or entry_id(feed_cfg.url, entry) or feed_cfg.url
+    title = str(getattr(entry, "title", "Untitled")).strip()
     return {
         "feed_name": feed_cfg.name,
         "site_name": feed_site_name(feed, feed_cfg.url),
-        "title": str(getattr(entry, "title", "Untitled")).strip(),
+        "title": title,
+        "display_title": f"{tier.prefix} {title}",
         "summary": str(getattr(entry, "summary", "")),
         "link": link,
         "published": str(getattr(entry, "published", getattr(entry, "updated", ""))),
         "photo": (get_image_url(link, config.app) if include_image else None) or "",
+        "tier": tier.name,
+        "tier_label": tier.label,
+        "tier_prefix": tier.prefix,
+        "route_action": route.action,
+        "route_reason": route.reason,
     }
 
 
 def process_feed(
     conn: sqlite3.Connection,
-    bot: telebot.TeleBot,
+    bot: telebot.TeleBot | None,
     feed_cfg: FeedConfig,
     config: Config,
     rules: list[tuple[str, str]],
+    routes: RouteConfig,
+    options: ProcessingOptions,
 ) -> None:
-    print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
+    route, tier = route_for_feed(feed_cfg, routes)
+    print(
+        f"checking: {feed_cfg.name} <{feed_cfg.url}> "
+        f"tier={tier.name}/{tier.label} action={route.action}"
+    )
+    if action_drops(route.action):
+        print(f"routed away: {feed_cfg.name} action={route.action} reason={route.reason}")
+        return
+
     parsed = urlparse(feed_cfg.url)
     if parsed.scheme not in ("http", "https"):
         print(f"skipping unsupported scheme ({parsed.scheme}): {feed_cfg.url}")
@@ -568,15 +759,17 @@ def process_feed(
         return
 
     feed_has_history = has_history(conn, feed_cfg.url)
-    entries = list(reversed(feed.entries[: config.app.max_entries_per_feed]))
+    entry_limit = options.limit_entries or config.app.max_entries_per_feed
+    entries = list(reversed(feed.entries[:entry_limit]))
 
-    if not feed_has_history and not config.app.send_on_first_run:
+    if not feed_has_history and not config.app.send_on_first_run and not options.force_first_run:
         print(f"bootstrap only: {feed_cfg.name}")
-        for entry in entries:
-            item_id = entry_id(feed_cfg.url, entry)
-            if item_id:
-                remember_entry(conn, feed_cfg.url, item_id)
-        remember_feed(conn, feed_cfg.url)
+        if not options.dry_run and not options.no_history:
+            for entry in entries:
+                item_id = entry_id(feed_cfg.url, entry)
+                if item_id:
+                    remember_entry(conn, feed_cfg.url, item_id)
+            remember_feed(conn, feed_cfg.url)
         return
 
     for entry in entries:
@@ -584,23 +777,89 @@ def process_feed(
         if not item_id or seen(conn, feed_cfg.url, item_id):
             continue
 
-        topic = build_topic(feed_cfg, feed, entry, config)
+        topic = build_topic(
+            feed_cfg,
+            feed,
+            entry,
+            config,
+            tier=tier,
+            route=route,
+            include_image=not options.dry_run,
+        )
         if not allowed_by_rules(str(topic), rules):
             print(f"filtered: {topic['title']}")
-            remember_entry(conn, feed_cfg.url, item_id)
+            if not options.dry_run and not options.no_history:
+                remember_entry(conn, feed_cfg.url, item_id)
             continue
 
-        send_message(bot, topic, config)
-        remember_entry(conn, feed_cfg.url, item_id)
+        archive_path = None
+        if action_allows_archive(route.action) and not options.no_archive:
+            if options.dry_run:
+                archive_path = Path(routes.obsidian_inbox_dir) / time.strftime(routes.obsidian_date_format) / (tier.archive_file or "")
+            else:
+                archive_path = append_obsidian_entry(topic, tier, routes)
 
-    if not feed_has_history:
+        if action_allows_push(route.action):
+            if options.dry_run:
+                rendered = render_template(config.telegram.message_template, topic, config.telegram)
+                print(f"dry-run push: {rendered.splitlines()[0]} -> archive={archive_path or '-'}")
+            elif options.no_send:
+                rendered = render_template(config.telegram.message_template, topic, config.telegram)
+                print(f"no-send push skipped: {rendered.splitlines()[0]} -> archive={archive_path or '-'}")
+            else:
+                if bot is None:
+                    raise RuntimeError("Telegram bot is not initialized")
+                send_message(bot, topic, config)
+        elif archive_path:
+            print(f"archived: {topic['title']} -> {archive_path}")
+
+        if not options.dry_run and not options.no_history:
+            remember_entry(conn, feed_cfg.url, item_id)
+
+    if not feed_has_history and not options.dry_run and not options.no_history:
         remember_feed(conn, feed_cfg.url)
 
 
+def parse_args() -> ProcessingOptions:
+    parser = argparse.ArgumentParser(description="Send OPML RSS entries to Telegram with route tiers.")
+    parser.add_argument("--dry-run", action="store_true", help="Do not send Telegram messages or write history/archive files.")
+    parser.add_argument("--no-send", action="store_true", help="Do not send Telegram messages, but still allow archive/history writes unless disabled.")
+    parser.add_argument("--no-history", action="store_true", help="Do not update the SQLite history database.")
+    parser.add_argument("--force-first-run", action="store_true", help="Process entries even when a feed has no history yet.")
+    parser.add_argument("--limit-feeds", type=int, default=None, help="Process only the first N feeds from OPML.")
+    parser.add_argument("--limit-entries", type=int, default=None, help="Inspect only the first N entries per feed.")
+    parser.add_argument("--only-feed", action="append", default=None, help="Process only a named feed. Can be provided multiple times.")
+    parser.add_argument("--no-archive", action="store_true", help="Skip Obsidian archive writes.")
+    args = parser.parse_args()
+    return ProcessingOptions(
+        dry_run=args.dry_run,
+        no_send=args.no_send,
+        no_history=args.no_history,
+        force_first_run=args.force_first_run,
+        limit_feeds=args.limit_feeds,
+        limit_entries=args.limit_entries,
+        no_archive=args.no_archive,
+        only_feeds=args.only_feed,
+    )
+
+
+def print_route_summary(config: Config, routes: RouteConfig) -> None:
+    counts: dict[str, int] = {}
+    actions: dict[str, int] = {}
+    for feed_cfg in config.feeds:
+        route, tier = route_for_feed(feed_cfg, routes)
+        counts[tier.name] = counts.get(tier.name, 0) + 1
+        actions[route.action] = actions.get(route.action, 0) + 1
+    print("route tier summary: " + ", ".join(f"{k}={v}" for k, v in sorted(counts.items())))
+    print("route action summary: " + ", ".join(f"{k}={v}" for k, v in sorted(actions.items())))
+
+
 def main() -> None:
+    options = parse_args()
     config = load_config()
+    routes = load_routes(config.app)
     rules = load_rules()
-    bot = telebot.TeleBot(config.telegram.bot_token)
+    bot = None if options.dry_run or options.no_send else telebot.TeleBot(config.telegram.bot_token)
 
     if config.telegram.telegraph_token and not config.telegram.enable_telegraph:
         print("Telegraph token is configured but ENABLE_TELEGRAPH is false; using normal messages")
@@ -608,10 +867,23 @@ def main() -> None:
         print("ENABLE_TELEGRAPH is true but TELEGRAPH_TOKEN is missing; using normal messages")
 
     print(f"loaded feeds: {len(config.feeds)} from {config.app.opml_file}")
-    with connect_database(config.app.database) as conn:
-        for feed_cfg in config.feeds:
+    print(f"loaded routes: {len(routes.feeds)} from {config.app.routes_file}")
+    print(f"obsidian inbox: {routes.obsidian_inbox_dir}/{time.strftime(routes.obsidian_date_format)}")
+    print_route_summary(config, routes)
+    feeds = config.feeds
+    if options.only_feeds:
+        wanted = set(options.only_feeds)
+        feeds = [feed_cfg for feed_cfg in feeds if feed_cfg.name in wanted]
+        missing = sorted(wanted - {feed_cfg.name for feed_cfg in feeds})
+        if missing:
+            print(f"missing requested feeds: {', '.join(missing)}")
+    if options.limit_feeds:
+        feeds = feeds[: options.limit_feeds]
+    database_path = ":memory:" if options.dry_run or options.no_history else config.app.database
+    with connect_database(database_path) as conn:
+        for feed_cfg in feeds:
             try:
-                process_feed(conn, bot, feed_cfg, config, rules)
+                process_feed(conn, bot, feed_cfg, config, rules, routes, options)
             except Exception as exc:
                 print(f"failed: {feed_cfg.name} <{feed_cfg.url}>: {exc}")
                 traceback.print_exc()

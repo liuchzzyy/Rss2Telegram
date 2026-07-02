@@ -1,0 +1,298 @@
+obsidian:
+  inbox_dir: F:/ChengL1u/01_收件箱/0102_RSS
+  date_format: '%Y%m%d'
+tiers:
+  deep:
+    label: 精读
+    prefix: 🧠【精读】
+    archive_file: 精读.md
+    description: 低频、高思想密度或需要认真学习归档的来源。
+  watch:
+    label: 重点扫读
+    prefix: 👀【重点】
+    archive_file: 重点扫读.md
+    description: 值得注意但不必逐条深读，适合每日集中扫读。
+  research:
+    label: 科研工具
+    prefix: 🧪【科研】
+    archive_file: 科研工具.md
+    description: 与科研软件、数据处理、写作或知识管理直接相关。
+  stream:
+    label: 背景流
+    prefix: 🌊【背景】
+    archive_file: null
+    description: 保持感知即可，不应占用深度注意力。
+  noise:
+    label: 低优先级
+    prefix: 🕳️【低优先】
+    archive_file: null
+    description: 容易制造噪音，默认不即时打断。
+feeds:
+  捕蛇者说:
+    tier: watch
+    action: push
+    reason: 中文技术播客，适合通勤/休息时扫听。
+  大可不必:
+    tier: stream
+    action: push
+    reason: 播客背景流，保持感知即可。
+  面基:
+    tier: watch
+    action: push
+    reason: 商业与科技访谈，适合重点扫听。
+  起朱楼宴宾客:
+    tier: stream
+    action: push
+    reason: 长音频背景流，不作为精读入口。
+  三好坏男孩:
+    tier: stream
+    action: push
+    reason: 泛播客背景流。
+  曳尾于涂:
+    tier: deep
+    action: push_and_archive
+    reason: 偏思想/阅读类长内容，可进入精读候选。
+  正文三台:
+    tier: deep
+    action: push_and_archive
+    reason: 文化与文本讨论密度较高，适合沉淀。
+  让水烧开:
+    tier: watch
+    action: push
+    reason: 视频内容可扫看，非文字精读入口。
+  中文油管排行榜:
+    tier: noise
+    action: push
+    reason: 榜单型噪音较高，适合后续摘要，不应即时打断。
+  Cylo's Garage:
+    tier: watch
+    action: push
+    reason: 工程/车库类内容，按兴趣重点扫读。
+  Jay and Mark:
+    tier: stream
+    action: push
+    reason: 视频背景流。
+  JFlaMusic:
+    tier: noise
+    action: push
+    reason: 音乐更新不属于工作流核心信息。
+  Munro Live:
+    tier: watch
+    action: push
+    reason: 工程/制造相关视频，可重点扫读。
+  GitHub:
+    tier: watch
+    action: push
+    reason: 工程生态与开发平台更新，适合扫读。
+  Google Developers:
+    tier: watch
+    action: push
+    reason: 开发者生态更新，适合扫读。
+  Vercel News:
+    tier: stream
+    action: push
+    reason: 产品新闻类，背景感知即可。
+  GitHub Daily Trending:
+    tier: stream
+    action: push
+    reason: 高频趋势源，保持感知但不精读。
+  Github-CAPPuls:
+    tier: research
+    action: push
+    reason: 与 4D-STEM/科研数据处理工具链相关。
+  Github-Hyperspy:
+    tier: research
+    action: push
+    reason: 与显微/谱学数据处理相关，值得归档。
+  Github-Python:
+    tier: stream
+    action: push
+    reason: 趋势流，容易高频，按背景流处理。
+  Github-Rust:
+    tier: stream
+    action: push
+    reason: 趋势流，按背景感知处理。
+  LessWrong:
+    tier: deep
+    action: push_and_archive
+    reason: 高思想密度，适合长期认知与科研判断沉淀。
+  LINUX DO - 热门:
+    tier: stream
+    action: push
+    reason: 社区热点，适合背景流。
+  LINUX DO - 最新:
+    tier: noise
+    action: push
+    reason: 最新流高频噪音大，不应即时打断。
+  logseq:
+    tier: research
+    action: push
+    reason: 知识管理工具相关，可能影响个人科研系统。
+  V2EX - 技术:
+    tier: stream
+    action: push
+    reason: 技术社区流，保持感知即可。
+  V2EX 最热:
+    tier: stream
+    action: push
+    reason: 社区热点，扫读即可。
+  Zotero:
+    tier: research
+    action: push
+    reason: 文献管理工具相关，直接影响科研工作流。
+  Zotero 最新:
+    tier: research
+    action: push
+    reason: Zotero 论坛更新，可能包含插件/故障/工作流信息。
+  豆瓣最受欢迎的书评:
+    tier: watch
+    action: push
+    reason: 阅读线索来源，适合扫读筛选。
+  豆瓣最受欢迎的影评:
+    tier: stream
+    action: push
+    reason: 文化休息背景流。
+  瓠樽:
+    tier: deep
+    action: push_and_archive
+    reason: 独立博客，高思想密度，需要认真学习和归档。
+  浣心:
+    tier: deep
+    action: push_and_archive
+    reason: 独立博客，适合沉淀个人系统与写作素材。
+  揆机:
+    tier: deep
+    action: push_and_archive
+    reason: 独立博客，适合深读候选。
+  理论派:
+    tier: deep
+    action: push_and_archive
+    reason: 用户明确指定需要仔细学习归档的高价值来源。
+  小声读书:
+    tier: watch
+    action: push
+    reason: 书籍线索适合扫读筛选。
+  序章:
+    tier: deep
+    action: push_and_archive
+    reason: 用户明确指定需要仔细学习归档的高价值来源。
+  ALL About RSS:
+    tier: watch
+    action: push
+    reason: RSS 生态信息，服务信息流系统改造。
+  NetNewsWire:
+    tier: watch
+    action: push
+    reason: RSS 阅读器生态，适合扫读。
+  RSS:
+    tier: watch
+    action: push
+    reason: RSS 社区经验，适合筛选信息流方法。
+  潮流周刊:
+    tier: watch
+    action: push_and_archive
+    reason: 用户明确指定需注意；周刊适合重点扫读，不默认精读。
+  老胡的周刊:
+    tier: watch
+    action: push
+    reason: 技术周刊，适合重点扫读。
+  阮一峰的网络日志:
+    tier: watch
+    action: push_and_archive
+    reason: 用户明确指定需注意；信息密度高，进入重点扫读队列。
+  少数派:
+    tier: watch
+    action: push
+    reason: 效率与数字生活内容，适合扫读筛选。
+  数字生命卡兹克:
+    tier: watch
+    action: push
+    reason: AI/数字生命相关，适合扫读筛选。
+  小众软件:
+    tier: watch
+    action: push
+    reason: 工具发现源，适合扫读。
+  HelloGitHub 月刊:
+    tier: watch
+    action: push
+    reason: 开源项目月刊，适合扫读筛选。
+  Limboy:
+    tier: deep
+    action: push_and_archive
+    reason: 独立博客与产品/系统思考，适合深读候选。
+  This Week in Rust:
+    tier: stream
+    action: push
+    reason: 非当前主线技术周刊，背景感知即可。
+  界面新闻:
+    tier: stream
+    action: push
+    reason: 新闻源，保持背景感知。
+  联合早报:
+    tier: stream
+    action: push
+    reason: 新闻源，保持背景感知。
+  IT之家:
+    tier: noise
+    action: push
+    reason: 高频科技新闻，容易淹没高价值来源。
+  Ray Dalio:
+    tier: watch
+    action: push
+    reason: 宏观与原则类内容，可重点扫看。
+  机器之心:
+    tier: watch
+    action: push
+    reason: AI 中文媒体，扫读筛选重要趋势。
+  Hugging Face:
+    tier: watch
+    action: push
+    reason: AI 工具/模型生态，适合重点扫读。
+  Last Week in AI:
+    tier: watch
+    action: push
+    reason: AI 周报，适合集中扫读。
+  OpenAI News:
+    tier: watch
+    action: push
+    reason: 重要 AI 平台官方更新。
+  Simon Willison:
+    tier: deep
+    action: push_and_archive
+    reason: 高质量技术独立博客，适合工具系统与 AI 实践沉淀。
+  Stability AI:
+    tier: stream
+    action: push
+    reason: 公司新闻，背景感知即可。
+  知识分享官:
+    tier: stream
+    action: push
+    reason: 社交媒体流，保持背景感知。
+  Adam McCombs:
+    tier: watch
+    action: push
+    reason: 显微/纳米图像相关个人动态，适合重点关注。
+  Cheng Liu:
+    tier: deep
+    action: push_and_archive
+    reason: 用户个人站点，保留归档与自我输出反馈。
+  简悦:
+    tier: research
+    action: push
+    reason: 阅读/剪藏工具，直接影响知识工作流。
+  App Store 特价（CN）:
+    tier: noise
+    action: push
+    reason: 消费折扣源，默认低优先级。
+  Logseq DB:
+    tier: research
+    action: push
+    reason: 知识管理工具变更，可能影响长期系统。
+  Obsidian:
+    tier: research
+    action: push
+    reason: Obsidian 核心工具更新，直接影响知识库。
+  Spectrochempy:
+    tier: research
+    action: push
+    reason: 科研谱学工具更新，值得归档。

@@ -56,6 +56,9 @@ jobs:
           EMOJIS: ${{ secrets.EMOJIS }}
           OPML_FILE: ${{ secrets.OPML_FILE }}
           DATABASE: ${{ secrets.DATABASE }}
+          ROUTES_FILE: ${{ secrets.ROUTES_FILE }}
+          OBSIDIAN_INBOX_DIR: ${{ secrets.OBSIDIAN_INBOX_DIR }}
+          OBSIDIAN_DATE_FORMAT: ${{ secrets.OBSIDIAN_DATE_FORMAT }}
           MAX_ENTRIES_PER_FEED: ${{ secrets.MAX_ENTRIES_PER_FEED }}
           SEND_ON_FIRST_RUN: ${{ secrets.SEND_ON_FIRST_RUN }}
           FETCH_IMAGES: ${{ secrets.FETCH_IMAGES }}
@@ -78,6 +81,9 @@ jobs:
               "EMOJIS",
               "OPML_FILE",
               "DATABASE",
+              "ROUTES_FILE",
+              "OBSIDIAN_INBOX_DIR",
+              "OBSIDIAN_DATE_FORMAT",
               "MAX_ENTRIES_PER_FEED",
               "SEND_ON_FIRST_RUN",
               "FETCH_IMAGES",
