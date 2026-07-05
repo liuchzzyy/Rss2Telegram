@@ -1,349 +1,237 @@
 <?xml version='1.0' encoding='utf-8'?>
 <opml version="1.1">
-	<head>
-		<title>Subscriptions-LocalRSS.opml</title>
-	</head>
-	<body>
-		<outline text="🎙️ 播客与音频" title="🎙️ 播客与音频">
-			<outline text="捕蛇者说" title="捕蛇者说" description="" type="rss" version="RSS" htmlUrl="https://pythonhunter.org/" xmlUrl="https://pythonhunter.org/feed/audio.xml" />
-			<outline text="大可不必" title="大可不必" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/63c2660f92967c0010f6aede?utm_source=rss" xmlUrl="https://feed.xyzfm.space/cpuwx8b7yqrn" />
-			<outline text="面基" title="面基" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/6388760f22567e8ea6ad070f?utm_source=rss" xmlUrl="https://feed.xyzfm.space/6hpdgggtxpxb" />
-			<outline text="起朱楼宴宾客" title="起朱楼宴宾客" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/61dd99a47b29652ff572257b?utm_source=rss" xmlUrl="https://feed.xyzfm.space/ahng8d9qlywl" />
-			<outline text="三好坏男孩" title="三好坏男孩" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/xiaoyuzhou/podcast/5e40fcf3418a84a0467481da" />
-			<outline text="曳尾于涂" title="曳尾于涂" description="" type="rss" version="RSS" htmlUrl="https://www.ximalaya.com/album/80412985" xmlUrl="https://www.ximalaya.com/album/80412985.xml" />
-			<outline text="正文三台" title="正文三台" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/64030b5f40894f3da2fbe5b3?utm_source=rss" xmlUrl="https://feed.xyzfm.space/bpb7ht8r6vwu" />
-		</outline>
-		<outline text="🎬 视频频道" title="🎬 视频频道">
-			<outline text="让水烧开" title="让水烧开" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UC-JkkIxVewEjpSvi2Jc3vvQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-JkkIxVewEjpSvi2Jc3vvQ" />
-			<outline text="中文油管排行榜" title="中文油管排行榜" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCpVe3swmfUtmo0hLtJYOjag" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpVe3swmfUtmo0hLtJYOjag" />
-			<outline text="Cylo's Garage" title="Cylo's Garage" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCiygJF7wFHDeWGVvXkztUSA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiygJF7wFHDeWGVvXkztUSA" />
-			<outline text="Jay and Mark" title="Jay and Mark" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCbbQalJ4OaC0oQ0AqRaOJ9g" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbbQalJ4OaC0oQ0AqRaOJ9g" />
-			<outline text="JFlaMusic" title="JFlaMusic" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UClkRzsdvg7_RKVhwDwiDZOA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClkRzsdvg7_RKVhwDwiDZOA" />
-			<outline text="Munro Live" title="Munro Live" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCj--iMtToRO_cGG_fpmP5XQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj--iMtToRO_cGG_fpmP5XQ" />
-		</outline>
-		<outline text="🏢 工程团队博客" title="🏢 工程团队博客">
-			<outline text="GitHub" title="GitHub" description="" type="rss" version="RSS" htmlUrl="https://github.blog/" xmlUrl="https://github.blog/feed/" />
-			<outline text="Google Developers" title="Google Developers" description="" type="rss" version="RSS" htmlUrl="https://developers.googleblog.com/rss/" xmlUrl="https://developers.googleblog.com/feeds/posts/default/" />
-			<outline text="Vercel News" title="Vercel News" description="" type="rss" version="RSS" htmlUrl="https://vercel.com/" xmlUrl="https://vercel.com/atom" />
-		</outline>
-		<outline text="💬 技术社区与论坛" title="💬 技术社区与论坛">
-			<outline text="GitHub Daily Trending" title="GitHub Daily Trending" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml" />
-			<outline text="Github-CAPPuls" title="Github-CAPPuls" description="" type="rss" version="RSS" htmlUrl="https://github.com/seakee/CPA-Manager-Plus/releases" xmlUrl="https://github.com/seakee/CPA-Manager-Plus/releases.atom" />
-			<outline text="Github-Hyperspy" title="Github-Hyperspy" description="" type="rss" version="RSS" htmlUrl="https://github.com/hyperspy/hyperspy/releases" xmlUrl="https://github.com/hyperspy/hyperspy/releases.atom" />
-			<outline text="Github-Python" title="Github-Python" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/python.xml" />
-			<outline text="Github-Rust" title="Github-Rust" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/rust.xml" />
-			<outline text="LessWrong" title="LessWrong" description="" type="rss" version="RSS" htmlUrl="https://www.lesswrong.com/" xmlUrl="https://www.lesswrong.com/feed.xml?view=curated-rss" />
-			<outline text="LINUX DO - 热门" title="LINUX DO - 热门" description="" type="rss" version="RSS" htmlUrl="https://linux.do/top?period=yearly" xmlUrl="https://linux.do/top.rss" />
-			<outline text="LINUX DO - 最新" title="LINUX DO - 最新" description="" type="rss" version="RSS" htmlUrl="https://linux.do/latest" xmlUrl="https://linux.do/latest.rss" />
-			<outline text="logseq" title="logseq" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/logseq/" xmlUrl="https://www.reddit.com/r/logseq/.rss" />
-			<outline text="V2EX - 技术" title="V2EX - 技术" description="" type="rss" version="RSS" htmlUrl="https://www.v2ex.com/" xmlUrl="https://www.v2ex.com/feed/tab/tech.xml" />
-			<outline text="V2EX 最热" title="V2EX 最热" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://www.v2ex.com/feed/tab/hot.xml" />
-			<outline text="Zotero" title="Zotero" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/zotero/" xmlUrl="https://www.reddit.com/r/zotero/.rss" />
-			<outline text="Zotero 最新" title="Zotero 最新" description="" type="rss" version="RSS" htmlUrl="https://forums.zotero.org/" xmlUrl="https://forums.zotero.org/comments/feed.rss" />
-		</outline>
-		<outline text="📚 阅读、影评与日常" title="📚 阅读、影评与日常">
-			<outline text="豆瓣最受欢迎的书评" title="豆瓣最受欢迎的书评" description="" type="rss" version="RSS" htmlUrl="https://book.douban.com/review/book_best/" xmlUrl="https://plink.anyfeeder.com/douban/review/book" />
-			<outline text="豆瓣最受欢迎的影评" title="豆瓣最受欢迎的影评" description="" type="rss" version="RSS" htmlUrl="https://movie.douban.com/review/movie_best/" xmlUrl="https://plink.anyfeeder.com/douban/review/movie" />
-			<outline text="瓠樽" title="瓠樽" description="" type="rss" version="RSS" htmlUrl="https://blog.dylanwu.space/" xmlUrl="https://blog.dylanwu.space/feed.xml" />
-			<outline text="浣心" title="浣心" description="" type="rss" version="RSS" htmlUrl="https://blog.loikein.one/posts/" xmlUrl="https://blog.loikein.one/posts/index.xml" />
-			<outline text="揆机" title="揆机" description="" type="rss" version="RSS" htmlUrl="https://pathos.page/" xmlUrl="https://pathos.page/feed.xml" />
-			<outline text="理论派" title="理论派" description="" type="rss" version="RSS" htmlUrl="https://sliun.com/" xmlUrl="https://lilun.bearblog.dev/feed/" />
-			<outline text="小声读书" title="小声读书" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/telegram/channel/weekly_books" />
-			<outline text="序章" title="序章" description="" type="rss" version="RSS" htmlUrl="https://prologue.dev/" xmlUrl="https://prologue.dev/rss" />
-		</outline>
-		<outline text="📡 RSS 生态" title="📡 RSS 生态">
-			<outline text="ALL About RSS" title="ALL About RSS" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/telegram/channel/aboutrss" />
-			<outline text="NetNewsWire" title="NetNewsWire" description="" type="rss" version="RSS" htmlUrl="https://netnewswire.blog/" xmlUrl="https://netnewswire.blog/feed.xml" />
-			<outline text="RSS" title="RSS" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/rss/" xmlUrl="https://www.reddit.com/r/rss/.rss" />
-		</outline>
-		<outline text="📮 技术周刊与独立博客" title="📮 技术周刊与独立博客">
-			<outline text="潮流周刊" title="潮流周刊" description="" type="rss" version="RSS" htmlUrl="https://weekly.tw93.fun/" xmlUrl="https://weekly.tw93.fun/rss.xml" />
-			<outline text="老胡的周刊" title="老胡的周刊" description="" type="rss" version="RSS" htmlUrl="https://weekly.howie6879.com/" xmlUrl="https://weekly.howie6879.com/rss/rss.xml" />
-			<outline text="阮一峰的网络日志" title="阮一峰的网络日志" description="" type="rss" version="RSS" htmlUrl="http://www.ruanyifeng.com/blog/" xmlUrl="https://www.ruanyifeng.com/blog/atom.xml" />
-			<outline text="少数派" title="少数派" description="" type="rss" version="RSS" htmlUrl="https://sspai.com/" xmlUrl="https://sspai.com/feed" />
-			<outline text="数字生命卡兹克" title="数字生命卡兹克" description="" type="rss" version="RSS" htmlUrl="https://wechat2rss.bestblogs.dev/feed/ff621c3e98d6ae6fceb3397e57441ffc6ea3c17f.xml" xmlUrl="https://wechat2rss.bestblogs.dev/feed/ff621c3e98d6ae6fceb3397e57441ffc6ea3c17f.xml" />
-			<outline text="小众软件" title="小众软件" description="" type="rss" version="RSS" htmlUrl="https://www.appinn.com/" xmlUrl="https://feeds.appinn.com/appinns/" />
-			<outline text="HelloGitHub 月刊" title="HelloGitHub 月刊" description="" type="rss" version="RSS" htmlUrl="https://hellogithub.com/" xmlUrl="https://hellogithub.com/rss" />
-			<outline text="Limboy" title="Limboy" description="" type="rss" version="RSS" htmlUrl="https://limboy.me/" xmlUrl="https://limboy.me/index.xml" />
-			<outline text="This Week in Rust" title="This Week in Rust" description="" type="rss" version="RSS" htmlUrl="https://this-week-in-rust.org/" xmlUrl="https://this-week-in-rust.org/atom.xml" />
-		</outline>
-		<outline text="📰 新闻、社会与经济" title="📰 新闻、社会与经济">
-			<outline text="界面新闻" title="界面新闻" description="" type="rss" version="RSS" htmlUrl="https://www.jiemian.com/lists/801.html" xmlUrl="https://plink.anyfeeder.com/jiemian/news" />
-			<outline text="联合早报" title="联合早报" description="" type="rss" version="RSS" htmlUrl="https://www.zaobao.com/realtime/china" xmlUrl="https://rsshub.rssforever.com/zaobao/realtime/china" />
-			<outline text="IT之家" title="IT之家" description="" type="rss" version="RSS" htmlUrl="https://www.ithome.com/" xmlUrl="https://www.ithome.com/rss/" />
-			<outline text="Ray Dalio" title="Ray Dalio" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCqvaXJ1K3HheTPNjH-KpwXQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqvaXJ1K3HheTPNjH-KpwXQ" />
-		</outline>
-		<outline text="🤖 AI 与机器学习" title="🤖 AI 与机器学习">
-			<outline text="机器之心" title="机器之心" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://www.jiqizhixin.com/rss" />
-			<outline text="Hugging Face" title="Hugging Face" description="" type="rss" version="RSS" htmlUrl="https://huggingface.co/blog" xmlUrl="https://huggingface.co/blog/feed.xml" />
-			<outline text="Last Week in AI" title="Last Week in AI" description="" type="rss" version="RSS" htmlUrl="https://lastweekin.ai/" xmlUrl="https://lastweekin.ai/feed" />
-			<outline text="OpenAI News" title="OpenAI News" description="" type="rss" version="RSS" htmlUrl="https://openai.com/news" xmlUrl="https://openai.com/news/rss.xml" />
-			<outline text="Simon Willison" title="Simon Willison" description="" type="rss" version="RSS" htmlUrl="http://simonwillison.net/" xmlUrl="https://simonwillison.net/atom/everything/" />
-			<outline text="Stability AI" title="Stability AI" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://stability.ai/news?format=rss" />
-		</outline>
-		<outline text="🧑‍💻 个人动态与社交" title="🧑‍💻 个人动态与社交">
-			<outline text="知识分享官" title="知识分享官" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/twitter/user/knowledgefxg" />
-			<outline text="Adam McCombs" title="Adam McCombs" description="" type="rss" version="RSS" htmlUrl="https://chaos.social/@nanographs" xmlUrl="https://chaos.social/@nanographs.rss" />
-			<outline text="Cheng Liu" title="Cheng Liu" description="" type="rss" version="RSS" htmlUrl="https://liuchzzyy.github.io/" xmlUrl="https://liuchzzyy.github.io/rss/feed.xml" />
-		</outline>
-		<outline text="🧰 软件、工具与效率" title="🧰 软件、工具与效率">
-			<outline text="简悦" title="简悦" description="" type="rss" version="RSS" htmlUrl="https://simpread.pro/changelog" xmlUrl="https://rss.simpread.pro/feed" />
-			<outline text="App Store 特价（CN）" title="App Store 特价（CN）" description="" type="rss" version="RSS" htmlUrl="https://apps.apple.com/cn/app" xmlUrl="https://raw.githubusercontent.com/eyelly-wu/appstore-discounts/main/rss/cn.xml" />
-			<outline text="Logseq DB" title="Logseq DB" description="" type="rss" version="RSS" htmlUrl="https://discuss.logseq.com/t/logseq-db-changelog/30013" xmlUrl="https://discuss.logseq.com/t/logseq-db-changelog/30013.rss" />
-			<outline text="Obsidian" title="Obsidian" description="" type="rss" version="RSS" htmlUrl="https://obsidian.md/" xmlUrl="https://obsidian.md/changelog.xml" />
-			<outline text="Spectrochempy" title="Spectrochempy" description="" type="rss" version="RSS" htmlUrl="https://github.com/spectrochempy/spectrochempy/releases" xmlUrl="https://github.com/spectrochempy/spectrochempy/releases.atom" />
-		</outline>
-		<outline text="📚 学术期刊" title="📚 学术期刊">
-			<outline text="ai" title="ai">
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Artificial Intelligence" title="Artificial Intelligence" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00043702" category="ai" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/artificial-intelligence" tagName="AI" />
-					<outline text="Neural Networks" title="Neural Networks" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/08936080" category="ai" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/neural-networks" tagName="NeuralNet" />
-					<outline text="Pattern Recognition" title="Pattern Recognition" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00313203" category="ai" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/pattern-recognition" tagName="PatternRecog" />
-					<outline text="Pattern Recognition Letters" title="Pattern Recognition Letters" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/01678655" category="ai" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/pattern-recognition-letters" tagName="PatternRecogLett" />
-				</outline>
-				<outline text="IOP" title="IOP">
-					<outline text="Machine Learning: Science and Technology" title="Machine Learning: Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/2632-2153" category="ai" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/2632-2153" tagName="MLST" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature Machine Intelligence" title="Nature Machine Intelligence" type="rss" xmlUrl="https://www.nature.com/natmachintell.rss" category="ai" publisher="Nature" htmlUrl="http://feeds.nature.com/natmachintell/rss/current" tagName="NatMachineIntelligence" />
-				</outline>
-				<outline text="Springer" title="Springer">
-					<outline text="Machine Intelligence Research" title="Machine Intelligence Research" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11633&amp;channel-name=Machine%20Intelligence%20Research" category="ai" publisher="Springer" htmlUrl="http://link.springer.com" tagName="MIR" />
-				</outline>
-			</outline>
-			<outline text="characterization" title="characterization">
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Cell Reports Methods" title="Cell Reports Methods" type="rss" xmlUrl="https://www.cell.com/cell-reports-methods/inpress.rss" category="characterization" publisher="Cell Press" htmlUrl="https://www.cell.com/cell-reports-methods/archive?publicationCode=crmeth&amp;rss=yes" tagName="CellRepMethods" />
-				</outline>
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Journal of Electron Spectroscopy and Related Phenomena" title="Journal of Electron Spectroscopy and Related Phenomena" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/03682048" category="characterization" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/journal-of-electron-spectroscopy-and-related-phenomena" tagName="JESRP" />
-					<outline text="Materials Characterization" title="Materials Characterization" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/10445803" category="characterization" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/materials-characterization" tagName="MC" />
-					<outline text="Spectrochimica Acta Part B: Atomic Spectroscopy" title="Spectrochimica Acta Part B: Atomic Spectroscopy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/05848547" category="characterization" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/spectrochimica-acta-part-b-atomic-spectroscopy" tagName="SABAS" />
-					<outline text="Ultramicroscopy" title="Ultramicroscopy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/03043991" category="characterization" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/ultramicroscopy" tagName="Ultramicroscopy" />
-				</outline>
-				<outline text="IOP" title="IOP">
-					<outline text="Measurement Science and Technology" title="Measurement Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0957-0233" category="characterization" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/0957-0233" tagName="MST" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature Methods" title="Nature Methods" type="rss" xmlUrl="https://www.nature.com/nmeth.rss" category="characterization" publisher="Nature" htmlUrl="http://feeds.nature.com/nmeth/rss/current" tagName="NatMethods" />
-					<outline text="Nature Protocols" title="Nature Protocols" type="rss" xmlUrl="https://www.nature.com/nprot.rss" category="characterization" publisher="Nature" htmlUrl="http://feeds.nature.com/nprot/rss/current" tagName="NatProtoc" />
-				</outline>
-				<outline text="RSC" title="RSC">
-					<outline text="Analyst" title="Analyst" type="rss" xmlUrl="http://feeds.rsc.org/rss/an" category="characterization" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/AN" tagName="Analyst" />
-					<outline text="Journal of Analytical Atomic Spectrometry" title="Journal of Analytical Atomic Spectrometry" type="rss" xmlUrl="http://feeds.rsc.org/rss/ja" category="characterization" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/JA" tagName="JAAS" />
-				</outline>
-				<outline text="SAGE" title="SAGE">
-					<outline text="Applied Spectroscopy" title="Applied Spectroscopy" type="rss" xmlUrl="https://journals.sagepub.com/action/showFeed?ui=0&amp;mi=ehikzz&amp;ai=2b4&amp;jc=asp&amp;type=etoc&amp;feed=rss" category="characterization" publisher="SAGE" htmlUrl="https://journals.sagepub.com/loi/aspc?ai=2b4&amp;mi=ehikzz&amp;af=R" tagName="ApplSpectrosc" />
-					<outline text="International Materials Reviews" title="International Materials Reviews" type="rss" xmlUrl="https://journals.sagepub.com/action/showFeed?ui=0&amp;mi=ehikzz&amp;ai=2b4&amp;jc=inr&amp;type=etoc&amp;feed=rss" category="characterization" publisher="SAGE" htmlUrl="https://journals.sagepub.com/loi/inrb?ai=2b4&amp;mi=ehikzz&amp;af=R" tagName="IMR" />
-				</outline>
-				<outline text="Taylor &amp; Francis" title="Taylor &amp; Francis">
-					<outline text="Applied Spectroscopy Reviews" title="Applied Spectroscopy Reviews" type="rss" xmlUrl="https://www.tandfonline.com/feed/rss/laps20" category="characterization" publisher="Taylor &amp; Francis" htmlUrl="https://www.tandfonline.com/loi/laps20?af=R" tagName="ApplSpectroscRev" />
-				</outline>
-				<outline text="Wiley" title="Wiley">
-					<outline text="Journal of Raman Spectroscopy" title="Journal of Raman Spectroscopy" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/10974555/most-recent" category="characterization" publisher="Wiley" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10974555?af=R" tagName="JRS" />
-					<outline text="Microscopy Research and Technique" title="Microscopy Research and Technique" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/10970029/most-recent" category="characterization" publisher="Wiley" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10970029?af=R" tagName="MRT" />
-					<outline text="Surface and Interface Analysis" title="Surface and Interface Analysis" type="rss" xmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/feed/10969918/most-recent" category="characterization" publisher="Wiley" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10969918?af=R" tagName="SIA" />
-					<outline text="X-Ray Spectrometry" title="X-Ray Spectrometry" type="rss" xmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/feed/10974539/most-recent" category="characterization" publisher="Wiley" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10974539?af=R" tagName="XRS" />
-				</outline>
-			</outline>
-			<outline text="chemistry" title="chemistry">
-				<outline text="ACS" title="ACS">
-					<outline text="Accounts of Chemical Research" title="Accounts of Chemical Research" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=achre4" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACR" />
-					<outline text="ACS Catalysis" title="ACS Catalysis" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=accacs" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSCatal" />
-					<outline text="ACS Central Science" title="ACS Central Science" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=acscii" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSCentralSci" />
-					<outline text="Analytical Chemistry" title="Analytical Chemistry" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=ancham" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="AC" />
-					<outline text="Chemical Reviews" title="Chemical Reviews" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=chreay" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ChemRev" />
-					<outline text="Inorganic Chemistry" title="Inorganic Chemistry" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=inocaj" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="IC" />
-					<outline text="Journal of Chemical Information and Modeling" title="Journal of Chemical Information and Modeling" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jcisd8" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JCIM" />
-					<outline text="Journal of the American Chemical Society" title="Journal of the American Chemical Society" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jacsat" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JACS" />
-					<outline text="Langmuir" title="Langmuir" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=langd5" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="Langmuir" />
-					<outline text="The Journal of Physical Chemistry A" title="The Journal of Physical Chemistry A" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpcafh" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCA" />
-					<outline text="The Journal of Physical Chemistry B" title="The Journal of Physical Chemistry B" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpcbfk" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCB" />
-					<outline text="The Journal of Physical Chemistry C" title="The Journal of Physical Chemistry C" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpccck" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCC" />
-					<outline text="The Journal of Physical Chemistry Letters" title="The Journal of Physical Chemistry Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpclcd" category="chemistry" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCL" />
-				</outline>
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Chem" title="Chem" type="rss" xmlUrl="https://www.cell.com/chem/inpress.rss" category="chemistry" publisher="Cell Press" htmlUrl="https://www.cell.com/chem/archive?publicationCode=chempr&amp;rss=yes" tagName="Chem" />
-					<outline text="Chem Catalysis" title="Chem Catalysis" type="rss" xmlUrl="https://www.cell.com/chem-catalysis/inpress.rss" category="chemistry" publisher="Cell Press" htmlUrl="https://www.cell.com/chem-catalysis/archive?publicationCode=checat&amp;rss=yes" tagName="ChemCatal" />
-				</outline>
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Catalysis Today" title="Catalysis Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/09205861" category="chemistry" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/catalysis-today" tagName="CT" />
-					<outline text="Chemical Engineering Journal" title="Chemical Engineering Journal" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/13858947" category="chemistry" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/chemical-engineering-journal" tagName="ChemEngineeringJournal" />
-					<outline text="Chinese Chemical Letters" title="Chinese Chemical Letters" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/10018417" category="chemistry" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/chinese-chemical-letters" tagName="CCL" />
-					<outline text="Chinese Journal of Catalysis" title="Chinese Journal of Catalysis" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/18722067" category="chemistry" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/chinese-journal-of-catalysis" tagName="CJC" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature Catalysis" title="Nature Catalysis" type="rss" xmlUrl="https://www.nature.com/natcatal.rss" category="chemistry" publisher="Nature" htmlUrl="http://feeds.nature.com/natcatal/rss/current" tagName="NatCatal" />
-					<outline text="Nature Chemistry" title="Nature Chemistry" type="rss" xmlUrl="https://www.nature.com/nchem.rss" category="chemistry" publisher="Nature" htmlUrl="http://feeds.nature.com/nchem/rss/current" tagName="NatChem" />
-					<outline text="Nature Reviews Chemistry" title="Nature Reviews Chemistry" type="rss" xmlUrl="https://www.nature.com/natrevchem.rss" category="chemistry" publisher="Nature" htmlUrl="http://feeds.nature.com/natrevchem/rss/current" tagName="NatRevChem" />
-				</outline>
-				<outline text="RSC" title="RSC">
-					<outline text="Catalysis Science &amp; Technology" title="Catalysis Science &amp; Technology" type="rss" xmlUrl="http://feeds.rsc.org/rss/cy" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CY" tagName="CST" />
-					<outline text="Chemical Communications" title="Chemical Communications" type="rss" xmlUrl="http://feeds.rsc.org/rss/cc" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CC" tagName="ChemCommun" />
-					<outline text="Chemical Science" title="Chemical Science" type="rss" xmlUrl="http://feeds.rsc.org/rss/sc" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/SC" tagName="ChemSci" />
-					<outline text="Chemical Society Reviews" title="Chemical Society Reviews" type="rss" xmlUrl="http://feeds.rsc.org/rss/cs" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CS" tagName="ChemSocietyRev" />
-					<outline text="Dalton Transactions" title="Dalton Transactions" type="rss" xmlUrl="http://feeds.rsc.org/rss/dt" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/DT" tagName="DT" />
-					<outline text="Faraday Discussions" title="Faraday Discussions" type="rss" xmlUrl="http://feeds.rsc.org/rss/fd" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/FD" tagName="FD" />
-					<outline text="Physical Chemistry Chemical Physics" title="Physical Chemistry Chemical Physics" type="rss" xmlUrl="http://feeds.rsc.org/rss/cp" category="chemistry" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CP" tagName="PCCP" />
-				</outline>
-				<outline text="Springer" title="Springer">
-					<outline text="Science China Chemistry" title="Science China Chemistry" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11426&amp;channel-name=Science%20China%20Chemistry" category="chemistry" publisher="Springer" htmlUrl="http://link.springer.com" tagName="SCC" />
-				</outline>
-				<outline text="Wiley" title="Wiley">
-					<outline text="Angewandte Chemie International Edition" title="Angewandte Chemie International Edition" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/15213773/most-recent" category="chemistry" publisher="Wiley" htmlUrl="https://onlinelibrary.wiley.com/journal/15213773?af=R" tagName="ACIE" />
-					<outline text="ChemCatChem" title="ChemCatChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/18673899/most-recent" category="chemistry" publisher="Wiley" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/18673899?af=R" tagName="ChemCatChem" />
-					<outline text="ChemElectroChem" title="ChemElectroChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/21960216/most-recent" category="chemistry" publisher="Wiley" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/21960216?af=R" tagName="ChemElectroChem" />
-				</outline>
-			</outline>
-			<outline text="energy" title="energy">
-				<outline text="ACS" title="ACS">
-					<outline text="ACS Applied Energy Materials" title="ACS Applied Energy Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aaemcq" category="energy" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplEnergyMater" />
-					<outline text="ACS Energy Letters" title="ACS Energy Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aelccp" category="energy" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSEnergyLett" />
-				</outline>
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Joule" title="Joule" type="rss" xmlUrl="https://www.cell.com/joule/inpress.rss" category="energy" publisher="Cell Press" htmlUrl="https://www.cell.com/joule/archive?publicationCode=joul&amp;rss=yes" tagName="Joule" />
-				</outline>
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Energy Storage Materials" title="Energy Storage Materials" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/24058297" category="energy" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/energy-storage-materials" tagName="ESM" />
-					<outline text="EnergyChem" title="EnergyChem" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/25897780" category="energy" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/energychem" tagName="EnergyChem" />
-					<outline text="Journal of Energy Chemistry" title="Journal of Energy Chemistry" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/20954956" category="energy" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/journal-of-energy-chemistry" tagName="JEC" />
-					<outline text="Nano Energy" title="Nano Energy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/22112855" category="energy" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/nano-energy" tagName="NanoEnergy" />
-				</outline>
-				<outline text="IOP" title="IOP">
-					<outline text="Journal of The Electrochemical Society" title="Journal of The Electrochemical Society" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/1945-7111" category="energy" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/1945-7111" tagName="JES" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature Energy" title="Nature Energy" type="rss" xmlUrl="https://www.nature.com/nenergy.rss" category="energy" publisher="Nature" htmlUrl="http://feeds.nature.com/nenergy/rss/current" tagName="NatEnergy" />
-					<outline text="Nature Sustainability" title="Nature Sustainability" type="rss" xmlUrl="https://www.nature.com/natsustain.rss" category="energy" publisher="Nature" htmlUrl="http://feeds.nature.com/natsustain/rss/current" tagName="NatSustainability" />
-				</outline>
-				<outline text="RSC" title="RSC">
-					<outline text="Energy &amp; Environmental Science" title="Energy &amp; Environmental Science" type="rss" xmlUrl="http://feeds.rsc.org/rss/ee" category="energy" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/EE" tagName="EES" />
-				</outline>
-				<outline text="Wiley" title="Wiley">
-					<outline text="Advanced Energy Materials" title="Advanced Energy Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/16146840/most-recent" category="energy" publisher="Wiley" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/16146840?af=R" tagName="AdvEnergyMater" />
-					<outline text="Batteries &amp; Supercaps" title="Batteries &amp; Supercaps" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/25666223/most-recent" category="energy" publisher="Wiley" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/25666223?af=R" tagName="BS" />
-					<outline text="Carbon Energy" title="Carbon Energy" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/26379368/most-recent" category="energy" publisher="Wiley" htmlUrl="https://onlinelibrary.wiley.com/journal/26379368?af=R" tagName="CE" />
-					<outline text="ChemSusChem" title="ChemSusChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/1864564x/most-recent" category="energy" publisher="Wiley" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/1864564x?af=R" tagName="ChemSusChem" />
-				</outline>
-			</outline>
-			<outline text="materials" title="materials">
-				<outline text="ACS" title="ACS">
-					<outline text="Accounts of Materials Research" title="Accounts of Materials Research" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amrcda" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="AMR" />
-					<outline text="ACS Applied Materials &amp; Interfaces" title="ACS Applied Materials &amp; Interfaces" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aamick" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplMaterInterfaces" />
-					<outline text="ACS Applied Nano Materials" title="ACS Applied Nano Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aanmf6" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplNanoMater" />
-					<outline text="ACS Macro Letters" title="ACS Macro Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amlccd" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSMacroLett" />
-					<outline text="ACS Materials Letters" title="ACS Materials Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amlcef" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSMaterLett" />
-					<outline text="ACS Nano" title="ACS Nano" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=ancac3" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSNano" />
-					<outline text="Chemistry of Materials" title="Chemistry of Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=cmatex" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="ChemMater" />
-					<outline text="Nano Letters" title="Nano Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=nalefd" category="materials" publisher="ACS" htmlUrl="https://pubs.acs.org/?af=R" tagName="NanoLett" />
-				</outline>
-				<outline text="APS" title="APS">
-					<outline text="Physical Review Materials" title="Physical Review Materials" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prmaterials.xml" category="materials" publisher="APS" htmlUrl="http://journals.aps.org/prmaterials/" tagName="PRM" />
-				</outline>
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Device" title="Device" type="rss" xmlUrl="https://www.cell.com/device/inpress.rss" category="materials" publisher="Cell Press" htmlUrl="https://www.cell.com/device/archive?publicationCode=device&amp;rss=yes" tagName="Device" />
-					<outline text="Matter" title="Matter" type="rss" xmlUrl="https://www.cell.com/matter/inpress.rss" category="materials" publisher="Cell Press" htmlUrl="https://www.cell.com/matter/archive?publicationCode=matt&amp;rss=yes" tagName="Matter" />
-				</outline>
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Applied Materials Today" title="Applied Materials Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/23529407" category="materials" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/applied-materials-today" tagName="ApplMaterToday" />
-					<outline text="Carbon" title="Carbon" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00086223" category="materials" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/carbon" tagName="Carbon" />
-					<outline text="Journal of Materiomics" title="Journal of Materiomics" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/23528478" category="materials" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/journal-of-materiomics" tagName="JM" />
-					<outline text="Materials Today" title="Materials Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/13697021" category="materials" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/materials-today" tagName="MT" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Communications Materials" title="Communications Materials" type="rss" xmlUrl="https://www.nature.com/commsmat.rss" category="materials" publisher="Nature" htmlUrl="http://feeds.nature.com/commsmat/rss/current" tagName="CommunMater" />
-					<outline text="Nature Materials" title="Nature Materials" type="rss" xmlUrl="https://www.nature.com/nmat.rss" category="materials" publisher="Nature" htmlUrl="http://feeds.nature.com/nmat/rss/current" tagName="NatMater" />
-					<outline text="Nature Nanotechnology" title="Nature Nanotechnology" type="rss" xmlUrl="https://www.nature.com/nnano.rss" category="materials" publisher="Nature" htmlUrl="http://feeds.nature.com/nnano/rss/current" tagName="NatNano" />
-					<outline text="npj Computational Materials" title="npj Computational Materials" type="rss" xmlUrl="https://www.nature.com/npjcompumats.rss" category="materials" publisher="Nature" htmlUrl="http://feeds.nature.com/npjcompumats/rss/current" tagName="nCM" />
-				</outline>
-				<outline text="RSC" title="RSC">
-					<outline text="Journal of Materials Chemistry A" title="Journal of Materials Chemistry A" type="rss" xmlUrl="http://feeds.rsc.org/rss/ta" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TA" tagName="JMC" />
-					<outline text="Journal of Materials Chemistry B" title="Journal of Materials Chemistry B" type="rss" xmlUrl="http://feeds.rsc.org/rss/tb" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TB" tagName="JMCB" />
-					<outline text="Journal of Materials Chemistry C" title="Journal of Materials Chemistry C" type="rss" xmlUrl="http://feeds.rsc.org/rss/tc" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TC" tagName="JMCC" />
-					<outline text="Materials Advances" title="Materials Advances" type="rss" xmlUrl="http://feeds.rsc.org/rss/ma" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/MA" tagName="MA" />
-					<outline text="Materials Horizons" title="Materials Horizons" type="rss" xmlUrl="http://feeds.rsc.org/rss/mh" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/MH" tagName="MH" />
-					<outline text="Nanoscale" title="Nanoscale" type="rss" xmlUrl="http://feeds.rsc.org/rss/nr" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NR" tagName="Nanoscale" />
-					<outline text="Nanoscale Advances" title="Nanoscale Advances" type="rss" xmlUrl="http://feeds.rsc.org/rss/na" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NA" tagName="NA" />
-					<outline text="Nanoscale Horizons" title="Nanoscale Horizons" type="rss" xmlUrl="http://feeds.rsc.org/rss/nh" category="materials" publisher="RSC" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NH" tagName="NH" />
-				</outline>
-				<outline text="Springer" title="Springer">
-					<outline text="Nano Research" title="Nano Research" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=12274&amp;channel-name=Nano%20Research" category="materials" publisher="Springer" htmlUrl="http://link.springer.com" tagName="NanoResearch" />
-					<outline text="Science China Materials" title="Science China Materials" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=40843&amp;channel-name=Science%20China%20Materials" category="materials" publisher="Springer" htmlUrl="http://link.springer.com" tagName="SCM" />
-				</outline>
-				<outline text="Wiley" title="Wiley">
-					<outline text="Advanced Functional Materials" title="Advanced Functional Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/16163028/most-recent" category="materials" publisher="Wiley" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/16163028?af=R" tagName="AdvFunctionalMater" />
-					<outline text="Advanced Materials" title="Advanced Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/15214095/most-recent" category="materials" publisher="Wiley" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/15214095?af=R" tagName="AdvMater" />
-					<outline text="Advanced Science" title="Advanced Science" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/21983844/most-recent" category="materials" publisher="Wiley" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/21983844?af=R" tagName="AdvSci" />
-					<outline text="InfoMat" title="InfoMat" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/25673165/most-recent" category="materials" publisher="Wiley" htmlUrl="https://onlinelibrary.wiley.com/journal/25673165?af=R" tagName="InfoMat" />
-					<outline text="Small" title="Small" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/16136829/most-recent" category="materials" publisher="Wiley" htmlUrl="https://onlinelibrary.wiley.com/journal/16136829?af=R" tagName="Small" />
-					<outline text="Small Methods" title="Small Methods" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/23669608/most-recent" category="materials" publisher="Wiley" htmlUrl="https://onlinelibrary.wiley.com/journal/23669608?af=R" tagName="SM" />
-				</outline>
-			</outline>
-			<outline text="multidisciplinary" title="multidisciplinary">
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Cell" title="Cell" type="rss" xmlUrl="https://www.cell.com/cell/inpress.rss" category="multidisciplinary" publisher="Cell Press" htmlUrl="https://www.cell.com/cell/archive?publicationCode=cell&amp;rss=yes" tagName="Cell" />
-					<outline text="Cell Reports" title="Cell Reports" type="rss" xmlUrl="https://www.cell.com/cell-reports/inpress.rss" category="multidisciplinary" publisher="Cell Press" htmlUrl="https://www.cell.com/cell-reports/archive?publicationCode=celrep&amp;rss=yes" tagName="CellRep" />
-					<outline text="iScience" title="iScience" type="rss" xmlUrl="https://www.cell.com/iscience/inpress.rss" category="multidisciplinary" publisher="Cell Press" htmlUrl="https://www.cell.com/iscience/archive?publicationCode=isci&amp;rss=yes" tagName="iScience" />
-				</outline>
-				<outline text="Elsevier" title="Elsevier">
-					<outline text="Science Bulletin" title="Science Bulletin" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/20959273" category="multidisciplinary" publisher="Elsevier" htmlUrl="https://www.sciencedirect.com/journal/science-bulletin" tagName="SB" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature" title="Nature" type="rss" xmlUrl="https://www.nature.com/nature.rss" category="multidisciplinary" publisher="Nature" htmlUrl="http://feeds.nature.com/nature/rss/current" tagName="Nature" />
-					<outline text="Nature Communications" title="Nature Communications" type="rss" xmlUrl="https://www.nature.com/ncomms.rss" category="multidisciplinary" publisher="Nature" htmlUrl="http://feeds.nature.com/ncomms/rss/current" tagName="NatCommun" />
-					<outline text="Nature Reviews Materials" title="Nature Reviews Materials" type="rss" xmlUrl="https://www.nature.com/natrevmats.rss" category="multidisciplinary" publisher="Nature" htmlUrl="http://feeds.nature.com/natrevmats/rss/current" tagName="NatRevMater" />
-				</outline>
-				<outline text="Other" title="Other">
-					<outline text="Proceedings of the National Academy of Sciences of the United States of America" title="Proceedings of the National Academy of Sciences of the United States of America" type="rss" xmlUrl="https://www.pnas.org/action/showFeed?type=searchTopic&amp;taxonomyCode=topic&amp;tagCodeOr=env-sci-bio&amp;tagCodeOr=env-sci-soc&amp;tagCodeOr=env-sci-phys" category="multidisciplinary" publisher="Other" htmlUrl="https://www.pnas.org/action/doSearch?af=R" tagName="PNASUSA" />
-				</outline>
-				<outline text="Science" title="Science">
-					<outline text="Research" title="Research" type="rss" xmlUrl="https://spj.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=research" category="multidisciplinary" publisher="Science" htmlUrl="https://spj.science.org/loi/research?af=R" tagName="Research" />
-					<outline text="Science" title="Science" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=science" category="multidisciplinary" publisher="Science" htmlUrl="https://www.science.org/loi/science?af=R" tagName="Science" />
-					<outline text="Science Advances" title="Science Advances" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=sciadv" category="multidisciplinary" publisher="Science" htmlUrl="https://www.science.org/loi/sciadv?af=R" tagName="SA" />
-				</outline>
-			</outline>
-			<outline text="physics" title="physics">
-				<outline text="APS" title="APS">
-					<outline text="Physical Review B" title="Physical Review B" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prb.xml" category="physics" publisher="APS" htmlUrl="http://journals.aps.org/prb/" tagName="PRB" />
-					<outline text="Physical Review Letters" title="Physical Review Letters" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prl.xml" category="physics" publisher="APS" htmlUrl="http://journals.aps.org/prl/" tagName="PRL" />
-					<outline text="Reviews of Modern Physics" title="Reviews of Modern Physics" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/rmp.xml" category="physics" publisher="APS" htmlUrl="http://journals.aps.org/rmp/" tagName="RMP" />
-				</outline>
-				<outline text="Cell Press" title="Cell Press">
-					<outline text="Cell Reports Physical Science" title="Cell Reports Physical Science" type="rss" xmlUrl="https://www.cell.com/cell-reports-physical-science/inpress.rss" category="physics" publisher="Cell Press" htmlUrl="https://www.cell.com/cell-reports-physical-science/archive?publicationCode=xcrp&amp;rss=yes" tagName="CellRepPhysicalSci" />
-				</outline>
-				<outline text="IOP" title="IOP">
-					<outline text="Applied Physics Express" title="Applied Physics Express" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/1882-0786" category="physics" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/1882-0786" tagName="ApplPhysExpress" />
-					<outline text="Journal of Physics: Condensed Matter" title="Journal of Physics: Condensed Matter" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0953-8984" category="physics" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/0953-8984" tagName="JPCM" />
-					<outline text="Nanotechnology" title="Nanotechnology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0957-4484" category="physics" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/0957-4484" tagName="Nanotechnology" />
-					<outline text="Semiconductor Science and Technology" title="Semiconductor Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0268-1242" category="physics" publisher="IOP" htmlUrl="https://iopscience.iop.org/journal/rss/0268-1242" tagName="SST" />
-				</outline>
-				<outline text="Nature" title="Nature">
-					<outline text="Nature Physics" title="Nature Physics" type="rss" xmlUrl="https://www.nature.com/nphys.rss" category="physics" publisher="Nature" htmlUrl="http://feeds.nature.com/nphys/rss/current" tagName="NatPhys" />
-					<outline text="Nature Reviews Physics" title="Nature Reviews Physics" type="rss" xmlUrl="https://www.nature.com/natrevphys.rss" category="physics" publisher="Nature" htmlUrl="http://feeds.nature.com/natrevphys/rss/current" tagName="NatRevPhys" />
-				</outline>
-				<outline text="Science" title="Science">
-					<outline text="Science Robotics" title="Science Robotics" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=scirobotics" category="physics" publisher="Science" htmlUrl="https://www.science.org/loi/scirobotics?af=R" tagName="SR" />
-				</outline>
-				<outline text="Springer" title="Springer">
-					<outline text="Science China Physics, Mechanics &amp; Astronomy" title="Science China Physics, Mechanics &amp; Astronomy" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11433&amp;channel-name=Science%20China%20Physics,%20Mechanics%20%26%20Astronomy" category="physics" publisher="Springer" htmlUrl="http://link.springer.com" tagName="SCPMA" />
-				</outline>
-			</outline>
-			<outline text="preprint" title="preprint">
-				<outline text="arXiv" title="arXiv">
-					<outline text="arXiv cs.AI" title="arXiv cs.AI" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.AI" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/cs.AI" tagName="arXivcsAI" />
-					<outline text="arXiv cs.CL" title="arXiv cs.CL" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.CL" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/cs.CL" tagName="arXivcsCL" />
-					<outline text="arXiv cs.CV" title="arXiv cs.CV" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.CV" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/cs.CV" tagName="arXivcsCV" />
-					<outline text="arXiv cs.LG" title="arXiv cs.LG" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.LG" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/cs.LG" tagName="arXivcsLG" />
-					<outline text="arXiv eess.IV" title="arXiv eess.IV" type="rss" xmlUrl="https://rss.arxiv.org/rss/eess.IV" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/eess.IV" tagName="arXiveessIV" />
-					<outline text="arXiv stat.ML" title="arXiv stat.ML" type="rss" xmlUrl="https://rss.arxiv.org/rss/stat.ML" category="preprint" publisher="arXiv" htmlUrl="http://rss.arxiv.org/rss/stat.ML" tagName="arXivstatML" />
-				</outline>
-			</outline>
-			<outline text="synchrotron" title="synchrotron">
-				<outline text="IUCr" title="IUCr">
-					<outline text="Journal of Applied Crystallography" title="Journal of Applied Crystallography" type="rss" xmlUrl="https://journals.iucr.org/j/rss10.xml" category="synchrotron" publisher="IUCr" htmlUrl="https://journals.iucr.org/j/issues/2026/03/00/index.html" tagName="JAC" />
-					<outline text="Journal of Synchrotron Radiation" title="Journal of Synchrotron Radiation" type="rss" xmlUrl="https://journals.iucr.org/s/rss10.xml" category="synchrotron" publisher="IUCr" htmlUrl="https://journals.iucr.org/s/issues/2026/04/00/index.html" tagName="JSR" />
-				</outline>
-			</outline>
-		</outline>
-	</body>
+  <head>
+    <title>Subscriptions-LocalRSS.opml</title>
+  </head>
+  <body>
+    <outline text="🎙️ 播客与音频" title="🎙️ 播客与音频">
+      <outline text="捕蛇者说" title="捕蛇者说" description="" type="rss" version="RSS" htmlUrl="https://pythonhunter.org/" xmlUrl="https://pythonhunter.org/feed/audio.xml" />
+      <outline text="大可不必" title="大可不必" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/63c2660f92967c0010f6aede?utm_source=rss" xmlUrl="https://feed.xyzfm.space/cpuwx8b7yqrn" />
+      <outline text="面基" title="面基" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/6388760f22567e8ea6ad070f?utm_source=rss" xmlUrl="https://feed.xyzfm.space/6hpdgggtxpxb" />
+      <outline text="起朱楼宴宾客" title="起朱楼宴宾客" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/61dd99a47b29652ff572257b?utm_source=rss" xmlUrl="https://feed.xyzfm.space/ahng8d9qlywl" />
+      <outline text="三好坏男孩" title="三好坏男孩" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/xiaoyuzhou/podcast/5e40fcf3418a84a0467481da" />
+      <outline text="曳尾于涂" title="曳尾于涂" description="" type="rss" version="RSS" htmlUrl="https://www.ximalaya.com/album/80412985" xmlUrl="https://www.ximalaya.com/album/80412985.xml" />
+      <outline text="正文三台" title="正文三台" description="" type="rss" version="RSS" htmlUrl="https://www.xiaoyuzhoufm.com/podcast/64030b5f40894f3da2fbe5b3?utm_source=rss" xmlUrl="https://feed.xyzfm.space/bpb7ht8r6vwu" />
+    </outline>
+    <outline text="🎬 视频频道" title="🎬 视频频道">
+      <outline text="让水烧开" title="让水烧开" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UC-JkkIxVewEjpSvi2Jc3vvQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-JkkIxVewEjpSvi2Jc3vvQ" />
+      <outline text="中文油管排行榜" title="中文油管排行榜" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCpVe3swmfUtmo0hLtJYOjag" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpVe3swmfUtmo0hLtJYOjag" />
+      <outline text="Cylo's Garage" title="Cylo's Garage" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCiygJF7wFHDeWGVvXkztUSA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiygJF7wFHDeWGVvXkztUSA" />
+      <outline text="Jay and Mark" title="Jay and Mark" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCbbQalJ4OaC0oQ0AqRaOJ9g" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbbQalJ4OaC0oQ0AqRaOJ9g" />
+      <outline text="JFlaMusic" title="JFlaMusic" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UClkRzsdvg7_RKVhwDwiDZOA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClkRzsdvg7_RKVhwDwiDZOA" />
+      <outline text="Munro Live" title="Munro Live" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCj--iMtToRO_cGG_fpmP5XQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj--iMtToRO_cGG_fpmP5XQ" />
+    </outline>
+    <outline text="🏢 工程团队博客" title="🏢 工程团队博客">
+      <outline text="GitHub" title="GitHub" description="" type="rss" version="RSS" htmlUrl="https://github.blog/" xmlUrl="https://github.blog/feed/" />
+      <outline text="Google Developers" title="Google Developers" description="" type="rss" version="RSS" htmlUrl="https://developers.googleblog.com/rss/" xmlUrl="https://developers.googleblog.com/feeds/posts/default/" />
+      <outline text="Vercel News" title="Vercel News" description="" type="rss" version="RSS" htmlUrl="https://vercel.com/" xmlUrl="https://vercel.com/atom" />
+    </outline>
+    <outline text="💬 技术社区与论坛" title="💬 技术社区与论坛">
+      <outline text="GitHub Daily Trending" title="GitHub Daily Trending" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml" />
+      <outline text="Github-CAPPuls" title="Github-CAPPuls" description="" type="rss" version="RSS" htmlUrl="https://github.com/seakee/CPA-Manager-Plus/releases" xmlUrl="https://github.com/seakee/CPA-Manager-Plus/releases.atom" />
+      <outline text="Github-Hyperspy" title="Github-Hyperspy" description="" type="rss" version="RSS" htmlUrl="https://github.com/hyperspy/hyperspy/releases" xmlUrl="https://github.com/hyperspy/hyperspy/releases.atom" />
+      <outline text="Github-Python" title="Github-Python" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/python.xml" />
+      <outline text="Github-Rust" title="Github-Rust" description="" type="rss" version="RSS" htmlUrl="http://mshibanami.github.io/GitHubTrendingRSS" xmlUrl="https://mshibanami.github.io/GitHubTrendingRSS/daily/rust.xml" />
+      <outline text="LessWrong" title="LessWrong" description="" type="rss" version="RSS" htmlUrl="https://www.lesswrong.com/" xmlUrl="https://www.lesswrong.com/feed.xml?view=curated-rss" />
+      <outline text="LINUX DO - 热门" title="LINUX DO - 热门" description="" type="rss" version="RSS" htmlUrl="https://linux.do/top?period=yearly" xmlUrl="https://linux.do/top.rss" />
+      <outline text="LINUX DO - 最新" title="LINUX DO - 最新" description="" type="rss" version="RSS" htmlUrl="https://linux.do/latest" xmlUrl="https://linux.do/latest.rss" />
+      <outline text="logseq" title="logseq" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/logseq/" xmlUrl="https://www.reddit.com/r/logseq/.rss" />
+      <outline text="V2EX - 技术" title="V2EX - 技术" description="" type="rss" version="RSS" htmlUrl="https://www.v2ex.com/" xmlUrl="https://www.v2ex.com/feed/tab/tech.xml" />
+      <outline text="V2EX 最热" title="V2EX 最热" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://www.v2ex.com/feed/tab/hot.xml" />
+      <outline text="Zotero" title="Zotero" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/zotero/" xmlUrl="https://www.reddit.com/r/zotero/.rss" />
+      <outline text="Zotero 最新" title="Zotero 最新" description="" type="rss" version="RSS" htmlUrl="https://forums.zotero.org/" xmlUrl="https://forums.zotero.org/comments/feed.rss" />
+    </outline>
+    <outline text="📚 阅读、影评与日常" title="📚 阅读、影评与日常">
+      <outline text="豆瓣最受欢迎的书评" title="豆瓣最受欢迎的书评" description="" type="rss" version="RSS" htmlUrl="https://book.douban.com/review/book_best/" xmlUrl="https://plink.anyfeeder.com/douban/review/book" />
+      <outline text="豆瓣最受欢迎的影评" title="豆瓣最受欢迎的影评" description="" type="rss" version="RSS" htmlUrl="https://movie.douban.com/review/movie_best/" xmlUrl="https://plink.anyfeeder.com/douban/review/movie" />
+      <outline text="瓠樽" title="瓠樽" description="" type="rss" version="RSS" htmlUrl="https://blog.dylanwu.space/" xmlUrl="https://blog.dylanwu.space/feed.xml" />
+      <outline text="浣心" title="浣心" description="" type="rss" version="RSS" htmlUrl="https://blog.loikein.one/posts/" xmlUrl="https://blog.loikein.one/posts/index.xml" />
+      <outline text="揆机" title="揆机" description="" type="rss" version="RSS" htmlUrl="https://pathos.page/" xmlUrl="https://pathos.page/feed.xml" />
+      <outline text="理论派" title="理论派" description="" type="rss" version="RSS" htmlUrl="https://sliun.com/" xmlUrl="https://lilun.bearblog.dev/feed/" />
+      <outline text="小声读书" title="小声读书" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/telegram/channel/weekly_books" />
+      <outline text="序章" title="序章" description="" type="rss" version="RSS" htmlUrl="https://prologue.dev/" xmlUrl="https://prologue.dev/rss" />
+    </outline>
+    <outline text="📡 RSS 生态" title="📡 RSS 生态">
+      <outline text="ALL About RSS" title="ALL About RSS" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/telegram/channel/aboutrss" />
+      <outline text="NetNewsWire" title="NetNewsWire" description="" type="rss" version="RSS" htmlUrl="https://netnewswire.blog/" xmlUrl="https://netnewswire.blog/feed.xml" />
+      <outline text="RSS" title="RSS" description="" type="rss" version="RSS" htmlUrl="https://www.reddit.com/r/rss/" xmlUrl="https://www.reddit.com/r/rss/.rss" />
+    </outline>
+    <outline text="📮 技术周刊与独立博客" title="📮 技术周刊与独立博客">
+      <outline text="潮流周刊" title="潮流周刊" description="" type="rss" version="RSS" htmlUrl="https://weekly.tw93.fun/" xmlUrl="https://weekly.tw93.fun/rss.xml" />
+      <outline text="老胡的周刊" title="老胡的周刊" description="" type="rss" version="RSS" htmlUrl="https://weekly.howie6879.com/" xmlUrl="https://weekly.howie6879.com/rss/rss.xml" />
+      <outline text="阮一峰的网络日志" title="阮一峰的网络日志" description="" type="rss" version="RSS" htmlUrl="http://www.ruanyifeng.com/blog/" xmlUrl="https://www.ruanyifeng.com/blog/atom.xml" />
+      <outline text="少数派" title="少数派" description="" type="rss" version="RSS" htmlUrl="https://sspai.com/" xmlUrl="https://sspai.com/feed" />
+      <outline text="数字生命卡兹克" title="数字生命卡兹克" description="" type="rss" version="RSS" htmlUrl="https://wechat2rss.bestblogs.dev/feed/ff621c3e98d6ae6fceb3397e57441ffc6ea3c17f.xml" xmlUrl="https://wechat2rss.bestblogs.dev/feed/ff621c3e98d6ae6fceb3397e57441ffc6ea3c17f.xml" />
+      <outline text="小众软件" title="小众软件" description="" type="rss" version="RSS" htmlUrl="https://www.appinn.com/" xmlUrl="https://feeds.appinn.com/appinns/" />
+      <outline text="HelloGitHub 月刊" title="HelloGitHub 月刊" description="" type="rss" version="RSS" htmlUrl="https://hellogithub.com/" xmlUrl="https://hellogithub.com/rss" />
+      <outline text="Limboy" title="Limboy" description="" type="rss" version="RSS" htmlUrl="https://limboy.me/" xmlUrl="https://limboy.me/index.xml" />
+      <outline text="This Week in Rust" title="This Week in Rust" description="" type="rss" version="RSS" htmlUrl="https://this-week-in-rust.org/" xmlUrl="https://this-week-in-rust.org/atom.xml" />
+    </outline>
+    <outline text="📰 新闻、社会与经济" title="📰 新闻、社会与经济">
+      <outline text="界面新闻" title="界面新闻" description="" type="rss" version="RSS" htmlUrl="https://www.jiemian.com/lists/801.html" xmlUrl="https://plink.anyfeeder.com/jiemian/news" />
+      <outline text="联合早报" title="联合早报" description="" type="rss" version="RSS" htmlUrl="https://www.zaobao.com/realtime/china" xmlUrl="https://rsshub.rssforever.com/zaobao/realtime/china" />
+      <outline text="IT之家" title="IT之家" description="" type="rss" version="RSS" htmlUrl="https://www.ithome.com/" xmlUrl="https://www.ithome.com/rss/" />
+      <outline text="Ray Dalio" title="Ray Dalio" description="" type="rss" version="RSS" htmlUrl="https://www.youtube.com/channel/UCqvaXJ1K3HheTPNjH-KpwXQ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqvaXJ1K3HheTPNjH-KpwXQ" />
+    </outline>
+    <outline text="🤖 AI 与机器学习" title="🤖 AI 与机器学习">
+      <outline text="机器之心" title="机器之心" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://www.jiqizhixin.com/rss" />
+      <outline text="Hugging Face" title="Hugging Face" description="" type="rss" version="RSS" htmlUrl="https://huggingface.co/blog" xmlUrl="https://huggingface.co/blog/feed.xml" />
+      <outline text="Last Week in AI" title="Last Week in AI" description="" type="rss" version="RSS" htmlUrl="https://lastweekin.ai/" xmlUrl="https://lastweekin.ai/feed" />
+      <outline text="OpenAI News" title="OpenAI News" description="" type="rss" version="RSS" htmlUrl="https://openai.com/news" xmlUrl="https://openai.com/news/rss.xml" />
+      <outline text="Simon Willison" title="Simon Willison" description="" type="rss" version="RSS" htmlUrl="http://simonwillison.net/" xmlUrl="https://simonwillison.net/atom/everything/" />
+      <outline text="Stability AI" title="Stability AI" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://stability.ai/news?format=rss" />
+    </outline>
+    <outline text="🧑‍💻 个人动态与社交" title="🧑‍💻 个人动态与社交">
+      <outline text="知识分享官" title="知识分享官" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://rsshub.app/twitter/user/knowledgefxg" />
+      <outline text="Adam McCombs" title="Adam McCombs" description="" type="rss" version="RSS" htmlUrl="https://chaos.social/@nanographs" xmlUrl="https://chaos.social/@nanographs.rss" />
+      <outline text="Cheng Liu" title="Cheng Liu" description="" type="rss" version="RSS" htmlUrl="https://liuchzzyy.github.io/" xmlUrl="https://liuchzzyy.github.io/rss/feed.xml" />
+    </outline>
+    <outline text="🧰 软件、工具与效率" title="🧰 软件、工具与效率">
+      <outline text="简悦" title="简悦" description="" type="rss" version="RSS" htmlUrl="https://simpread.pro/changelog" xmlUrl="https://rss.simpread.pro/feed" />
+      <outline text="App Store 特价（CN）" title="App Store 特价（CN）" description="" type="rss" version="RSS" htmlUrl="https://apps.apple.com/cn/app" xmlUrl="https://raw.githubusercontent.com/eyelly-wu/appstore-discounts/main/rss/cn.xml" />
+      <outline text="Logseq DB" title="Logseq DB" description="" type="rss" version="RSS" htmlUrl="https://discuss.logseq.com/t/logseq-db-changelog/30013" xmlUrl="https://discuss.logseq.com/t/logseq-db-changelog/30013.rss" />
+      <outline text="Obsidian" title="Obsidian" description="" type="rss" version="RSS" htmlUrl="https://obsidian.md/" xmlUrl="https://obsidian.md/changelog.xml" />
+      <outline text="Spectrochempy" title="Spectrochempy" description="" type="rss" version="RSS" htmlUrl="https://github.com/spectrochempy/spectrochempy/releases" xmlUrl="https://github.com/spectrochempy/spectrochempy/releases.atom" />
+    </outline>
+    <outline text="📚 学术期刊" title="📚 学术期刊">
+      <outline text="Artificial Intelligence" title="Artificial Intelligence" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00043702" htmlUrl="https://www.sciencedirect.com/journal/artificial-intelligence" tagName="AI" />
+      <outline text="Neural Networks" title="Neural Networks" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/08936080" htmlUrl="https://www.sciencedirect.com/journal/neural-networks" tagName="NeuralNet" />
+      <outline text="Pattern Recognition" title="Pattern Recognition" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00313203" htmlUrl="https://www.sciencedirect.com/journal/pattern-recognition" tagName="PatternRecog" />
+      <outline text="Pattern Recognition Letters" title="Pattern Recognition Letters" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/01678655" htmlUrl="https://www.sciencedirect.com/journal/pattern-recognition-letters" tagName="PatternRecogLett" />
+      <outline text="Machine Learning: Science and Technology" title="Machine Learning: Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/2632-2153" htmlUrl="https://iopscience.iop.org/journal/rss/2632-2153" tagName="MLST" />
+      <outline text="Nature Machine Intelligence" title="Nature Machine Intelligence" type="rss" xmlUrl="https://www.nature.com/natmachintell.rss" htmlUrl="http://feeds.nature.com/natmachintell/rss/current" tagName="NatMachineIntelligence" />
+      <outline text="Machine Intelligence Research" title="Machine Intelligence Research" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11633&amp;channel-name=Machine%20Intelligence%20Research" htmlUrl="http://link.springer.com" tagName="MIR" />
+      <outline text="Cell Reports Methods" title="Cell Reports Methods" type="rss" xmlUrl="https://www.cell.com/cell-reports-methods/inpress.rss" htmlUrl="https://www.cell.com/cell-reports-methods/archive?publicationCode=crmeth&amp;rss=yes" tagName="CellRepMethods" />
+      <outline text="Journal of Electron Spectroscopy and Related Phenomena" title="Journal of Electron Spectroscopy and Related Phenomena" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/03682048" htmlUrl="https://www.sciencedirect.com/journal/journal-of-electron-spectroscopy-and-related-phenomena" tagName="JESRP" />
+      <outline text="Materials Characterization" title="Materials Characterization" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/10445803" htmlUrl="https://www.sciencedirect.com/journal/materials-characterization" tagName="MC" />
+      <outline text="Spectrochimica Acta Part B: Atomic Spectroscopy" title="Spectrochimica Acta Part B: Atomic Spectroscopy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/05848547" htmlUrl="https://www.sciencedirect.com/journal/spectrochimica-acta-part-b-atomic-spectroscopy" tagName="SABAS" />
+      <outline text="Ultramicroscopy" title="Ultramicroscopy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/03043991" htmlUrl="https://www.sciencedirect.com/journal/ultramicroscopy" tagName="Ultramicroscopy" />
+      <outline text="Measurement Science and Technology" title="Measurement Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0957-0233" htmlUrl="https://iopscience.iop.org/journal/rss/0957-0233" tagName="MST" />
+      <outline text="Nature Methods" title="Nature Methods" type="rss" xmlUrl="https://www.nature.com/nmeth.rss" htmlUrl="http://feeds.nature.com/nmeth/rss/current" tagName="NatMethods" />
+      <outline text="Nature Protocols" title="Nature Protocols" type="rss" xmlUrl="https://www.nature.com/nprot.rss" htmlUrl="http://feeds.nature.com/nprot/rss/current" tagName="NatProtoc" />
+      <outline text="Analyst" title="Analyst" type="rss" xmlUrl="http://feeds.rsc.org/rss/an" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/AN" tagName="Analyst" />
+      <outline text="Journal of Analytical Atomic Spectrometry" title="Journal of Analytical Atomic Spectrometry" type="rss" xmlUrl="http://feeds.rsc.org/rss/ja" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/JA" tagName="JAAS" />
+      <outline text="Applied Spectroscopy" title="Applied Spectroscopy" type="rss" xmlUrl="https://journals.sagepub.com/action/showFeed?ui=0&amp;mi=ehikzz&amp;ai=2b4&amp;jc=asp&amp;type=etoc&amp;feed=rss" htmlUrl="https://journals.sagepub.com/loi/aspc?ai=2b4&amp;mi=ehikzz&amp;af=R" tagName="ApplSpectrosc" />
+      <outline text="International Materials Reviews" title="International Materials Reviews" type="rss" xmlUrl="https://journals.sagepub.com/action/showFeed?ui=0&amp;mi=ehikzz&amp;ai=2b4&amp;jc=inr&amp;type=etoc&amp;feed=rss" htmlUrl="https://journals.sagepub.com/loi/inrb?ai=2b4&amp;mi=ehikzz&amp;af=R" tagName="IMR" />
+      <outline text="Applied Spectroscopy Reviews" title="Applied Spectroscopy Reviews" type="rss" xmlUrl="https://www.tandfonline.com/feed/rss/laps20" htmlUrl="https://www.tandfonline.com/loi/laps20?af=R" tagName="ApplSpectroscRev" />
+      <outline text="Journal of Raman Spectroscopy" title="Journal of Raman Spectroscopy" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/10974555/most-recent" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10974555?af=R" tagName="JRS" />
+      <outline text="Microscopy Research and Technique" title="Microscopy Research and Technique" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/10970029/most-recent" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10970029?af=R" tagName="MRT" />
+      <outline text="Surface and Interface Analysis" title="Surface and Interface Analysis" type="rss" xmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/feed/10969918/most-recent" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10969918?af=R" tagName="SIA" />
+      <outline text="X-Ray Spectrometry" title="X-Ray Spectrometry" type="rss" xmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/feed/10974539/most-recent" htmlUrl="https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10974539?af=R" tagName="XRS" />
+      <outline text="Accounts of Chemical Research" title="Accounts of Chemical Research" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=achre4" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACR" />
+      <outline text="ACS Catalysis" title="ACS Catalysis" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=accacs" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSCatal" />
+      <outline text="ACS Central Science" title="ACS Central Science" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=acscii" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSCentralSci" />
+      <outline text="Analytical Chemistry" title="Analytical Chemistry" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=ancham" htmlUrl="https://pubs.acs.org/?af=R" tagName="AC" />
+      <outline text="Chemical Reviews" title="Chemical Reviews" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=chreay" htmlUrl="https://pubs.acs.org/?af=R" tagName="ChemRev" />
+      <outline text="Inorganic Chemistry" title="Inorganic Chemistry" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=inocaj" htmlUrl="https://pubs.acs.org/?af=R" tagName="IC" />
+      <outline text="Journal of Chemical Information and Modeling" title="Journal of Chemical Information and Modeling" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jcisd8" htmlUrl="https://pubs.acs.org/?af=R" tagName="JCIM" />
+      <outline text="Journal of the American Chemical Society" title="Journal of the American Chemical Society" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jacsat" htmlUrl="https://pubs.acs.org/?af=R" tagName="JACS" />
+      <outline text="Langmuir" title="Langmuir" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=langd5" htmlUrl="https://pubs.acs.org/?af=R" tagName="Langmuir" />
+      <outline text="The Journal of Physical Chemistry A" title="The Journal of Physical Chemistry A" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpcafh" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCA" />
+      <outline text="The Journal of Physical Chemistry B" title="The Journal of Physical Chemistry B" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpcbfk" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCB" />
+      <outline text="The Journal of Physical Chemistry C" title="The Journal of Physical Chemistry C" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpccck" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCC" />
+      <outline text="The Journal of Physical Chemistry Letters" title="The Journal of Physical Chemistry Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=jpclcd" htmlUrl="https://pubs.acs.org/?af=R" tagName="JPCL" />
+      <outline text="Chem" title="Chem" type="rss" xmlUrl="https://www.cell.com/chem/inpress.rss" htmlUrl="https://www.cell.com/chem/archive?publicationCode=chempr&amp;rss=yes" tagName="Chem" />
+      <outline text="Chem Catalysis" title="Chem Catalysis" type="rss" xmlUrl="https://www.cell.com/chem-catalysis/inpress.rss" htmlUrl="https://www.cell.com/chem-catalysis/archive?publicationCode=checat&amp;rss=yes" tagName="ChemCatal" />
+      <outline text="Catalysis Today" title="Catalysis Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/09205861" htmlUrl="https://www.sciencedirect.com/journal/catalysis-today" tagName="CT" />
+      <outline text="Chemical Engineering Journal" title="Chemical Engineering Journal" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/13858947" htmlUrl="https://www.sciencedirect.com/journal/chemical-engineering-journal" tagName="ChemEngineeringJournal" />
+      <outline text="Chinese Chemical Letters" title="Chinese Chemical Letters" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/10018417" htmlUrl="https://www.sciencedirect.com/journal/chinese-chemical-letters" tagName="CCL" />
+      <outline text="Chinese Journal of Catalysis" title="Chinese Journal of Catalysis" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/18722067" htmlUrl="https://www.sciencedirect.com/journal/chinese-journal-of-catalysis" tagName="CJC" />
+      <outline text="Nature Catalysis" title="Nature Catalysis" type="rss" xmlUrl="https://www.nature.com/natcatal.rss" htmlUrl="http://feeds.nature.com/natcatal/rss/current" tagName="NatCatal" />
+      <outline text="Nature Chemistry" title="Nature Chemistry" type="rss" xmlUrl="https://www.nature.com/nchem.rss" htmlUrl="http://feeds.nature.com/nchem/rss/current" tagName="NatChem" />
+      <outline text="Nature Reviews Chemistry" title="Nature Reviews Chemistry" type="rss" xmlUrl="https://www.nature.com/natrevchem.rss" htmlUrl="http://feeds.nature.com/natrevchem/rss/current" tagName="NatRevChem" />
+      <outline text="Catalysis Science &amp; Technology" title="Catalysis Science &amp; Technology" type="rss" xmlUrl="http://feeds.rsc.org/rss/cy" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CY" tagName="CST" />
+      <outline text="Chemical Communications" title="Chemical Communications" type="rss" xmlUrl="http://feeds.rsc.org/rss/cc" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CC" tagName="ChemCommun" />
+      <outline text="Chemical Science" title="Chemical Science" type="rss" xmlUrl="http://feeds.rsc.org/rss/sc" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/SC" tagName="ChemSci" />
+      <outline text="Chemical Society Reviews" title="Chemical Society Reviews" type="rss" xmlUrl="http://feeds.rsc.org/rss/cs" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CS" tagName="ChemSocietyRev" />
+      <outline text="Dalton Transactions" title="Dalton Transactions" type="rss" xmlUrl="http://feeds.rsc.org/rss/dt" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/DT" tagName="DT" />
+      <outline text="Faraday Discussions" title="Faraday Discussions" type="rss" xmlUrl="http://feeds.rsc.org/rss/fd" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/FD" tagName="FD" />
+      <outline text="Physical Chemistry Chemical Physics" title="Physical Chemistry Chemical Physics" type="rss" xmlUrl="http://feeds.rsc.org/rss/cp" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/CP" tagName="PCCP" />
+      <outline text="Science China Chemistry" title="Science China Chemistry" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11426&amp;channel-name=Science%20China%20Chemistry" htmlUrl="http://link.springer.com" tagName="SCC" />
+      <outline text="Angewandte Chemie International Edition" title="Angewandte Chemie International Edition" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/15213773/most-recent" htmlUrl="https://onlinelibrary.wiley.com/journal/15213773?af=R" tagName="ACIE" />
+      <outline text="ChemCatChem" title="ChemCatChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/18673899/most-recent" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/18673899?af=R" tagName="ChemCatChem" />
+      <outline text="ChemElectroChem" title="ChemElectroChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/21960216/most-recent" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/21960216?af=R" tagName="ChemElectroChem" />
+      <outline text="ACS Applied Energy Materials" title="ACS Applied Energy Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aaemcq" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplEnergyMater" />
+      <outline text="ACS Energy Letters" title="ACS Energy Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aelccp" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSEnergyLett" />
+      <outline text="Joule" title="Joule" type="rss" xmlUrl="https://www.cell.com/joule/inpress.rss" htmlUrl="https://www.cell.com/joule/archive?publicationCode=joul&amp;rss=yes" tagName="Joule" />
+      <outline text="Energy Storage Materials" title="Energy Storage Materials" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/24058297" htmlUrl="https://www.sciencedirect.com/journal/energy-storage-materials" tagName="ESM" />
+      <outline text="EnergyChem" title="EnergyChem" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/25897780" htmlUrl="https://www.sciencedirect.com/journal/energychem" tagName="EnergyChem" />
+      <outline text="Journal of Energy Chemistry" title="Journal of Energy Chemistry" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/20954956" htmlUrl="https://www.sciencedirect.com/journal/journal-of-energy-chemistry" tagName="JEC" />
+      <outline text="Nano Energy" title="Nano Energy" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/22112855" htmlUrl="https://www.sciencedirect.com/journal/nano-energy" tagName="NanoEnergy" />
+      <outline text="Journal of The Electrochemical Society" title="Journal of The Electrochemical Society" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/1945-7111" htmlUrl="https://iopscience.iop.org/journal/rss/1945-7111" tagName="JES" />
+      <outline text="Nature Energy" title="Nature Energy" type="rss" xmlUrl="https://www.nature.com/nenergy.rss" htmlUrl="http://feeds.nature.com/nenergy/rss/current" tagName="NatEnergy" />
+      <outline text="Nature Sustainability" title="Nature Sustainability" type="rss" xmlUrl="https://www.nature.com/natsustain.rss" htmlUrl="http://feeds.nature.com/natsustain/rss/current" tagName="NatSustainability" />
+      <outline text="Energy &amp; Environmental Science" title="Energy &amp; Environmental Science" type="rss" xmlUrl="http://feeds.rsc.org/rss/ee" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/EE" tagName="EES" />
+      <outline text="Advanced Energy Materials" title="Advanced Energy Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/16146840/most-recent" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/16146840?af=R" tagName="AdvEnergyMater" />
+      <outline text="Batteries &amp; Supercaps" title="Batteries &amp; Supercaps" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/25666223/most-recent" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/25666223?af=R" tagName="BS" />
+      <outline text="Carbon Energy" title="Carbon Energy" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/26379368/most-recent" htmlUrl="https://onlinelibrary.wiley.com/journal/26379368?af=R" tagName="CE" />
+      <outline text="ChemSusChem" title="ChemSusChem" type="rss" xmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/feed/1864564x/most-recent" htmlUrl="https://chemistry-europe.onlinelibrary.wiley.com/journal/1864564x?af=R" tagName="ChemSusChem" />
+      <outline text="Accounts of Materials Research" title="Accounts of Materials Research" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amrcda" htmlUrl="https://pubs.acs.org/?af=R" tagName="AMR" />
+      <outline text="ACS Applied Materials &amp; Interfaces" title="ACS Applied Materials &amp; Interfaces" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aamick" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplMaterInterfaces" />
+      <outline text="ACS Applied Nano Materials" title="ACS Applied Nano Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=aanmf6" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSApplNanoMater" />
+      <outline text="ACS Macro Letters" title="ACS Macro Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amlccd" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSMacroLett" />
+      <outline text="ACS Materials Letters" title="ACS Materials Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=amlcef" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSMaterLett" />
+      <outline text="ACS Nano" title="ACS Nano" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=ancac3" htmlUrl="https://pubs.acs.org/?af=R" tagName="ACSNano" />
+      <outline text="Chemistry of Materials" title="Chemistry of Materials" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=cmatex" htmlUrl="https://pubs.acs.org/?af=R" tagName="ChemMater" />
+      <outline text="Nano Letters" title="Nano Letters" type="rss" xmlUrl="https://pubs.acs.org/action/showFeed?type=axatoc&amp;feed=rss&amp;jc=nalefd" htmlUrl="https://pubs.acs.org/?af=R" tagName="NanoLett" />
+      <outline text="Physical Review Materials" title="Physical Review Materials" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prmaterials.xml" htmlUrl="http://journals.aps.org/prmaterials/" tagName="PRM" />
+      <outline text="Device" title="Device" type="rss" xmlUrl="https://www.cell.com/device/inpress.rss" htmlUrl="https://www.cell.com/device/archive?publicationCode=device&amp;rss=yes" tagName="Device" />
+      <outline text="Matter" title="Matter" type="rss" xmlUrl="https://www.cell.com/matter/inpress.rss" htmlUrl="https://www.cell.com/matter/archive?publicationCode=matt&amp;rss=yes" tagName="Matter" />
+      <outline text="Applied Materials Today" title="Applied Materials Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/23529407" htmlUrl="https://www.sciencedirect.com/journal/applied-materials-today" tagName="ApplMaterToday" />
+      <outline text="Carbon" title="Carbon" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/00086223" htmlUrl="https://www.sciencedirect.com/journal/carbon" tagName="Carbon" />
+      <outline text="Journal of Materiomics" title="Journal of Materiomics" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/23528478" htmlUrl="https://www.sciencedirect.com/journal/journal-of-materiomics" tagName="JM" />
+      <outline text="Materials Today" title="Materials Today" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/13697021" htmlUrl="https://www.sciencedirect.com/journal/materials-today" tagName="MT" />
+      <outline text="Communications Materials" title="Communications Materials" type="rss" xmlUrl="https://www.nature.com/commsmat.rss" htmlUrl="http://feeds.nature.com/commsmat/rss/current" tagName="CommunMater" />
+      <outline text="Nature Materials" title="Nature Materials" type="rss" xmlUrl="https://www.nature.com/nmat.rss" htmlUrl="http://feeds.nature.com/nmat/rss/current" tagName="NatMater" />
+      <outline text="Nature Nanotechnology" title="Nature Nanotechnology" type="rss" xmlUrl="https://www.nature.com/nnano.rss" htmlUrl="http://feeds.nature.com/nnano/rss/current" tagName="NatNano" />
+      <outline text="npj Computational Materials" title="npj Computational Materials" type="rss" xmlUrl="https://www.nature.com/npjcompumats.rss" htmlUrl="http://feeds.nature.com/npjcompumats/rss/current" tagName="nCM" />
+      <outline text="Journal of Materials Chemistry A" title="Journal of Materials Chemistry A" type="rss" xmlUrl="http://feeds.rsc.org/rss/ta" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TA" tagName="JMC" />
+      <outline text="Journal of Materials Chemistry B" title="Journal of Materials Chemistry B" type="rss" xmlUrl="http://feeds.rsc.org/rss/tb" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TB" tagName="JMCB" />
+      <outline text="Journal of Materials Chemistry C" title="Journal of Materials Chemistry C" type="rss" xmlUrl="http://feeds.rsc.org/rss/tc" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/TC" tagName="JMCC" />
+      <outline text="Materials Advances" title="Materials Advances" type="rss" xmlUrl="http://feeds.rsc.org/rss/ma" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/MA" tagName="MA" />
+      <outline text="Materials Horizons" title="Materials Horizons" type="rss" xmlUrl="http://feeds.rsc.org/rss/mh" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/MH" tagName="MH" />
+      <outline text="Nanoscale" title="Nanoscale" type="rss" xmlUrl="http://feeds.rsc.org/rss/nr" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NR" tagName="Nanoscale" />
+      <outline text="Nanoscale Advances" title="Nanoscale Advances" type="rss" xmlUrl="http://feeds.rsc.org/rss/na" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NA" tagName="NA" />
+      <outline text="Nanoscale Horizons" title="Nanoscale Horizons" type="rss" xmlUrl="http://feeds.rsc.org/rss/nh" htmlUrl="http://pubs.rsc.org/en/Journals/Journal/NH" tagName="NH" />
+      <outline text="Nano Research" title="Nano Research" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=12274&amp;channel-name=Nano%20Research" htmlUrl="http://link.springer.com" tagName="NanoResearch" />
+      <outline text="Science China Materials" title="Science China Materials" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=40843&amp;channel-name=Science%20China%20Materials" htmlUrl="http://link.springer.com" tagName="SCM" />
+      <outline text="Advanced Functional Materials" title="Advanced Functional Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/16163028/most-recent" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/16163028?af=R" tagName="AdvFunctionalMater" />
+      <outline text="Advanced Materials" title="Advanced Materials" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/15214095/most-recent" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/15214095?af=R" tagName="AdvMater" />
+      <outline text="Advanced Science" title="Advanced Science" type="rss" xmlUrl="https://advanced.onlinelibrary.wiley.com/feed/21983844/most-recent" htmlUrl="https://advanced.onlinelibrary.wiley.com/journal/21983844?af=R" tagName="AdvSci" />
+      <outline text="InfoMat" title="InfoMat" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/25673165/most-recent" htmlUrl="https://onlinelibrary.wiley.com/journal/25673165?af=R" tagName="InfoMat" />
+      <outline text="Small" title="Small" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/16136829/most-recent" htmlUrl="https://onlinelibrary.wiley.com/journal/16136829?af=R" tagName="Small" />
+      <outline text="Small Methods" title="Small Methods" type="rss" xmlUrl="https://onlinelibrary.wiley.com/feed/23669608/most-recent" htmlUrl="https://onlinelibrary.wiley.com/journal/23669608?af=R" tagName="SM" />
+      <outline text="Cell" title="Cell" type="rss" xmlUrl="https://www.cell.com/cell/inpress.rss" htmlUrl="https://www.cell.com/cell/archive?publicationCode=cell&amp;rss=yes" tagName="Cell" />
+      <outline text="Cell Reports" title="Cell Reports" type="rss" xmlUrl="https://www.cell.com/cell-reports/inpress.rss" htmlUrl="https://www.cell.com/cell-reports/archive?publicationCode=celrep&amp;rss=yes" tagName="CellRep" />
+      <outline text="iScience" title="iScience" type="rss" xmlUrl="https://www.cell.com/iscience/inpress.rss" htmlUrl="https://www.cell.com/iscience/archive?publicationCode=isci&amp;rss=yes" tagName="iScience" />
+      <outline text="Science Bulletin" title="Science Bulletin" type="rss" xmlUrl="https://rss.sciencedirect.com/publication/science/20959273" htmlUrl="https://www.sciencedirect.com/journal/science-bulletin" tagName="SB" />
+      <outline text="Nature" title="Nature" type="rss" xmlUrl="https://www.nature.com/nature.rss" htmlUrl="http://feeds.nature.com/nature/rss/current" tagName="Nature" />
+      <outline text="Nature Communications" title="Nature Communications" type="rss" xmlUrl="https://www.nature.com/ncomms.rss" htmlUrl="http://feeds.nature.com/ncomms/rss/current" tagName="NatCommun" />
+      <outline text="Nature Reviews Materials" title="Nature Reviews Materials" type="rss" xmlUrl="https://www.nature.com/natrevmats.rss" htmlUrl="http://feeds.nature.com/natrevmats/rss/current" tagName="NatRevMater" />
+      <outline text="Proceedings of the National Academy of Sciences of the United States of America" title="Proceedings of the National Academy of Sciences of the United States of America" type="rss" xmlUrl="https://www.pnas.org/action/showFeed?type=searchTopic&amp;taxonomyCode=topic&amp;tagCodeOr=env-sci-bio&amp;tagCodeOr=env-sci-soc&amp;tagCodeOr=env-sci-phys" htmlUrl="https://www.pnas.org/action/doSearch?af=R" tagName="PNASUSA" />
+      <outline text="Research" title="Research" type="rss" xmlUrl="https://spj.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=research" htmlUrl="https://spj.science.org/loi/research?af=R" tagName="Research" />
+      <outline text="Science" title="Science" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=science" htmlUrl="https://www.science.org/loi/science?af=R" tagName="Science" />
+      <outline text="Science Advances" title="Science Advances" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=sciadv" htmlUrl="https://www.science.org/loi/sciadv?af=R" tagName="SA" />
+      <outline text="Physical Review B" title="Physical Review B" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prb.xml" htmlUrl="http://journals.aps.org/prb/" tagName="PRB" />
+      <outline text="Physical Review Letters" title="Physical Review Letters" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/prl.xml" htmlUrl="http://journals.aps.org/prl/" tagName="PRL" />
+      <outline text="Reviews of Modern Physics" title="Reviews of Modern Physics" type="rss" xmlUrl="https://feeds.aps.org/rss/recent/rmp.xml" htmlUrl="http://journals.aps.org/rmp/" tagName="RMP" />
+      <outline text="Cell Reports Physical Science" title="Cell Reports Physical Science" type="rss" xmlUrl="https://www.cell.com/cell-reports-physical-science/inpress.rss" htmlUrl="https://www.cell.com/cell-reports-physical-science/archive?publicationCode=xcrp&amp;rss=yes" tagName="CellRepPhysicalSci" />
+      <outline text="Applied Physics Express" title="Applied Physics Express" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/1882-0786" htmlUrl="https://iopscience.iop.org/journal/rss/1882-0786" tagName="ApplPhysExpress" />
+      <outline text="Journal of Physics: Condensed Matter" title="Journal of Physics: Condensed Matter" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0953-8984" htmlUrl="https://iopscience.iop.org/journal/rss/0953-8984" tagName="JPCM" />
+      <outline text="Nanotechnology" title="Nanotechnology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0957-4484" htmlUrl="https://iopscience.iop.org/journal/rss/0957-4484" tagName="Nanotechnology" />
+      <outline text="Semiconductor Science and Technology" title="Semiconductor Science and Technology" type="rss" xmlUrl="https://iopscience.iop.org/journal/rss/0268-1242" htmlUrl="https://iopscience.iop.org/journal/rss/0268-1242" tagName="SST" />
+      <outline text="Nature Physics" title="Nature Physics" type="rss" xmlUrl="https://www.nature.com/nphys.rss" htmlUrl="http://feeds.nature.com/nphys/rss/current" tagName="NatPhys" />
+      <outline text="Nature Reviews Physics" title="Nature Reviews Physics" type="rss" xmlUrl="https://www.nature.com/natrevphys.rss" htmlUrl="http://feeds.nature.com/natrevphys/rss/current" tagName="NatRevPhys" />
+      <outline text="Science Robotics" title="Science Robotics" type="rss" xmlUrl="https://www.science.org/action/showFeed?type=etoc&amp;feed=rss&amp;jc=scirobotics" htmlUrl="https://www.science.org/loi/scirobotics?af=R" tagName="SR" />
+      <outline text="Science China Physics, Mechanics &amp; Astronomy" title="Science China Physics, Mechanics &amp; Astronomy" type="rss" xmlUrl="https://link.springer.com/search.rss?facet-journal-id=11433&amp;channel-name=Science%20China%20Physics,%20Mechanics%20%26%20Astronomy" htmlUrl="http://link.springer.com" tagName="SCPMA" />
+      <outline text="arXiv cs.AI" title="arXiv cs.AI" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.AI" htmlUrl="http://rss.arxiv.org/rss/cs.AI" tagName="arXivcsAI" />
+      <outline text="arXiv cs.CL" title="arXiv cs.CL" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.CL" htmlUrl="http://rss.arxiv.org/rss/cs.CL" tagName="arXivcsCL" />
+      <outline text="arXiv cs.CV" title="arXiv cs.CV" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.CV" htmlUrl="http://rss.arxiv.org/rss/cs.CV" tagName="arXivcsCV" />
+      <outline text="arXiv cs.LG" title="arXiv cs.LG" type="rss" xmlUrl="https://rss.arxiv.org/rss/cs.LG" htmlUrl="http://rss.arxiv.org/rss/cs.LG" tagName="arXivcsLG" />
+      <outline text="arXiv eess.IV" title="arXiv eess.IV" type="rss" xmlUrl="https://rss.arxiv.org/rss/eess.IV" htmlUrl="http://rss.arxiv.org/rss/eess.IV" tagName="arXiveessIV" />
+      <outline text="arXiv stat.ML" title="arXiv stat.ML" type="rss" xmlUrl="https://rss.arxiv.org/rss/stat.ML" htmlUrl="http://rss.arxiv.org/rss/stat.ML" tagName="arXivstatML" />
+      <outline text="Journal of Applied Crystallography" title="Journal of Applied Crystallography" type="rss" xmlUrl="https://journals.iucr.org/j/rss10.xml" htmlUrl="https://journals.iucr.org/j/issues/2026/03/00/index.html" tagName="JAC" />
+      <outline text="Journal of Synchrotron Radiation" title="Journal of Synchrotron Radiation" type="rss" xmlUrl="https://journals.iucr.org/s/rss10.xml" htmlUrl="https://journals.iucr.org/s/issues/2026/04/00/index.html" tagName="JSR" />
+    </outline>
+  </body>
 </opml>
