@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from rss2tg_config import (
+from .config import (
     AppConfig,
     Config,
     FeedConfig,
@@ -16,7 +16,7 @@ from rss2tg_config import (
     parse_opml,
     tag_slug,
 )
-from rss2tg_history import (
+from .history import (
     connect_database,
     entry_history_hash,
     feed_history_hash,
@@ -26,8 +26,16 @@ from rss2tg_history import (
     remember_feed,
     seen,
 )
-from rss2tg_message import Topic, build_topic, entry_id, entry_link, render_message, send_message
-from rss2tg_runner import FeedRunContext, main, parse_args, process_feed
+from .message import (
+    Topic,
+    build_topic,
+    entry_id,
+    entry_link,
+    extract_doi,
+    render_message,
+    send_message,
+)
+from .runner import FeedRunContext, fetch_feed_content, main, parse_args, process_feed
 
 __all__ = [
     "AppConfig",
@@ -43,8 +51,10 @@ __all__ = [
     "entry_id",
     "entry_link",
     "env_first",
+    "extract_doi",
     "feed_history_hash",
     "feed_tags",
+    "fetch_feed_content",
     "has_history",
     "history_hash",
     "journal_tag_name",
@@ -63,7 +73,3 @@ __all__ = [
     "send_message",
     "tag_slug",
 ]
-
-
-if __name__ == "__main__":
-    main()

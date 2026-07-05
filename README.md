@@ -45,9 +45,12 @@ Telegram messages use one fixed format:
 ```text
 <b>Title</b>
 https://example.com/post
+DOI: 10.xxxx/example
 
 #RSS #生活 #FeedName
 ```
+
+The `DOI:` line is always present. Journal feeds try to extract a DOI from common RSS fields; non-journal feeds and journal entries without a DOI leave the value blank.
 
 Default Telegram tags are generated from the OPML source class and feed tag name:
 

@@ -7,11 +7,12 @@ from dataclasses import dataclass
 from urllib.parse import urlparse
 
 import feedparser
+import httpx
 import telebot
 
-from rss2tg_config import Config, FeedConfig, ProcessingOptions, load_config
-from rss2tg_history import connect_database, has_history, remember_entry, remember_feed, seen
-from rss2tg_message import build_topic, entry_id, render_message, send_message
+from .config import Config, FeedConfig, ProcessingOptions, load_config
+from .history import connect_database, has_history, remember_entry, remember_feed, seen
+from .message import build_topic, entry_id, render_message, send_message
 
 
 @dataclass(frozen=True, slots=True)
@@ -22,6 +23,15 @@ class FeedRunContext:
     options: ProcessingOptions
 
 
+def fetch_feed_content(feed_cfg: FeedConfig, context: FeedRunContext) -> bytes:
+    timeout = httpx.Timeout(45.0)
+    headers = {"user-agent": context.config.app.user_agent}
+    with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
+        response = client.get(feed_cfg.url)
+        response.raise_for_status()
+        return response.content
+
+
 def process_feed(context: FeedRunContext, feed_cfg: FeedConfig) -> None:
     print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
 
@@ -29,7 +39,8 @@ def process_feed(context: FeedRunContext, feed_cfg: FeedConfig) -> None:
     if parsed.scheme not in ("http", "https"):
         print(f"skipping unsupported scheme ({parsed.scheme}): {feed_cfg.url}")
         return
-    feed = feedparser.parse(feed_cfg.url, request_headers={"User-Agent": context.config.app.user_agent})
+    feed_content = fetch_feed_content(feed_cfg, context)
+    feed = feedparser.parse(feed_content)
     if getattr(feed, "bozo", False):
         print(f"feed parse warning for {feed_cfg.url}: {getattr(feed, 'bozo_exception', '')}")
     if not getattr(feed, "entries", None):

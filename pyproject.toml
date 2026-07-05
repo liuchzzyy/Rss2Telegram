@@ -6,15 +6,16 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "feedparser>=6.0.11,<7",
+    "httpx>=0.27",
     "pyTelegramBotAPI>=4.23,<5",
 ]
 
 [project.scripts]
-rss2telegram = "rss2telegram:main"
+rss2telegram = "rss2tg.runner:main"
 
 [build-system]
 requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-py-modules = ["rss2telegram", "rss2tg_config", "rss2tg_history", "rss2tg_message", "rss2tg_runner"]
+[tool.setuptools.packages.find]
+where = ["src"]
