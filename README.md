@@ -2,11 +2,10 @@
 
 Send new RSS/Atom entries from an OPML subscription file to Telegram.
 
-This version is configured by three local files:
+This version is configured by two local files:
 
 - `Subscriptions.opml`: feed subscriptions
 - `.env`: personal Telegram and runtime settings
-- `feed_routes.yaml`: source-level routing, priority tiers, and Obsidian archive settings
 
 The script does not read personal settings from system environment variables.
 
@@ -38,9 +37,6 @@ EMOJIS=🗞️,📰,📡,📬,📌,🔖,🔗,📝,📋,📚,💡,⚙️,🧠,�
 
 OPML_FILE=Subscriptions.opml
 DATABASE=rss2telegram.db
-ROUTES_FILE=feed_routes.yaml
-OBSIDIAN_INBOX_DIR=F:/ChengL1u/01_收件箱/0102_RSS
-OBSIDIAN_DATE_FORMAT=%Y%m%d
 MAX_ENTRIES_PER_FEED=100
 SEND_ON_FIRST_RUN=false
 FETCH_IMAGES=true
@@ -64,26 +60,24 @@ Supported template variables:
 - `{SUMMARY}`
 - `{LINK}`
 - `{EMOJI}`
-- `{TIER}`
-- `{TIER_LABEL}`
-- `{TIER_PREFIX}`
-- `{ACTION}`
 - `{TAGS}`
 
 If `MESSAGE_TEMPLATE` does not include `{TAGS}`, the script automatically appends an empty line plus `{TAGS}` at the end of each Telegram message. This makes Telegram search/filter easier without requiring every existing secret template to be changed.
 
-Default Telegram tags are generated from the route tier and feed name, for example:
+Default Telegram tags are generated from the OPML source class and feed tag name:
 
 ```text
-#RSS #精读 #理论派
-#RSS #重点扫读 #阮一峰
-#RSS #科研工具 #Zotero
-#RSS #低优先级 #IT之家
+#RSS #生活 #理论派
+#RSS #生活 #阮一峰的网络日志
+#RSS #期刊 #JACS
+#RSS #期刊 #NC
 ```
 
 ## Feed List
 
 Maintain feeds in `Subscriptions.opml`. The script reads every OPML outline node with an `xmlUrl` attribute and keeps the order from the file.
+
+Feeds under the top-level `📚 学术期刊` group are tagged as journal sources. Their `tagName` attribute is used as the journal tag, for example `#JACS`. All other feeds are tagged as life sources and use the feed name.
 
 ## GitHub Actions
 
@@ -106,62 +100,10 @@ Non-sending verification run:
 uv run rss2telegram --dry-run --force-first-run --limit-entries 1
 ```
 
-`--dry-run` does not send Telegram messages, does not update the SQLite history database, and does not write Obsidian archive files. It prints the planned Telegram title and planned archive path.
-
-Obsidian archive smoke test without sending Telegram or updating history:
-
-```powershell
-uv run rss2telegram --no-send --no-history --force-first-run --only-feed 理论派 --limit-entries 1
-```
+`--dry-run` does not send Telegram messages and does not update the SQLite history database. It prints the planned Telegram title and tags.
 
 Useful safety flags:
 
-- `--no-send`: skip Telegram sending while still allowing archive writes.
+- `--no-send`: skip Telegram sending while still allowing history writes.
 - `--no-history`: use an in-memory history database and do not update `rss2telegram.db`.
 - `--only-feed <name>`: process one named feed; repeat it to process multiple named feeds.
-- `--no-archive`: skip Obsidian archive writes.
-
-## RSS Routing and Obsidian Archive
-
-`feed_routes.yaml` classifies every OPML source into a tier and action.
-
-Default tiers:
-
-- `deep`: 精读，高思想密度或必须认真学习的来源。
-- `watch`: 重点扫读，值得注意但不逐条深读。
-- `research`: 科研工具，与 Zotero、Obsidian、Logseq、科研软件、数据处理直接相关。
-- `stream`: 背景流，保持感知即可。
-- `noise`: 低优先级，高频或容易打断的内容。
-
-Supported actions:
-
-- `push_and_archive`: Telegram 推送，同时追加到 Obsidian 日期目录。
-- `push`: 仅 Telegram 推送。
-- `archive_only`: 仅追加到 Obsidian，不推送。
-- `digest_only`: 当前不即时推送，保留给后续 digest 流程。
-- `drop`: 跳过。
-
-Obsidian archive root defaults to:
-
-```text
-F:/ChengL1u/01_收件箱/0102_RSS/{yyyymmdd}/
-```
-
-For example, entries on 2026-07-02 are planned under:
-
-```text
-F:/ChengL1u/01_收件箱/0102_RSS/20260702/精读.md
-F:/ChengL1u/01_收件箱/0102_RSS/20260702/重点扫读.md
-F:/ChengL1u/01_收件箱/0102_RSS/20260702/科研工具.md
-```
-
-## Filters
-
-Optional `RULES.txt` rules are supported:
-
-```text
-ACCEPT:ALL
-DROP:keyword
-```
-
-Rules are evaluated in order. `ACCEPT:ALL` allows all entries by default, then later `DROP:*` rules can block matching entries.
