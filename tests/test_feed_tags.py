@@ -1,7 +1,7 @@
 from pathlib import Path
 from types import SimpleNamespace
 
-from rss2telegram import FeedConfig, build_topic, feed_tags, journal_tag_name, parse_opml
+from rss2telegram import FeedConfig, build_topic, feed_tags, journal_tag_name, parse_opml, render_message
 
 
 def test_feed_tags_use_life_feed_name_and_journal_abbreviation(tmp_path: Path) -> None:
@@ -49,7 +49,19 @@ def test_build_topic_uses_plain_title_without_extra_configuration() -> None:
         published="2026-07-05",
     )
 
-    topic = build_topic(feed_cfg, feed, entry, SimpleNamespace(), include_image=False)
+    topic = build_topic(feed_cfg, feed, entry)
 
     assert topic["display_title"] == "新文章"
     assert topic["tags"] == "#RSS #生活 #理论派"
+
+
+def test_render_message_ignores_legacy_template_options() -> None:
+    topic = {
+        "display_title": "新文章",
+        "link": "https://example.com/post",
+        "tags": "#RSS #生活 #理论派",
+    }
+
+    message = render_message(topic)
+
+    assert message == "<b>新文章</b>\nhttps://example.com/post\n\n#RSS #生活 #理论派"

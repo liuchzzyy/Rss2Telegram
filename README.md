@@ -27,42 +27,27 @@ BOT_TOKEN=123456:telegram-token
 DESTINATIONS=-1001234567890
 TOPIC=none
 
-MESSAGE_TEMPLATE={EMOJI} <b>{TITLE}</b>\n{LINK}
-BUTTON_TEXT={SITE_NAME}
-HIDE_BUTTON=false
-PARAMETERS=none
-ENABLE_TELEGRAPH=false
-TELEGRAPH_TOKEN=none
-EMOJIS=🗞️,📰,📡,📬,📌,🔖,🔗,📝,📋,📚,💡,⚙️,🧠,🚀,✨,🌐,📊,🎧,🎬,🧪
-
 OPML_FILE=Subscriptions.opml
 DATABASE=rss2telegram.db
 MAX_ENTRIES_PER_FEED=100
 SEND_ON_FIRST_RUN=false
-FETCH_IMAGES=true
-REQUEST_TIMEOUT=10
 SLEEP_BETWEEN_MESSAGES=0.2
 ```
 
 `DESTINATIONS` supports comma-separated or semicolon-separated chat IDs.
 
-`ENABLE_TELEGRAPH=false` is the default. Telegraph is used only when this is set to `true` and `TELEGRAPH_TOKEN` is also set.
-
 `SEND_ON_FIRST_RUN=false` means the first run records current feed entries but does not send them. This prevents old RSS items from flooding Telegram when the database is new.
 
 The SQLite history database stores only SHA-256 hashes for feed and entry identifiers. It is used only for incremental comparison and does not keep RSS entry titles, links, summaries, or publish dates.
 
-Supported template variables:
+Telegram messages use one fixed format:
 
-- `{SITE_NAME}`
-- `{FEED_NAME}`
-- `{TITLE}`
-- `{SUMMARY}`
-- `{LINK}`
-- `{EMOJI}`
-- `{TAGS}`
+```text
+<b>Title</b>
+https://example.com/post
 
-If `MESSAGE_TEMPLATE` does not include `{TAGS}`, the script automatically appends an empty line plus `{TAGS}` at the end of each Telegram message. This makes Telegram search/filter easier without requiring every existing secret template to be changed.
+#RSS #生活 #FeedName
+```
 
 Default Telegram tags are generated from the OPML source class and feed tag name:
 
