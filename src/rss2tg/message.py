@@ -57,11 +57,20 @@ def send_message(bot: telebot.TeleBot, topic: Topic, config: Config) -> bool:
 
 
 def entry_link(entry: Any) -> str | None:
-    if getattr(entry, "link", None):
-        return str(entry.link)
-    links = getattr(entry, "links", [])
+    link = entry_value(entry, "link")
+    if link:
+        return str(link)
+
+    links = entry_value(entry, "links") or []
     if links:
-        return str(links[0].get("href"))
+        for link_item in links:
+            href = (
+                link_item.get("href")
+                if isinstance(link_item, dict)
+                else getattr(link_item, "href", None)
+            )
+            if href:
+                return str(href)
     return None
 
 
@@ -69,7 +78,7 @@ def entry_id(feed_url: str, entry: Any) -> str | None:
     link = entry_link(entry)
     if link:
         return link
-    value = getattr(entry, "id", None) or getattr(entry, "guid", None)
+    value = entry_value(entry, "id") or entry_value(entry, "guid")
     return str(value) if value else None
 
 
@@ -142,16 +151,16 @@ def extract_doi(entry: Any) -> str | None:
 
 def build_topic(feed_cfg: FeedConfig, feed: Any, entry: Any) -> Topic:
     link = entry_link(entry) or entry_id(feed_cfg.url, entry) or feed_cfg.url
-    title = str(getattr(entry, "title", "Untitled")).strip()
+    title = str(entry_value(entry, "title") or "Untitled").strip()
     doi = extract_doi(entry) if feed_cfg.feed_kind == "journal" else None
     return {
         "feed_name": feed_cfg.name,
         "site_name": feed_site_name(feed, feed_cfg.url),
         "title": title,
         "display_title": title,
-        "summary": str(getattr(entry, "summary", "")),
+        "summary": str(entry_value(entry, "summary") or ""),
         "link": link,
-        "published": str(getattr(entry, "published", getattr(entry, "updated", ""))),
+        "published": str(entry_value(entry, "published") or entry_value(entry, "updated") or ""),
         "doi": doi or "",
         "tags": feed_tags(feed_cfg),
     }

@@ -57,6 +57,36 @@ def test_build_topic_uses_plain_title_without_extra_configuration() -> None:
     assert topic["doi"] == ""
 
 
+def test_build_topic_supports_dict_entries_from_feedparser() -> None:
+    feed_cfg = FeedConfig(name="理论派", url="https://example.com/feed.xml")
+    feed = SimpleNamespace(feed=SimpleNamespace(title="理论派"))
+    entry = {
+        "title": "字典文章",
+        "links": [{"rel": "alternate"}, {"href": "https://example.com/dict-post"}],
+        "summary": "摘要",
+        "updated": "2026-07-06",
+    }
+
+    topic = build_topic(feed_cfg, feed, entry)
+
+    assert topic["display_title"] == "字典文章"
+    assert topic["link"] == "https://example.com/dict-post"
+    assert topic["published"] == "2026-07-06"
+
+
+def test_build_topic_uses_dict_entry_id_when_link_is_missing() -> None:
+    feed_cfg = FeedConfig(name="理论派", url="https://example.com/feed.xml")
+    feed = SimpleNamespace(feed=SimpleNamespace(title="理论派"))
+    entry = {
+        "title": "无链接文章",
+        "id": "https://example.com/dict-id",
+    }
+
+    topic = build_topic(feed_cfg, feed, entry)
+
+    assert topic["link"] == "https://example.com/dict-id"
+
+
 def test_extract_doi_finds_and_normalizes_common_journal_fields() -> None:
     entry = SimpleNamespace(
         title="Paper",

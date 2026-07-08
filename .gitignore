@@ -1,6 +1,8 @@
 img
 .env
 .venv/
+.pytest_cache/
+data/
 __pycache__/
 *.pyc
 *.egg-info/
