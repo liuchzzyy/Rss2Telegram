@@ -32,6 +32,7 @@ DATABASE=rss2telegram.db
 MAX_ENTRIES_PER_FEED=100
 SEND_ON_FIRST_RUN=false
 SLEEP_BETWEEN_MESSAGES=0.2
+# USER_AGENT=rss2telegram (+https://github.com/liuchzzyy/Rss2Telegram)
 ```
 
 `DESTINATIONS` supports comma-separated or semicolon-separated chat IDs.
@@ -39,6 +40,8 @@ SLEEP_BETWEEN_MESSAGES=0.2
 `SEND_ON_FIRST_RUN=false` means the first run records current feed entries but does not send them. This prevents old RSS items from flooding Telegram when the database is new.
 
 The SQLite history database stores only SHA-256 hashes for feed and entry identifiers. It is used only for incremental comparison and does not keep RSS entry titles, links, summaries, or publish dates.
+
+Only the newest `MAX_ENTRIES_PER_FEED` entries of each feed are inspected per run; entries outside that window are ignored.
 
 Telegram messages use one fixed format:
 
@@ -58,20 +61,20 @@ Default Telegram tags are generated from the OPML source class and feed tag name
 #RSS #生活 #理论派
 #RSS #生活 #阮一峰的网络日志
 #RSS #期刊 #JACS
-#RSS #期刊 #NC
+#RSS #期刊 #NatCommun
 ```
 
 ## Feed List
 
 Maintain feeds in `Subscriptions.opml`. The script reads every OPML outline node with an `xmlUrl` attribute and keeps the order from the file.
 
-Feeds under the top-level `📚 学术期刊` group are tagged as journal sources. Their `tagName` attribute is used as the journal tag, for example `#JACS`. All other feeds are tagged as life sources and use the feed name.
+Feeds under the top-level `📚 学术期刊` group are tagged as journal sources. Their `tagName` (or `journalAbbr`) attribute is used as the journal tag, for example `#JACS`. All other feeds are tagged as life sources and use the feed name.
 
 ## GitHub Actions
 
-The workflow in `.github/workflows/cron.yml` runs at `06:00`, `10:00`, `14:00`, `17:00`, and `20:00` in Asia/Shanghai.
+The workflow in `.github/workflows/cron.yml` is currently triggered manually via `workflow_dispatch`; the scheduled trigger block is commented out in the workflow file and can be re-enabled there.
 
-The SQLite hash-only history database is saved as a workflow artifact and restored on the next run.
+The SQLite hash-only history database is committed back to `main` after every successful run (keeping local and CI history in sync), and is also uploaded as a workflow artifact as a backup.
 
 If this repository is public, do not commit a real `.env` with your bot token. Keep it local, or use a private repository.
 
@@ -88,10 +91,11 @@ Non-sending verification run:
 uv run rss2telegram --dry-run --force-first-run --limit-entries 1
 ```
 
-`--dry-run` does not send Telegram messages and does not update the SQLite history database. It prints the planned Telegram title and tags.
+`--dry-run` does not send Telegram messages and does not update the SQLite history database. It opens the real history database read-only (when present) and prints the messages that would be sent incrementally. Add `--force-first-run` to preview the bootstrap run when a feed has no history yet.
 
 Useful safety flags:
 
 - `--no-send`: skip Telegram sending while still allowing history writes.
 - `--no-history`: use an in-memory history database and do not update `rss2telegram.db`.
 - `--only-feed <name>`: process one named feed; repeat it to process multiple named feeds.
+- `--limit-feeds N`: process only the first N feeds from the OPML file.
