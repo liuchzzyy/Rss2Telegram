@@ -22,18 +22,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7.0.0
-      - name: Download artifact
-        id: download
-        continue-on-error: true
-        uses: dawidd6/action-download-artifact@v21
-        with:
-          workflow: cron.yml
-          workflow_conclusion: success
-      - name: Move database
-        run: |
-          if [ -f rss2telegram/rss2telegram.db ]; then
-            mv rss2telegram/rss2telegram.db rss2telegram.db
-          fi
       - name: Setup Python
         uses: actions/setup-python@v6.3.0
         with:
@@ -59,7 +47,7 @@ jobs:
           SEND_ON_FIRST_RUN: ${{ secrets.SEND_ON_FIRST_RUN }}
           SLEEP_BETWEEN_MESSAGES: ${{ secrets.SLEEP_BETWEEN_MESSAGES }}
         run: |
-          python - <<'PY'
+          uv run python - <<'PY'
           import os
 
           keys = [
@@ -88,7 +76,16 @@ jobs:
             echo "No database changes to commit"
           else
             git commit -m "chore(db): 更新 RSS 历史哈希库"
-            git push origin HEAD:main
+            pushed=0
+            for attempt in 1 2 3; do
+              if git pull --rebase origin main && git push origin HEAD:main; then
+                pushed=1
+                break
+              fi
+              echo "Push attempt ${attempt} failed; retrying after 5s"
+              sleep 5
+            done
+            test "${pushed}" = "1" || { echo "Failed to push history database after 3 attempts"; exit 1; }
           fi
       - name: Upload history
         uses: actions/upload-artifact@v7.0.1
