@@ -163,6 +163,33 @@ def parse_list(value: str | None) -> list[str]:
     return [item.strip() for item in re.split(r"[,;]", value) if item.strip()]
 
 
+def parse_int_env(value: str | None, name: str, default: int) -> int:
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise SystemExit(f"Invalid integer value for {name}: {value!r}") from exc
+
+
+def parse_float_env(value: str | None, name: str, default: float) -> float:
+    if not value:
+        return default
+    try:
+        return float(value)
+    except ValueError as exc:
+        raise SystemExit(f"Invalid numeric value for {name}: {value!r}") from exc
+
+
+def parse_optional_int(value: str | None, name: str) -> int | None:
+    if not value:
+        return None
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise SystemExit(f"Invalid integer value for {name}: {value!r}") from exc
+
+
 def outline_name(node: ET.Element) -> str:
     return (node.attrib.get("text") or node.attrib.get("title") or "").strip()
 
@@ -267,18 +294,23 @@ def load_config() -> Config:
     app = AppConfig(
         opml_file=opml_file,
         database=env_first(values, "DATABASE", default=DEFAULT_DATABASE) or DEFAULT_DATABASE,
-        max_entries_per_feed=int(
-            env_first(values, "MAX_ENTRIES_PER_FEED", default=str(DEFAULT_MAX_ENTRIES_PER_FEED))
-            or DEFAULT_MAX_ENTRIES_PER_FEED
+        max_entries_per_feed=parse_int_env(
+            env_first(values, "MAX_ENTRIES_PER_FEED"),
+            "MAX_ENTRIES_PER_FEED",
+            DEFAULT_MAX_ENTRIES_PER_FEED,
         ),
         send_on_first_run=parse_bool(env_first(values, "SEND_ON_FIRST_RUN"), default=False),
-        sleep_between_messages=float(env_first(values, "SLEEP_BETWEEN_MESSAGES", default="0.2") or 0.2),
+        sleep_between_messages=parse_float_env(
+            env_first(values, "SLEEP_BETWEEN_MESSAGES"),
+            "SLEEP_BETWEEN_MESSAGES",
+            0.2,
+        ),
         user_agent=env_first(values, "USER_AGENT", default=DEFAULT_USER_AGENT) or DEFAULT_USER_AGENT,
     )
 
     telegram = TelegramConfig(
         bot_token=bot_token,
         destinations=destinations,
-        topic=int(topic) if topic else None,
+        topic=parse_optional_int(topic, "TOPIC"),
     )
     return Config(app=app, telegram=telegram, feeds=parse_opml(app.opml_file))
