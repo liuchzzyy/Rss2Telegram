@@ -13,7 +13,7 @@ from rss2tg import (
     render_message,
     send_message,
 )
-from rss2tg.runner import FeedRunContext, fetch_feed_content, process_feed
+from rss2tg.runner import FeedRunContext, fetch_feed_content, process_feed, process_feed_content
 
 
 def test_feed_tags_use_life_feed_name_and_journal_abbreviation(tmp_path: Path) -> None:
@@ -270,6 +270,56 @@ def test_fetch_feed_content_uses_httpx_client_with_user_agent(monkeypatch) -> No
     assert calls["follow_redirects"] is True
     assert calls["url"] == "https://example.com/feed.xml"
     assert calls["raised"] is True
+
+
+def test_process_feed_marks_feed_before_sending_and_continues_after_send_failure(monkeypatch) -> None:
+    feed_cfg = FeedConfig(name="理论派", url="https://example.com/feed.xml")
+    entries = [
+        SimpleNamespace(title="a", link="https://example.com/1"),
+        SimpleNamespace(title="b", link="https://example.com/2"),
+    ]
+    parsed_feed = SimpleNamespace(
+        feed=SimpleNamespace(title="理论派"),
+        entries=entries,
+        bozo=False,
+    )
+    calls: list[tuple[str, str]] = []
+    monkeypatch.setattr("rss2tg.runner.feedparser.parse", lambda content: parsed_feed)
+    monkeypatch.setattr("rss2tg.runner.has_history", lambda conn, url: False)
+    monkeypatch.setattr("rss2tg.runner.seen", lambda conn, url, item_id: False)
+    monkeypatch.setattr("rss2tg.runner.remember_feed", lambda conn, url: calls.append(("feed", url)))
+    monkeypatch.setattr(
+        "rss2tg.runner.remember_entry",
+        lambda conn, url, item_id: calls.append(("entry", item_id)),
+    )
+
+    def fake_send(bot, topic, config):
+        calls.append(("send", topic["link"]))
+        raise RuntimeError("boom")
+
+    monkeypatch.setattr("rss2tg.runner.send_message", fake_send)
+    context = FeedRunContext(
+        conn=SimpleNamespace(),
+        bot=SimpleNamespace(),
+        config=SimpleNamespace(
+            app=SimpleNamespace(user_agent="t", max_entries_per_feed=100, send_on_first_run=True)
+        ),
+        options=SimpleNamespace(
+            limit_entries=None,
+            force_first_run=False,
+            dry_run=False,
+            no_send=False,
+            no_history=False,
+        ),
+    )
+
+    process_feed_content(context, feed_cfg, b"<rss></rss>")
+
+    assert calls[0] == ("feed", "https://example.com/feed.xml")
+    assert ("send", "https://example.com/1") in calls
+    assert ("send", "https://example.com/2") in calls
+    assert ("entry", "https://example.com/1") not in calls
+    assert ("entry", "https://example.com/2") not in calls
 
 
 def test_render_message_truncates_overlong_title() -> None:

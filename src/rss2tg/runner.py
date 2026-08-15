@@ -96,6 +96,9 @@ def process_feed_content(context: FeedRunContext, feed_cfg: FeedConfig, feed_con
             remember_feed(context.conn, feed_cfg.url)
         return
 
+    if not feed_has_history and not context.options.dry_run and not context.options.no_history:
+        remember_feed(context.conn, feed_cfg.url)
+
     for entry in entries:
         item_id = entry_id(feed_cfg.url, entry)
         if not item_id or seen(context.conn, feed_cfg.url, item_id):
@@ -111,13 +114,15 @@ def process_feed_content(context: FeedRunContext, feed_cfg: FeedConfig, feed_con
         else:
             if context.bot is None:
                 raise RuntimeError("Telegram bot is not initialized")
-            send_message(context.bot, topic, context.config)
+            try:
+                send_message(context.bot, topic, context.config)
+            except Exception as exc:
+                print(f"send failed for {feed_cfg.name}: {exc}")
+                traceback.print_exc()
+                continue
 
         if not context.options.dry_run and not context.options.no_history:
             remember_entry(context.conn, feed_cfg.url, item_id)
-
-    if not feed_has_history and not context.options.dry_run and not context.options.no_history:
-        remember_feed(context.conn, feed_cfg.url)
 
 
 def parse_args() -> ProcessingOptions:
