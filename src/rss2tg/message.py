@@ -4,7 +4,6 @@ import html
 import re
 import time
 from typing import Any, TypedDict
-from urllib.parse import urlparse
 
 import telebot
 
@@ -21,35 +20,57 @@ DOI_PREFIX_RE = re.compile(r"^(?:doi:\s*|https?://(?:dx\.)?doi\.org/)", re.IGNOR
 
 
 class Topic(TypedDict):
-    feed_name: str
-    site_name: str
     title: str
     display_title: str
-    summary: str
     link: str
-    published: str
     doi: str
     tags: str
 
 
+TELEGRAM_MAX_MESSAGE_LENGTH = 4096
+
+
+def _truncate_html_text(text: str, limit: int) -> str:
+    cut = text[: max(1, limit - 1)] + "…"
+    amp = cut.rfind("&")
+    semi = cut.rfind(";")
+    if amp > semi:
+        cut = cut[:amp]
+    return cut
+
+
 def render_message(topic: Topic) -> str:
-    title = html.escape(topic.get("display_title", topic.get("title", "")))
+    title = html.escape(str(topic.get("display_title", topic.get("title", ""))))
     link = html.escape(topic.get("link", ""))
     doi = html.escape(topic.get("doi", ""))
     tags = html.escape(topic.get("tags", ""))
-    return f"<b>{title}</b>\n{link}\nDOI: {doi}\n\n{tags}"
+    suffix = f"\n{link}\nDOI: {doi}\n\n{tags}"
+    title_budget = TELEGRAM_MAX_MESSAGE_LENGTH - len(suffix) - len("<b>") - len("</b>")
+    if len(title) > title_budget:
+        title = _truncate_html_text(title, title_budget)
+    return f"<b>{title}</b>{suffix}"
 
 
 def send_message(bot: telebot.TeleBot, topic: Topic, config: Config) -> bool:
     message = render_message(topic)
-    for destination in config.telegram.destinations:
-        bot.send_message(
-            destination,
-            message,
-            parse_mode="HTML",
-            disable_web_page_preview=True,
-            message_thread_id=config.telegram.topic,
-        )
+    destinations = config.telegram.destinations
+    failures: list[str] = []
+    for destination in destinations:
+        try:
+            bot.send_message(
+                destination,
+                message,
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+                message_thread_id=config.telegram.topic,
+            )
+        except Exception as exc:
+            failures.append(f"{destination}: {exc}")
+
+    if failures:
+        print(f"partial send failure for {topic['title']}: {'; '.join(failures)}")
+    if destinations and len(failures) == len(destinations):
+        raise RuntimeError(f"all destinations failed for {topic['title']}")
 
     print(f"sent: {topic['title']}")
     time.sleep(config.app.sleep_between_messages)
@@ -80,14 +101,6 @@ def entry_id(feed_url: str, entry: Any) -> str | None:
         return link
     value = entry_value(entry, "id") or entry_value(entry, "guid")
     return str(value) if value else None
-
-
-def feed_site_name(feed: Any, feed_url: str) -> str:
-    title = getattr(feed.feed, "title", None)
-    if title:
-        return str(title)
-    host = urlparse(feed_url).netloc
-    return host or feed_url
 
 
 def normalize_doi(value: str | None) -> str | None:
@@ -154,13 +167,9 @@ def build_topic(feed_cfg: FeedConfig, feed: Any, entry: Any) -> Topic:
     title = str(entry_value(entry, "title") or "Untitled").strip()
     doi = extract_doi(entry) if feed_cfg.feed_kind == "journal" else None
     return {
-        "feed_name": feed_cfg.name,
-        "site_name": feed_site_name(feed, feed_cfg.url),
         "title": title,
         "display_title": title,
-        "summary": str(entry_value(entry, "summary") or ""),
         "link": link,
-        "published": str(entry_value(entry, "published") or entry_value(entry, "updated") or ""),
         "doi": doi or "",
         "tags": feed_tags(feed_cfg),
     }

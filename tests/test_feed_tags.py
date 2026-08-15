@@ -1,7 +1,18 @@
 from pathlib import Path
 from types import SimpleNamespace
 
-from rss2tg import FeedConfig, build_topic, extract_doi, feed_tags, journal_tag_name, parse_opml, render_message
+import pytest
+
+from rss2tg import (
+    FeedConfig,
+    build_topic,
+    extract_doi,
+    feed_tags,
+    journal_tag_name,
+    parse_opml,
+    render_message,
+    send_message,
+)
 from rss2tg.runner import FeedRunContext, fetch_feed_content, process_feed
 
 
@@ -71,7 +82,6 @@ def test_build_topic_supports_dict_entries_from_feedparser() -> None:
 
     assert topic["display_title"] == "字典文章"
     assert topic["link"] == "https://example.com/dict-post"
-    assert topic["published"] == "2026-07-06"
 
 
 def test_build_topic_uses_dict_entry_id_when_link_is_missing() -> None:
@@ -260,3 +270,67 @@ def test_fetch_feed_content_uses_httpx_client_with_user_agent(monkeypatch) -> No
     assert calls["follow_redirects"] is True
     assert calls["url"] == "https://example.com/feed.xml"
     assert calls["raised"] is True
+
+
+def test_render_message_truncates_overlong_title() -> None:
+    topic = {
+        "display_title": "长" * 5000,
+        "title": "长" * 5000,
+        "link": "https://example.com/post",
+        "doi": "",
+        "tags": "#RSS #生活 #理论派",
+    }
+
+    message = render_message(topic)
+
+    assert len(message) <= 4096
+    assert message.startswith("<b>")
+    assert message.endswith("#RSS #生活 #理论派")
+
+
+def test_send_message_continues_after_partial_failure(monkeypatch) -> None:
+    calls: list[str] = []
+
+    class FakeBot:
+        def send_message(self, destination: str, message: str, **kwargs: object) -> None:
+            calls.append(destination)
+            if destination == "chat-b":
+                raise RuntimeError("boom")
+
+    topic = {
+        "title": "t",
+        "display_title": "t",
+        "link": "https://example.com",
+        "doi": "",
+        "tags": "#t",
+    }
+    config = SimpleNamespace(
+        telegram=SimpleNamespace(destinations=["chat-a", "chat-b"], topic=None),
+        app=SimpleNamespace(sleep_between_messages=0),
+    )
+    monkeypatch.setattr("rss2tg.message.time.sleep", lambda seconds: None)
+
+    assert send_message(FakeBot(), topic, config) is True
+    assert calls == ["chat-a", "chat-b"]
+
+
+def test_send_message_raises_when_all_destinations_fail(monkeypatch) -> None:
+    class FakeBot:
+        def send_message(self, destination: str, message: str, **kwargs: object) -> None:
+            raise RuntimeError("boom")
+
+    topic = {
+        "title": "t",
+        "display_title": "t",
+        "link": "https://example.com",
+        "doi": "",
+        "tags": "#t",
+    }
+    config = SimpleNamespace(
+        telegram=SimpleNamespace(destinations=["chat-a"], topic=None),
+        app=SimpleNamespace(sleep_between_messages=0),
+    )
+    monkeypatch.setattr("rss2tg.message.time.sleep", lambda seconds: None)
+
+    with pytest.raises(RuntimeError):
+        send_message(FakeBot(), topic, config)
