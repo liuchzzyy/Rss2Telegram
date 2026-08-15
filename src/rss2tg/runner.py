@@ -2,8 +2,12 @@ from __future__ import annotations
 
 import argparse
 import sqlite3
+import time
 import traceback
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from contextlib import closing
 from dataclasses import dataclass
+from pathlib import Path
 from urllib.parse import urlparse
 
 import feedparser
@@ -11,7 +15,15 @@ import httpx
 import telebot
 
 from .config import Config, FeedConfig, ProcessingOptions, load_config
-from .history import connect_database, has_history, remember_entry, remember_feed, seen
+from .history import (
+    connect_database,
+    entry_history_hash,
+    has_history,
+    remember_entry,
+    remember_feed,
+    remember_hashes,
+    seen,
+)
 from .message import build_topic, entry_id, render_message, send_message
 
 
@@ -26,20 +38,32 @@ class FeedRunContext:
 def fetch_feed_content(feed_cfg: FeedConfig, context: FeedRunContext) -> bytes:
     timeout = httpx.Timeout(45.0)
     headers = {"user-agent": context.config.app.user_agent}
-    with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
-        response = client.get(feed_cfg.url)
-        response.raise_for_status()
-        return response.content
+    last_error: Exception | None = None
+    for attempt in range(2):
+        try:
+            with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
+                response = client.get(feed_cfg.url)
+                response.raise_for_status()
+                return response.content
+        except httpx.HTTPError as exc:
+            last_error = exc
+            if attempt == 0:
+                time.sleep(1.0)
+    raise RuntimeError(f"fetch failed after retries: {feed_cfg.url}") from last_error
 
 
 def process_feed(context: FeedRunContext, feed_cfg: FeedConfig) -> None:
-    print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
-
     parsed = urlparse(feed_cfg.url)
     if parsed.scheme not in ("http", "https"):
         print(f"skipping unsupported scheme ({parsed.scheme}): {feed_cfg.url}")
         return
     feed_content = fetch_feed_content(feed_cfg, context)
+    process_feed_content(context, feed_cfg, feed_content)
+
+
+def process_feed_content(context: FeedRunContext, feed_cfg: FeedConfig, feed_content: bytes) -> None:
+    print(f"checking: {feed_cfg.name} <{feed_cfg.url}>")
+
     feed = feedparser.parse(feed_content)
     if getattr(feed, "bozo", False):
         print(f"feed parse warning for {feed_cfg.url}: {getattr(feed, 'bozo_exception', '')}")
@@ -48,7 +72,12 @@ def process_feed(context: FeedRunContext, feed_cfg: FeedConfig) -> None:
         return
 
     feed_has_history = has_history(context.conn, feed_cfg.url)
-    entry_limit = context.options.limit_entries or context.config.app.max_entries_per_feed
+    entry_limit = (
+        context.options.limit_entries
+        if context.options.limit_entries is not None
+        else context.config.app.max_entries_per_feed
+    )
+    entry_limit = max(0, entry_limit)
     entries = list(reversed(feed.entries[:entry_limit]))
 
     if (
@@ -58,10 +87,12 @@ def process_feed(context: FeedRunContext, feed_cfg: FeedConfig) -> None:
     ):
         print(f"bootstrap only: {feed_cfg.name}")
         if not context.options.dry_run and not context.options.no_history:
-            for entry in entries:
-                item_id = entry_id(feed_cfg.url, entry)
-                if item_id:
-                    remember_entry(context.conn, feed_cfg.url, item_id)
+            hashes = [
+                entry_history_hash(feed_cfg.url, item_id)
+                for entry in entries
+                if (item_id := entry_id(feed_cfg.url, entry))
+            ]
+            remember_hashes(context.conn, hashes)
             remember_feed(context.conn, feed_cfg.url)
         return
 
@@ -136,14 +167,49 @@ def main() -> None:
         missing = sorted(wanted - {feed_cfg.name for feed_cfg in feeds})
         if missing:
             print(f"missing requested feeds: {', '.join(missing)}")
-    if options.limit_feeds:
-        feeds = feeds[: options.limit_feeds]
-    database_path = ":memory:" if options.dry_run or options.no_history else config.app.database
-    with connect_database(database_path) as conn:
+
+    skipped_feeds = [feed_cfg for feed_cfg in feeds if urlparse(feed_cfg.url).scheme not in ("http", "https")]
+    for feed_cfg in skipped_feeds:
+        print(f"skipping unsupported scheme ({urlparse(feed_cfg.url).scheme}): {feed_cfg.url}")
+    feeds = [feed_cfg for feed_cfg in feeds if urlparse(feed_cfg.url).scheme in ("http", "https")]
+
+    if options.limit_feeds is not None:
+        feeds = feeds[: max(0, options.limit_feeds)]
+
+    if options.dry_run and not options.no_history:
+        database_path = config.app.database if Path(config.app.database).exists() else ":memory:"
+        readonly = True
+    else:
+        database_path = ":memory:" if options.dry_run or options.no_history else config.app.database
+        readonly = False
+
+    with closing(connect_database(database_path, readonly=readonly)) as conn:
         context = FeedRunContext(conn=conn, bot=bot, config=config, options=options)
+        contents = prefetch_feeds(feeds, context)
         for feed_cfg in feeds:
+            feed_content = contents.get(feed_cfg.url)
+            if feed_content is None:
+                continue
             try:
-                process_feed(context, feed_cfg)
+                process_feed_content(context, feed_cfg, feed_content)
             except Exception as exc:
                 print(f"failed: {feed_cfg.name} <{feed_cfg.url}>: {exc}")
                 traceback.print_exc()
+
+
+def prefetch_feeds(feeds: list[FeedConfig], context: FeedRunContext) -> dict[str, bytes]:
+    if not feeds:
+        return {}
+    contents: dict[str, bytes] = {}
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {
+            pool.submit(fetch_feed_content, feed_cfg, context): feed_cfg
+            for feed_cfg in feeds
+        }
+        for future in as_completed(futures):
+            feed_cfg = futures[future]
+            try:
+                contents[feed_cfg.url] = future.result()
+            except Exception as exc:
+                print(f"fetch failed: {feed_cfg.name} <{feed_cfg.url}>: {exc}")
+    return contents

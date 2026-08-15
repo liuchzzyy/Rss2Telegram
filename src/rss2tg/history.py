@@ -3,9 +3,20 @@ from __future__ import annotations
 import hashlib
 import sqlite3
 import time
+from pathlib import Path
 
 
-def connect_database(path: str) -> sqlite3.Connection:
+def connect_database(path: str, *, readonly: bool = False) -> sqlite3.Connection:
+    if readonly and path != ":memory:":
+        conn = sqlite3.connect(f"file:{Path(path).as_posix()}?mode=ro", uri=True)
+        existing = conn.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'history'"
+        ).fetchone()
+        if existing is None:
+            conn.close()
+            raise SystemExit(f"history table is missing in read-only database: {path}")
+        return conn
+
     conn = sqlite3.connect(path)
     existing = conn.execute(
         "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'history'"
@@ -120,6 +131,16 @@ def seen(conn: sqlite3.Connection, feed_url: str, item_id: str) -> bool:
 
 def remember_hash(conn: sqlite3.Connection, value: str) -> None:
     conn.execute("INSERT OR IGNORE INTO history (hash) VALUES (?)", (value,))
+    conn.commit()
+
+
+def remember_hashes(conn: sqlite3.Connection, values: list[str]) -> None:
+    if not values:
+        return
+    conn.executemany(
+        "INSERT OR IGNORE INTO history (hash) VALUES (?)",
+        [(value,) for value in values],
+    )
     conn.commit()
 
 
